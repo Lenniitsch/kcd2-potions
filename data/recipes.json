@@ -1,0 +1,1649 @@
+{
+  "schema_version": "2.0.0",
+  "last_updated": "2025-08-08",
+  "total_recipes": 26,
+  "categories": {
+    "de": [
+      "Heiltrank",
+      "Kampf-Buff",
+      "Gift",
+      "Handwerk",
+      "Utility"
+    ],
+    "it": [
+      "Pozione Curativa",
+      "Potenziamento da Combattimento",
+      "Veleno",
+      "Artigianato",
+      "Utilità"
+    ],
+    "en": [
+      "Healing Potion",
+      "Combat Buff",
+      "Poison",
+      "Crafting",
+      "Utility"
+    ]
+  },
+  "languages": [
+    "de",
+    "it",
+    "en"
+  ],
+  "recipes": [
+    {
+      "id": "aqua-vitalis",
+      "category": "Heiltrank",
+      "name": {
+        "de": "Aqua Vitalis",
+        "it": "Aqua Vitalis",
+        "en": "Aqua Vitalis"
+      },
+      "effect_description": {
+        "de": "60% weniger Gesundheitsverlust und Blutung, Dauer abhängig von Qualität (5-15 Minuten)",
+        "it": "60% in meno di perdita di salute e sanguinamento, durata dipende dalla qualità (5-15 minuti)",
+        "en": "60% less health loss and bleeding, duration depends on quality (5-15 minutes)"
+      },
+      "price": 70,
+      "ingredients": {
+        "de": [
+          "2 x Löwenzahn",
+          "1 x Ringelblume"
+        ],
+        "it": [
+          "1 x Calendula",
+          "2 x Tarassaco"
+        ],
+        "en": [
+          "2 x Dandelion",
+          "1 x Marigold"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Wasser",
+          "2 x Löwenzahn",
+          "Kochen (10 Sekunden)",
+          "1 x Ringelblume zerstoßen",
+          "Kochen (20 Sekunden)",
+          "Destillieren"
+        ],
+        "it": [
+          "Acqua",
+          "2 x Tarassaco",
+          "Bollire (10 secondi)",
+          "1 x Calendula pestare",
+          "Bollire (20 secondi)",
+          "Distillare"
+        ],
+        "en": [
+          "Water",
+          "2 x Dandelion",
+          "Boil (10 seconds)",
+          "1 x Marigold grind",
+          "Boil (20 seconds)",
+          "Distill"
+        ]
+      },
+      "tags": [
+        "healing",
+        "short-duration"
+      ]
+    },
+    {
+      "id": "bockblut-trank",
+      "category": "Kampf-Buff",
+      "name": {
+        "de": "Bockblut-Trank",
+        "it": "Pozione Sangue di Capro",
+        "en": "Buck's Blood"
+      },
+      "effect_description": {
+        "de": "+60% Ausdauer, +30% Ausdauerregeneration für eine Stunde",
+        "it": "+60% resistenza, +30% rigenerazione resistenza per un'ora",
+        "en": "+60% stamina, +30% stamina regeneration for one hour"
+      },
+      "price": 70,
+      "ingredients": {
+        "de": [
+          "1 x Beinwell",
+          "1 x Johanniskraut",
+          "1 x Löwenzahn"
+        ],
+        "it": [
+          "1 x Consolida maggiore",
+          "1 x Erba di San Giovanni",
+          "1 x Tarassaco"
+        ],
+        "en": [
+          "1 x Comfrey",
+          "1 x St. John's Wort",
+          "1 x Dandelion"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Öl",
+          "1 x Johanniskraut zerstoßen",
+          "1 x Beinwell",
+          "Kochen (10 Sekunden)",
+          "1 x Löwenzahn",
+          "Mit Blasebalg kochen (10 Sekunden)",
+          "Einschenken"
+        ],
+        "it": [
+          "Olio",
+          "1 Erba di San Giovanni pestare",
+          "1 x Consolida maggiore",
+          "Bollire (10 secondi)",
+          "1 x Tarassaco",
+          "Bollire con mantice (10 secondi)",
+          "Versare"
+        ],
+        "en": [
+          "Oil",
+          "1 x St. John's Wort grind",
+          "1 x Comfrey",
+          "Boil (10 seconds)",
+          "1 x Dandelion",
+          "Boil with bellows (10 seconds)",
+          "Pour"
+        ]
+      },
+      "tags": [
+        "combat",
+        "long-duration"
+      ]
+    },
+    {
+      "id": "elixier-des-aesop",
+      "category": "Kampf-Buff",
+      "name": {
+        "de": "Elixier des Äsop",
+        "it": "Elisir di Esopo",
+        "en": "Aesop"
+      },
+      "effect_description": {
+        "de": "+7 Reiten und Hundeflüsterer für einen Tag, Tiere reagieren später auf Heinrich, Hunde gar nicht",
+        "it": "+7 Cavalcare e Sussurratore di Cani per un giorno, gli animali reagiscono più tardi a Heinrich, i cani per niente",
+        "en": "+7 Riding and Dog Handling for one day, animals take less notice of you, dogs won't bark at you"
+      },
+      "price": 70,
+      "ingredients": {
+        "de": [
+          "2 x Beinwell",
+          "1 x Tollkirsche",
+          "1 x Wildschweinhauer"
+        ],
+        "it": [
+          "1 x Belladonna",
+          "2 x Consolida maggiore",
+          "1 x Zanna di Cinghiale"
+        ],
+        "en": [
+          "2 x Comfrey",
+          "1 x Belladonna",
+          "1 x Boar's Tusk"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Alkohol",
+          "2 x Beinwell zerstoßen",
+          "1 x Wildschweinhauer",
+          "Kochen (20 Sekunden)",
+          "1 x Tollkirsche zerstoßen",
+          "Destillieren"
+        ],
+        "it": [
+          "Alcol",
+          "2 x Consolida maggiore pestare",
+          "1 Zanna di Cinghiale",
+          "Bollire (20 secondi)",
+          "1 x Belladonna pestare",
+          "Distillare"
+        ],
+        "en": [
+          "Spirits",
+          "2 x Comfrey grind",
+          "1 x Boar's Tusk",
+          "Boil (20 seconds)",
+          "1 x Belladonna grind",
+          "Distill"
+        ]
+      },
+      "tags": [
+        "combat",
+        "long-duration"
+      ]
+    },
+    {
+      "id": "fuchstrank",
+      "category": "Kampf-Buff",
+      "name": {
+        "de": "Fuchstrank",
+        "it": "Pozione della Volpe",
+        "en": "Fox"
+      },
+      "effect_description": {
+        "de": "+7 Redekunst, 50% mehr Lesegeschwindigkeit und -erfahrung für einen Tag",
+        "it": "+7 Eloquenza, 50% in più di velocità di lettura ed esperienza per un giorno",
+        "en": "+7 Speech, 50% faster reading speed and +50% reading experience for one day"
+      },
+      "price": 70,
+      "ingredients": {
+        "de": [
+          "1 x Johanniskraut",
+          "1 x Nessel",
+          "1 x Tollkirsche",
+		  "1 x Holzkohle"
+        ],
+        "it": [
+          "1 x Belladonna",
+          "1 x Erba di San Giovanni",
+          "1 x Ortica",
+		  "1 x Carbone"
+        ],
+        "en": [
+          "1 x St. John's Wort",
+          "1 x Nettle",
+          "1 x Belladonna",
+		  "1 x Charcoal"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Öl",
+          "1 x Johanniskraut zerstoßen",
+          "1 x Nessel zerstoßen",
+          "Kochen (20 Sekunden)",
+          "1 x Holzkohle zerstoßen",
+          "1 x Tollkirsche",
+          "Kochen (10 Sekunden)",
+          "Einschenken"
+        ],
+        "it": [
+          "Olio",
+          "1 Erba di San Giovanni pestare",
+          "1 x Ortica pestare",
+          "Bollire (20 secondi)",
+          "1 x Carbone pestare",
+          "1 x Belladonna",
+          "Bollire (10 secondi)",
+          "Versare"
+        ],
+        "en": [
+          "Oil",
+          "1 x St. John's Wort grind",
+          "1 x Nettle grind",
+          "Boil (20 seconds)",
+          "1 x Charcoal grind",
+          "1 x Belladonna",
+          "Boil (10 seconds)",
+          "Pour"
+        ]
+      },
+      "tags": [
+        "combat",
+        "long-duration"
+      ]
+    },
+    {
+      "id": "gegenmittel",
+      "category": "Heiltrank",
+      "name": {
+        "de": "Gegenmittel / Verdauungstrank",
+        "it": "Antidoto / Bevanda digestiva",
+        "en": "Digestive Potion"
+      },
+      "effect_description": {
+        "de": "Heilt Vergiftungen, -30 Sattheit, +3 Vitalität für 20 Minuten",
+        "it": "Cura gli avvelenamenti, -30 sazietà, +3 vitalità per 20 minuti",
+        "en": "Cures poisoning, -30 nourishment, +3 vitality for 20 minutes"
+      },
+      "price": 50,
+      "ingredients": {
+        "de": [
+          "2 x Distel",
+          "1 x Nessel",
+		  "1 x Holzkohle"
+        ],
+        "it": [
+          "2 x Cardo",
+          "1 x Ortica",
+		  "1 x Carbone"
+        ],
+        "en": [
+          "2 x Thistle",
+          "1 x Nettle",
+		  "1 x Charcoal"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Wasser",
+          "2 x Distel",
+          "Kochen (20 Sekunden)",
+          "1 x Nessel zerstoßen",
+          "Kochen (10 Sekunden)",
+          "1 x Holzkohle zerstoßen",
+          "Einschenken"
+        ],
+        "it": [
+          "Acqua",
+          "2 x Cardo",
+          "Bollire (20 secondi)",
+          "1 x Ortica pestare",
+          "Bollire (10 secondi)",
+          "1 x Carbone pestare",
+          "Versare"
+        ],
+        "en": [
+          "Water",
+          "2 x Thistle",
+          "Boil (20 seconds)",
+          "1 x Nettle grind",
+          "Boil (10 seconds)",
+          "1 x Charcoal grind",
+          "Pour"
+        ]
+      },
+      "tags": [
+        "healing",
+        "short-duration"
+      ]
+    },
+    {
+      "id": "hahnenschreitrank",
+      "category": "Kampf-Buff",
+      "name": {
+        "de": "Hahnenschreitrank",
+        "it": "Pozione del Passo del Gallo",
+        "en": "Cockerel"
+      },
+      "effect_description": {
+        "de": "+30 Energie, 50% geringerer Energieverbrauch für einen Tag",
+        "it": "+30 energia, 50% meno consumo di energia per un giorno",
+        "en": "+30 Energy, 50% less energy consumption for one day"
+      },
+      "price": 70,
+      "ingredients": {
+        "de": [
+          "1 x Baldrian",
+          "2 x Minze"
+        ],
+        "it": [
+          "2 x Menta",
+          "1 x Valeriana"
+        ],
+        "en": [
+          "1 x Valerian",
+          "2 x Mint"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Alkohol",
+          "2 x Minze zerstoßen",
+          "Kochen (10 Sekunden)",
+          "1 x Baldrian",
+          "Kochen (20 Sekunden)",
+          "Destillieren"
+        ],
+        "it": [
+          "Alcol",
+          "2 x Menta pestare",
+          "Bollire (10 secondi)",
+          "1 x Valeriana",
+          "Bollire (20 secondi)",
+          "Distillare"
+        ],
+        "en": [
+          "Spirits",
+          "2 x Mint grind",
+          "Boil (10 seconds)",
+          "1 x Valerian",
+          "Boil (20 seconds)",
+          "Distill"
+        ]
+      },
+      "tags": [
+        "combat",
+        "long-duration"
+      ]
+    },
+    {
+      "id": "kamillen-aufguss",
+      "category": "Heiltrank",
+      "name": {
+        "de": "Kamillen-Aufguss",
+        "it": "Infuso di Camomilla",
+        "en": "Chamomile Brew"
+      },
+      "effect_description": {
+        "de": "Zwei Tage lang fünffache Heilung und dreifache Energieregeneration im Schlaf",
+        "it": "Per due giorni guarigione quintupla e rigenerazione energetica tripla nel sonno",
+        "en": "Five times faster healing and three times faster energy regeneration during sleep for two days"
+      },
+      "price": 50,
+      "ingredients": {
+        "de": [
+          "2 x Kamille",
+          "1 x Salbei"
+        ],
+        "it": [
+          "2 x Camomilla",
+          "1 x Salvia"
+        ],
+        "en": [
+          "2 x Chamomile",
+          "1 x Sage"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Wein",
+          "2 x Kamille",
+          "Kochen (10 Sekunden)",
+          "1 x Salbei zerstoßen",
+          "Einschenken"
+        ],
+        "it": [
+          "Vino",
+          "2 x Camomilla",
+          "Bollire (10 secondi)",
+          "1 x Salvia pestare",
+          "Versare"
+        ],
+        "en": [
+          "Wine",
+          "2 x Chamomile",
+          "Boil (10 seconds)",
+          "1 x Sage grind",
+          "Pour"
+        ]
+      },
+      "tags": [
+        "healing",
+        "long-duration"
+      ]
+    },
+    {
+      "id": "katerbier",
+      "category": "Heiltrank",
+      "name": {
+        "de": "Katerbier",
+        "it": "Birra Anti-Sbornia",
+        "en": "Hair o' the Dog"
+      },
+      "effect_description": {
+        "de": "Entfernt Trunkenheit und Kater, unterdrückt Trunksucht für drei Stunden",
+        "it": "Rimuove ubriachezza e sbornia, sopprime la dipendenza dall'alcol per tre ore",
+        "en": "Removes drunkenness and hangover, suppresses alcoholism for three hours"
+      },
+      "price": 70,
+      "ingredients": {
+        "de": [
+          "1 x Johanniskraut",
+          "1 x Minze",
+          "1 x Salbei"
+        ],
+        "it": [
+          "1 x Erba di San Giovanni",
+          "1 x Menta",
+          "1 x Salvia"
+        ],
+        "en": [
+          "1 x St. John's Wort",
+          "1 x Mint",
+          "1 x Sage"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Wasser",
+          "1 x Salbei",
+          "1 x Johanniskraut",
+          "Kochen (30 Sekunden)",
+          "1 x Minze zerstoßen",
+          "Einschenken"
+        ],
+        "it": [
+          "Acqua",
+          "1 x Salvia",
+          "1 Erba di San Giovanni",
+          "Bollire (30 secondi)",
+          "1 x Menta pestare",
+          "Versare"
+        ],
+        "en": [
+          "Water",
+          "1 x Sage",
+          "1 x St. John's Wort",
+          "Boil (30 seconds)",
+          "1 x Mint grind",
+          "Pour"
+        ]
+      },
+      "tags": [
+        "healing",
+        "long-duration"
+      ]
+    },
+    {
+      "id": "loewe",
+      "category": "Kampf-Buff",
+      "name": {
+        "de": "Löwe",
+        "it": "Leone",
+        "en": "Lion"
+      },
+      "effect_description": {
+        "de": "+10 Charisma für zehn Minuten, -7 Charisma mit anderem Parfüm",
+        "it": "+10 carisma per dieci minuti, -7 carisma con altro profumo",
+        "en": "+10 charisma for ten minutes, -7 charisma with other perfbye"
+      },
+      "price": 90,
+      "ingredients": {
+        "de": [
+          "2 x Minze",
+          "2 x Salbei"
+        ],
+        "it": [
+          "2 x Menta",
+          "2 x Salvia"
+        ],
+        "en": [
+          "2 x Mint",
+          "2 x Sage"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Alkohol",
+          "2 x Salbei",
+          "Kochen (20 Sekunden)",
+          "2 x Minze zerstoßen",
+		  "Einschenken"
+        ],
+        "it": [
+          "Alcol",
+          "2 x Salvia",
+          "Bollire (20 secondi)",
+          "2 x Menta pestare",
+		  "Versare"
+        ],
+        "en": [
+          "Spirits",
+          "2 x Sage",
+          "Boil (20 seconds)",
+          "2 x Mint grind",
+		  "Pour"
+        ]
+      },
+      "tags": [
+        "combat",
+        "short-duration"
+      ]
+    },
+    {
+      "id": "minthe",
+      "category": "Kampf-Buff",
+      "name": {
+        "de": "Minthe",
+        "it": "Minthe",
+        "en": "Mintha"
+      },
+      "effect_description": {
+        "de": "+5 Charisma für 40 Minuten, -5 Charisma mit anderem Parfüm",
+        "it": "+5 carisma per 40 minuti, -5 carisma con altro profumo",
+        "en": "+5 charisma for 40 minutes, -5 charisma with other perfbye"
+      },
+      "price": 60,
+      "ingredients": {
+        "de": [
+          "3 x Löwenzahn",
+          "1 x Minze",
+          "1 x Ringelblume"
+        ],
+        "it": [
+          "1 x Calendula",
+          "1 x Menta",
+          "3 x Tarassaco"
+        ],
+        "en": [
+          "3 x Dandelion",
+          "1 x Mint",
+          "1 x Marigold"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Wein",
+          "3 x Löwenzahn zerstoßen",
+          "1 x Minze zerstoßen",
+          "Kochen (20 Sekunden)",
+          "1 x Ringelblume",
+          "Mit Blasebalg kochen (10 Sekunden)",
+          "Destillieren"
+        ],
+        "it": [
+          "Vino",
+          "3 x Tarassaco pestare",
+          "1 x Menta pestare",
+          "Bollire (20 secondi)",
+          "1 x Calendula",
+          "Bollire con mantice (10 secondi)",
+          "Distillare"
+        ],
+        "en": [
+          "Wine",
+          "3 x Dandelion grind",
+          "1 x Mint grind",
+          "Boil (20 seconds)",
+          "1 x Marigold",
+          "Boil with bellows (10 seconds)",
+          "Distill"
+        ]
+      },
+      "tags": [
+        "combat",
+        "short-duration"
+      ]
+    },
+    {
+      "id": "ringelblumen-aufguss",
+      "category": "Heiltrank",
+      "name": {
+        "de": "Ringelblumen-Aufguss",
+        "it": "Infuso di Calendula",
+        "en": "Marigold Decoction"
+      },
+      "effect_description": {
+        "de": "Entfernt Kater und heilt 60 Gesundheit innerhalb einer Minute",
+        "it": "rimuove la sbornia e cura 60 salute entro un minuto",
+        "en": "Removes hangover and heals 60 health within one minute"
+      },
+      "price": 60,
+      "ingredients": {
+        "de": [
+          "1 x Nessel",
+          "2 x Ringelblume"
+        ],
+        "it": [
+          "2 x Calendula",
+          "1 x Ortica"
+        ],
+        "en": [
+          "1 x Nettle",
+          "2 x Marigold"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Wasser",
+          "1 x Nessel",
+          "Kochen (20 Sekunden)",
+          "2 x Ringelblume zerstoßen",
+          "Einschenken"
+        ],
+        "it": [
+          "Acqua",
+          "1 x Ortica",
+          "Bollire (20 secondi)",
+          "2 x Calendula pestare",
+          "Versare"
+        ],
+        "en": [
+          "Water",
+          "1 x Nettle",
+          "Boil (20 seconds)",
+          "2 x Marigold grind",
+          "Pour"
+        ]
+      },
+      "tags": [
+        "healing",
+        "short-duration"
+      ]
+    },
+    {
+      "id": "salbe",
+      "category": "Kampf-Buff",
+      "name": {
+        "de": "Salbe",
+        "it": "Unguento",
+        "en": "Embrocation"
+      },
+      "effect_description": {
+        "de": "+6 Agilität, -30% Ausdauerverbrauch beim Spurten für 20 Minuten",
+        "it": "+6 agilità, -30% consumo resistenza durante lo scatto per 20 minuti",
+        "en": "+6 agility, -30% stamina consumption while sprinting for 20 minutes"
+      },
+      "price": 70,
+      "ingredients": {
+        "de": [
+          "1 x Augentrost",
+          "1 x Baldrian",
+          "1 x Mohnblume",
+          "1 x Wildschweinhauer"
+        ],
+        "it": [
+          "1 x Eufrasia",
+          "1 x Papavero",
+          "1 x Valeriana",
+          "1 x Zanna di Cinghiale"
+        ],
+        "en": [
+          "1 x Eyebright",
+          "1 x Valerian",
+          "1 x Poppy",
+          "1 x Boar's Tusk"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Öl",
+          "1 x Mohnblume",
+          "1 x Baldrian",
+          "Kochen (20 Sekunden)",
+          "1 x Augentrost zerstoßen",
+          "1 x Wildschweinhauer",
+          "Kochen (10 Sekunden)",
+          "Einschenken"
+        ],
+        "it": [
+          "Olio",
+          "1 x Papavero",
+          "1 x Valeriana",
+          "Bollire (20 secondi)",
+          "1 x Eufrasia pestare",
+          "1 Zanna di Cinghiale",
+          "Bollire (10 secondi)",
+          "Versare"
+        ],
+        "en": [
+          "Oil",
+          "1 x Poppy",
+          "1 x Valerian",
+          "Boil (20 seconds)",
+          "1 x Eyebright grind",
+          "1 x Boar's Tusk",
+          "Boil (10 seconds)",
+          "Pour"
+        ]
+      },
+      "tags": [
+        "combat",
+        "short-duration"
+      ]
+    },
+    {
+      "id": "schnaps",
+      "category": "Utility",
+      "name": {
+        "de": "Schnaps",
+        "it": "Grappa",
+        "en": "Moonshine"
+      },
+      "effect_description": {
+        "de": "Starker selbstgebrannter Alkohol, macht betrunken und hebt die Stimmung",
+        "it": "Forte alcol distillato fatto in casa, ubriaca e migliora l'umore",
+        "en": "Strong homemade alcohol, causes drunkenness and improves mood"
+      },
+      "price": 1.9,
+      "ingredients": {
+        "de": [
+          "2 x Minze",
+          "2 x Wermut"
+        ],
+        "it": [
+          "2 x Assenzio",
+          "2 x Menta"
+        ],
+        "en": [
+          "2 x Mint",
+          "2 x Wormwood"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Alkohol",
+          "2 x Wermut",
+          "Kochen (20 Sekunden)",
+          "2 x Minze zerstoßen",
+          "Kochen (10 Sekunden)",
+          "Destillieren"
+        ],
+        "it": [
+          "Alcol",
+          "2 x Assenzio",
+          "Bollire (20 secondi)",
+          "2 x Menta pestare",
+          "Bollire (10 secondi)",
+          "Distillare"
+        ],
+        "en": [
+          "Spirits",
+          "2 x Wormwood",
+          "Boil (20 seconds)",
+          "2 x Mint grind",
+          "Boil (10 seconds)",
+          "Distill"
+        ]
+      },
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "sud-gegen-schmerzen",
+      "category": "Kampf-Buff",
+      "name": {
+        "de": "Sud gegen Schmerzen",
+        "it": "Decotto Contro il Dolore",
+        "en": "Painkiller Brew"
+      },
+      "effect_description": {
+        "de": "Unterdrückt Verletzungseffekte (verschwommene Sicht usw.), -75% max. Ausdauerverlust bei Gesundheitsverlust für 15 Minuten",
+        "it": "Sopprime gli effetti delle ferite (vista offuscata ecc.), -75% perdita massima resistenza per perdita salute per 15 minuti",
+        "en": "Suppresses injury effects (blurred vision, etc.), -75% max. stamina loss when health is lost for 15 minutes"
+      },
+      "price": 70,
+      "ingredients": {
+        "de": [
+          "1 x Beinwell",
+          "3 x Mohnblume",
+          "1 x Ringelblume"
+        ],
+        "it": [
+          "1 x Calendula",
+          "1 x Consolida maggiore",
+          "3 x Papavero"
+        ],
+        "en": [
+          "1 x Comfrey",
+          "3 x Poppy",
+          "1 x Marigold"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Alkohol",
+          "3 x Mohnblume zerstoßen",
+          "1 x Ringelblume",
+          "Mit Blasebalg kochen (10 Sekunden)",
+          "1 x Beinwell",
+          "Kochen (20 Sekunden)",
+          "Destillieren"
+        ],
+        "it": [
+          "Alcol",
+          "3 x Papavero pestare",
+          "1 x Calendula",
+          "Bollire con mantice (10 secondi)",
+          "1 x Consolida maggiore",
+          "Bollire (20 secondi)",
+          "Distillare"
+        ],
+        "en": [
+          "Spirits",
+          "3 x Poppy grind",
+          "1 x Marigold",
+          "Boil with bellows (10 seconds)",
+          "1 x Comfrey",
+          "Boil (20 seconds)",
+          "Distill"
+        ]
+      },
+      "tags": [
+        "combat",
+        "short-duration"
+      ]
+    },
+    {
+      "id": "trank-des-nachtfalken",
+      "category": "Kampf-Buff",
+      "name": {
+        "de": "Trank des Nachtfalken",
+        "it": "Pozione del Falco Notturno",
+        "en": "Nighthawk"
+      },
+      "effect_description": {
+        "de": "Nachtsicht und kein Energieverlust für 25 Minuten",
+        "it": "visione notturna e nessuna perdita di energia per 25 minuti",
+        "en": "Night vision and no stamina loss for 25 minutes"
+      },
+      "price": 70,
+      "ingredients": {
+        "de": [
+          "2 x Augentrost",
+          "1 x Kamille",
+          "1 x Tollkirsche"
+        ],
+        "it": [
+          "1 x Belladonna",
+          "1 x Camomilla",
+          "2 x Eufrasia"
+        ],
+        "en": [
+          "2 x Eyebright",
+          "1 x Chamomile",
+          "1 x Belladonna"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Wasser",
+          "2 x Augentrost zerstoßen",
+          "1 x Tollkirsche",
+          "Kochen (30 Sekunden)",
+          "1 x Kamille zerstoßen",
+          "Einschenken"
+        ],
+        "it": [
+          "Acqua",
+          "2 x Eufrasia pestare",
+          "1 x Belladonna",
+          "Bollire (30 secondi)",
+          "1 x Camomilla pestare",
+          "Versare"
+        ],
+        "en": [
+          "Water",
+          "2 x Eyebright grind",
+          "1 x Belladonna",
+          "Boil (30 seconds)",
+          "1 x Chamomile grind",
+          "Pour"
+        ]
+      },
+      "tags": [
+        "combat",
+        "short-duration"
+      ]
+    },
+    {
+      "id": "puppenmacher-trank",
+      "category": "Gift",
+      "name": {
+        "de": "Puppenmacher-Trank",
+        "it": "Pozione del Burattinaio",
+        "en": "Dollmaker Potion"
+      },
+      "effect_description": {
+        "de": "Opfer kann nicht rennen, -5 Waffenfertigkeiten, zieht langsam 50 Gesundheit ab",
+        "it": "la vittima non può correre, -5 abilità con armi, sottrae lentamente 50 salute",
+        "en": "Victim cannot run, -5 weapon skills, slowly drains 50 health away"
+      },
+      "price": 60,
+      "ingredients": {
+        "de": [
+          "1 x Baldrian",
+          "2 x Einbeere"
+        ],
+        "it": [
+          "2 x Uva di Volpe",
+          "1 x Valeriana"
+        ],
+        "en": [
+          "1 x Valerian",
+          "2 x Herb Paris"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Alkohol",
+          "2 x Einbeere",
+          "Kochen (30 Sekunden)",
+          "1 x Baldrian zerstoßen",
+          "Kochen (20 Sekunden)",
+          "Destillieren"
+        ],
+        "it": [
+          "Alcol",
+          "2 Uva di Volpe",
+          "Bollire (30 secondi)",
+          "1 x Valeriana pestare",
+          "Bollire (20 secondi)",
+          "Distillare"
+        ],
+        "en": [
+          "Spirits",
+          "2 x Herb Paris",
+          "Boil (30 seconds)",
+          "1 x Valerian grind",
+          "Boil (20 seconds)",
+          "Distill"
+        ]
+      },
+      "tags": [
+        "poison"
+      ]
+    },
+    {
+      "id": "schiesspulver-bleischrot",
+      "category": "Handwerk",
+      "name": {
+        "de": "Schießpulver für Bleischrot",
+        "it": "Polvere da Sparo per Pallini di Piombo",
+        "en": "Lead Shot Gunpowder"
+      },
+      "effect_description": {
+        "de": "13 Kugeln (250 Wucht-Schaden)",
+        "it": "13 proiettili (250 danni da impatto)",
+        "en": "13 bullets (250 impact damage)"
+      },
+      "price": 50,
+      "ingredients": {
+        "de": [
+          "1 x Holzkohle",
+          "1 x Salpeter",
+          "1 x Schwefel"
+        ],
+        "it": [
+          "1 x Carbone",
+          "1 x Salnitro",
+          "1 x Zolfo"
+        ],
+        "en": [
+          "1 x Charcoal",
+          "1 x Saltpetre",
+          "1 x Sulphur"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Wasser",
+          "1 x Schwefel zerstoßen",
+          "1 x Salpeter zerstoßen",
+          "Kochen (20 Sekunden)",
+          "1 x Holzkohle zerstoßen",
+          "Kochen (20 Sekunden)",
+          "Kesselinhalt zerstoßen"
+        ],
+        "it": [
+          "Acqua",
+          "1 x Zolfo pestare",
+          "1 x Salnitro pestare",
+          "Bollire (20 secondi)",
+          "1 x Carbone pestare",
+          "Bollire (20 secondi)",
+          "Contenuto della caldaia frantumato"
+        ],
+        "en": [
+          "Water",
+          "1 x Sulphur grind",
+          "1 x Saltpetre grind",
+          "Boil (20 seconds)",
+          "1 x Charcoal grind",
+          "Boil (20 seconds)",
+          "Grind the contents of the boiler"
+        ]
+      },
+      "tags": [
+        "crafting"
+      ]
+    },
+    {
+      "id": "schiesspulver-streuschuss",
+      "category": "Handwerk",
+      "name": {
+        "de": "Schießpulver für Streuschuss",
+        "it": "Polvere da Sparo per Pallettoni",
+        "en": "Scattershot Gunpowder"
+      },
+      "effect_description": {
+        "de": "18 Streuschuss (200 Wucht-Schaden)",
+        "it": "18 pallettoni (200 danni da impatto)",
+        "en": "18 Scatter Shot (200 impact damage)"
+      },
+      "price": 30,
+      "ingredients": {
+        "de": [
+          "1 x Gelaugte Kohle",
+          "1 x Salpeter",
+          "1 x Schwefel"
+        ],
+        "it": [
+          "1 x Carbone Lisciviato",
+          "1 x Salnitro",
+          "1 x Zolfo"
+        ],
+        "en": [
+          "1 x Leached Coal",
+          "1 x Saltpetre",
+          "1 x Sulphur"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Wasser",
+          "1 x Schwefel zerstoßen",
+          "1 x Salpeter zerstoßen",
+          "Kochen (30 Sekunden)",
+          "1 Gelaugte Kohle zerstoßen",
+          "Kochen (10 Sekunden)",
+          "Kesselinhalt zerstoßen"
+        ],
+        "it": [
+          "Acqua",
+          "1 x Zolfo pestare",
+          "1 x Salnitro pestare",
+          "Bollire (30 secondi)",
+          "1 Carbone Lisciviato pestare",
+          "Bollire (10 secondi)",
+          "Contenuto della caldaia frantumato"
+        ],
+        "en": [
+          "Water",
+          "1 x Sulphur grind",
+          "1 x Saltpetre grind",
+          "Boil (30 seconds)",
+          "1 Leached Coal grind",
+          "Boil (10 seconds)",
+          "Grind the contents of the boiler"
+        ]
+      },
+      "tags": [
+        "crafting"
+      ]
+    },
+    {
+      "id": "schlaftrunk",
+      "category": "Gift",
+      "name": {
+        "de": "Schlaftrunk",
+        "it": "Pozione del Sonno",
+        "en": "Lullaby Potion"
+      },
+      "effect_description": {
+        "de": "Waffen- und Kesselgift, senkt Energie auf 0, vermindert Wahrnehmung und senkt Ausdauer und Ausdauerregeneration um 50% für einen Tag",
+        "it": "Armi e veleno bollente, riduce l'energia a 0, diminuisce la percezione e riduce la resistenza e la rigenerazione della resistenza del 50% per un giorno.",
+        "en": "Weapon and cauldron poison, reduces energy to 0, diminishes perception, and reduces stamina and stamina regeneration by 50% for one day."
+      },
+      "price": 60,
+      "ingredients": {
+        "de": [
+          "1 x Distel",
+          "1 x Einbeere",
+          "1 x Mohnblume"
+        ],
+        "it": [
+          "1 x Cardo",
+          "1 x Papavero",
+          "1 x Uva di Volpe"
+        ],
+        "en": [
+          "1 x Thistle",
+          "1 x Herb Paris",
+          "1 x Poppy"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Öl",
+          "1 x Mohnblume",
+          "Kochen (10 Sekunden)",
+          "1 x Distel",
+          "Kochen (10 Sekunden)",
+          "1 x Einbeere zerstoßen",
+          "Einschenken"
+        ],
+        "it": [
+          "Olio",
+          "1 x Papavero",
+          "Bollire (10 secondi)",
+          "1 x Cardo",
+          "Bollire (10 secondi)",
+          "1 Uva di Volpe pestare",
+          "Versare"
+        ],
+        "en": [
+          "Oil",
+          "1 x Poppy",
+          "Boil (10 seconds)",
+          "1 x Thistle",
+          "Boil (10 seconds)",
+          "1 x Herb Paris grind",
+          "Pour"
+        ]
+      },
+      "tags": [
+        "poison",
+        "long-duration"
+      ]
+    },
+    {
+      "id": "trank-des-verderbens",
+      "category": "Gift",
+      "name": {
+        "de": "Trank des Verderbens",
+        "it": "Pozione della Rovina",
+        "en": "Bane"
+      },
+      "effect_description": {
+        "de": "Kesselgift, -110 Gesundheit in 15 Sekunden, Opfer kann nicht rennen",
+        "it": "veleno per calderone, -110 salute in 15 secondi, la vittima non può correre",
+        "en": "Cauldron poison, -110 health in 15 seconds, victim cannot run"
+      },
+      "price": 70,
+      "ingredients": {
+        "de": [
+          "2 x Tollkirsche",
+          "1 x Wermut",
+          "1 x Wulstling"
+        ],
+        "it": [
+          "1 x Amanita muscaria",
+          "1 x Assenzio",
+          "2 x Belladonna"
+        ],
+        "en": [
+          "2 x Belladonna",
+          "1 x Wormwood",
+          "1 x Amanita Muscaria"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Wein",
+          "1 x Wermut",
+          "Kochen (20 Sekunden)",
+          "2 x Tollkirsche zerstoßen",
+          "Mit Blasebalg kochen (10 Sekunden)",
+          "1 x Wulstling",
+          "Destillieren"
+        ],
+        "it": [
+          "Vino",
+          "1 x Assenzio",
+          "Bollire (20 secondi)",
+          "2 x Belladonna pestare",
+          "Bollire con mantice (10 secondi)",
+          "1 x Amanita muscaria",
+          "Distillare"
+        ],
+        "en": [
+          "Wine",
+          "1 x Wormwood",
+          "Boil (20 seconds)",
+          "2 x Belladonna grind",
+          "Boil with bellows (10 seconds)",
+          "1 x Amanita Muscaria",
+          "Distill"
+        ]
+      },
+      "tags": [
+        "poison"
+      ]
+    },
+    {
+      "id": "schuetzentrunk",
+      "category": "Kampf-Buff",
+      "name": {
+        "de": "Schützentrunk",
+        "it": "Pozione dell'Arciere",
+        "en": "Bowman's Brew"
+      },
+      "effect_description": {
+        "de": "+8 Schießkunst und Zielen kostet für 15 Minuten keine Ausdauer",
+        "it": "+8 tiro con arco e mirare non costa resistenza per 15 minuti",
+        "en": "+8 Marksmanship and aiming do not cost stamina for 15 minutes."
+      },
+      "price": 70,
+      "ingredients": {
+        "de": [
+          "2 x Augentrost",
+          "1 x Johanniskraut"
+        ],
+        "it": [
+          "1 x Erba di San Giovanni",
+          "2 x Eufrasia"
+        ],
+        "en": [
+          "2 x Eyebright",
+          "1 x St. John's Wort"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Alkohol",
+          "2 x Augentrost",
+          "Kochen (30 Sekunden)",
+          "1 x Johanniskraut zerstoßen",
+          "Mit Blasebalg kochen (10 Sekunden)",
+          "Destillieren"
+        ],
+        "it": [
+          "Alcol",
+          "2 x Eufrasia",
+          "Bollire (30 secondi)",
+          "1 Erba di San Giovanni pestare",
+          "Bollire con mantice (10 secondi)",
+          "Distillare"
+        ],
+        "en": [
+          "Spirits",
+          "2 x Eyebright",
+          "Boil (30 seconds)",
+          "1 x St. John's Wort grind",
+          "Boil with bellows (10 seconds)",
+          "Distill"
+        ]
+      },
+      "tags": [
+        "combat",
+        "short-duration"
+      ]
+    },
+    {
+      "id": "wermutgeist",
+      "category": "Kampf-Buff",
+      "name": {
+        "de": "Wermutgeist",
+        "it": "Spirito di Assenzio",
+        "en": "Artemisia"
+      },
+      "effect_description": {
+        "de": "+6 Stärke, -35% Ausdauerkosten bei Angriff und Verteidigung für 15 Minuten",
+        "it": "+6 forza, -35% costi resistenza in attacco e difesa per 15 minuti",
+        "en": "+6 Strength, -35% Stamina cost when attacking and defending for 15 minutes"
+      },
+      "price": 70,
+      "ingredients": {
+        "de": [
+          "1 x Salbei",
+          "2 x Wermut"
+        ],
+        "it": [
+          "2 x Assenzio",
+          "1 x Salvia"
+        ],
+        "en": [
+          "1 x Sage",
+          "2 x Wormwood"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Alkohol",
+          "1 x Salbei",
+          "Kochen (10 Sekunden)",
+          "2 x Wermut zerstoßen",
+          "Kochen (20 Sekunden)",
+          "Destillieren"
+        ],
+        "it": [
+          "Alcol",
+          "1 x Salvia",
+          "Bollire (10 secondi)",
+          "2 x Assenzio pestare",
+          "Bollire (20 secondi)",
+          "Distillare"
+        ],
+        "en": [
+          "Spirits",
+          "1 x Sage",
+          "Boil (10 seconds)",
+          "2 x Wormwood grind",
+          "Boil (20 seconds)",
+          "Distill"
+        ]
+      },
+      "tags": [
+        "combat",
+        "short-duration"
+      ]
+    },
+    {
+      "id": "retterschnaps",
+      "category": "Heiltrank",
+      "name": {
+        "de": "Retterschnaps",
+        "it": "Grappa del Salvatore",
+        "en": "Saviour Schnapps"
+      },
+      "effect_description": {
+        "de": "Speichert das Spiel, heilt 30% Gesundheit, +3 Stärke, Vitalität und Agilität für zwei Stunden",
+        "it": "Salva la partita, cura il 30% della salute, +3 forza, vitalità e agilità per due ore",
+        "en": "Saves the game, heals 30% health, +3 strength, vitality, and agility for two hours"
+      },
+      "price": 55,
+      "ingredients": {
+        "de": [
+          "1 x Nessel",
+          "2 x Tollkirsche"
+        ],
+        "it": [
+          "2 x Belladonna",
+          "1 x Ortica"
+        ],
+        "en": [
+          "1 x Nettle",
+          "2 x Belladonna"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Wein",
+          "1 x Nessel",
+          "Kochen (20 Sekunden)",
+          "2 x Tollkirsche zerstoßen",
+          "Kochen (10 Sekunden)",
+          "Einschenken"
+        ],
+        "it": [
+          "Vino",
+          "1 x Ortica",
+          "Bollire (20 secondi)",
+          "2 x Belladonna pestare",
+          "Bollire (10 secondi)",
+          "Versare"
+        ],
+        "en": [
+          "Wine",
+          "1 x Nettle",
+          "Boil (20 seconds)",
+          "2 x Belladonna grind",
+          "Boil (10 seconds)",
+          "Pour"
+        ]
+      },
+      "tags": [
+        "healing",
+        "long-duration"
+      ]
+    },
+    {
+      "id": "seife",
+      "category": "Handwerk",
+      "name": {
+        "de": "Seife",
+        "it": "Sapone",
+        "en": "Soap"
+      },
+      "effect_description": {
+        "de": "11 Seife, reinigt Kleidung bei einer Waschstelle",
+        "it": "11 Sapone, pulisce i vestiti in un lavatoio",
+        "en": "11 Soap, cleans clothes at a washing place"
+      },
+      "price": 20,
+      "ingredients": {
+        "de": [
+          "2 x Distel",
+          "1 x Holzkohle",
+          "1 x Löwenzahn"
+        ],
+        "it": [
+          "1 x Carbone",
+          "2 x Cardo",
+          "1 x Tarassaco"
+        ],
+        "en": [
+          "2 x Thistle",
+          "1 x Charcoal",
+          "1 x Dandelion"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Öl",
+          "2 x Distel zerstoßen",
+          "Kochen (20 Sekunden)",
+          "1 x Löwenzahn",
+          "Kochen (10 Sekunden)",
+          "1 x Holzkohle zerstoßen",
+          "Einschenken"
+        ],
+        "it": [
+          "Olio",
+          "2 x Cardo pestare",
+          "Bollire (20 secondi)",
+          "1 x Tarassaco",
+          "Bollire (10 secondi)",
+          "1 x Carbone pestare",
+          "Versare"
+        ],
+        "en": [
+          "Oil",
+          "2 x Thistle grind",
+          "Boil (20 seconds)",
+          "1 x Dandelion",
+          "Boil (10 seconds)",
+          "1 x Charcoal grind",
+          "Pour"
+        ]
+      },
+      "tags": [
+        "crafting"
+      ]
+    },
+    {
+      "id": "strauchdiebtrunk",
+      "category": "Utility",
+      "name": {
+        "de": "Strauchdiebtrunk",
+        "it": "Pozione del Ladro dei Cespugli",
+        "en": "Quickfinger Potion"
+      },
+      "effect_description": {
+        "de": "+8 Handwerk & Stehlen für eine Stunde",
+        "it": "+8 artigianato e furto per un'ora",
+        "en": "+8 craftsmanship & thievery for one hour"
+      },
+      "price": 70,
+      "ingredients": {
+        "de": [
+          "2 x Augentrost",
+          "2 x Baldrian",
+          "1 x Spinnennetz"
+        ],
+        "it": [
+          "2 x Eufrasia",
+          "1 x Ragnatela",
+          "2 x Valeriana"
+        ],
+        "en": [
+          "2 x Eyebright",
+          "2 x Valerian",
+          "1 x Cobweb"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Wasser",
+          "1 x Spinnennetz",
+          "2 x Augentrost",
+          "Kochen (30 Sekunden)",
+          "2 x Baldrian zerstoßen",
+          "Kochen (10 Sekunden)",
+          "Einschenken"
+        ],
+        "it": [
+          "Acqua",
+          "1 x Ragnatela",
+          "2 x Eufrasia",
+          "Bollire (30 secondi)",
+          "2 x Valeriana pestare",
+          "Bollire (10 secondi)",
+          "Versare"
+        ],
+        "en": [
+          "Water",
+          "1 x Cobweb",
+          "2 x Eyebright",
+          "Boil (30 seconds)",
+          "2 x Valerian grind",
+          "Boil (10 seconds)",
+          "Pour"
+        ]
+      },
+      "tags": [
+        "utility",
+        "long-duration"
+      ]
+    },
+    {
+      "id": "wasser-der-lethe",
+      "category": "Utility",
+      "name": {
+        "de": "Wasser der Lethe",
+        "it": "Acqua del Lete",
+        "en": "Lethean Water"
+      },
+      "effect_description": {
+        "de": "Trank, der alle Spezialisierungspunkte zurücksetzen und eine Neuverteilung ermöglichen",
+        "it": "Pozione che azzera tutti i punti specializzazione e consente una nuova distribuzione.",
+        "en": "Potion that resets all specialisation points and allows them to be redistributed"
+      },
+      "price": 100,
+      "ingredients": {
+        "de": [
+          "1 x Bilsenkraut",
+          "1 x Tollkirsche",
+          "2 x Wermut"
+        ],
+        "it": [
+          "2 x Assenzio",
+          "1 x Belladonna",
+          "1 x Giusquiamo"
+        ],
+        "en": [
+          "1 x Henbane",
+          "1 x Belladonna",
+          "2 x Wormwood"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          "Alkohol",
+          "2 x Wermut zerstoßen",
+          "1 x Tollkirsche",
+          "Kochen (30 Sekunden)",
+          "1 x Bilsenkraut",
+          "Destillieren"
+        ],
+        "it": [
+          "Alcol",
+          "2 x Assenzio pestare",
+          "1 x Belladonna",
+          "Bollire (30 secondi)",
+          "1 x Giusquiamo",
+          "Distillare"
+        ],
+        "en": [
+          "Spirits",
+          "2 x Wormwood grind",
+          "1 x Belladonna",
+          "Boil (30 seconds)",
+          "1 x Henbane",
+          "Distill"
+        ]
+      },
+      "tags": [
+        "utility"
+      ]
+    }
+  ]
+}

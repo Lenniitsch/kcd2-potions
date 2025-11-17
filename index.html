@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KCD2 Tränke & Karten Tool</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/zoomist@2/zoomist.css">
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#0e1419">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-title" content="KCD2 Tools">
+<meta name="msapplication-navbutton-color" content="#0e1419">
+
+<link rel="apple-touch-startup-image" href="assets/img/icons/icon-512x512.png">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<!-- Icons (deine vorhandenen Größen) -->
+<link rel="icon" type="image/png" sizes="72x72" href="assets/img/icons/icon-72x72.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/img/icons/icon-192x192.png">
+<link rel="apple-touch-icon" sizes="152x152" href="assets/img/icons/icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/img/icons/icon-192x192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="assets/img/icons/icon-512x512.png">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+</head>
+<body>
+    <div class="container">
+
+		<div class="header-navigation">
+			<div class="header-content">
+				<div class="title-section">
+					<h1 data-lang-key="page-title">Kingdom Come Deliverance 2</h1>
+					<p data-lang-key="header-subtitle">Tränke & Maps</p>
+				</div>
+					<div class="navigation-section">
+						<div class="tab-navigation">
+							<button class="tab-btn active" data-tab="potions" data-lang-key="tab-potions">Tränke</button>
+							<button class="tab-btn" data-tab="maps" data-lang-key="tab-maps">Maps</button>
+						</div>
+						
+						<div class="language-switch">
+							<button class="lang-btn active" data-lang="de">🇩🇪 German</button>
+							<button class="lang-btn" data-lang="it">🇮🇹 Italian</button>
+							<button class="lang-btn" data-lang="en">🇬🇧 English</button>
+						</div>
+					</div>				
+				</div>
+			</div>
+		</div>
+		</div>
+
+		
+<div class="container">
+        <!-- Potions Tab -->
+        <section id="potions-tab" class="tab-content active">
+
+			<!-- Filter- -->
+			<div class="controls-wrapper">
+				<div class="filter-header">
+					<h3 class="filter-title" data-lang-key="filter-title">Filter & Suche</h3>
+					<button class="filter-toggle" id="filter-toggle">
+						<span class="toggle-text">Einblenden</span>
+						<span class="toggle-icon">▼</span>
+					</button>
+				</div>
+				
+				<div class="filter-content" id="filter-content">
+					<div class="controls-row-primary">
+						<input type="search" id="search-input" class="search-input" data-lang-key="search-placeholder" placeholder="Search...">
+						
+						<select id="category-select" class="category-select">
+							<option value="all">Alle Kategorien</option>
+							<!-- Kategorien werden dynamisch gefüllt -->
+						</select>
+						
+						<select id="sort-select" class="sort-select">
+							<option value="name-asc">Name A→Z</option>
+							<option value="name-desc">Name Z→A</option>
+							<option value="category-asc">Kategorie A→Z</option>
+							<option value="category-desc">Kategorie Z→A</option>
+							<option value="price-asc">Preis ↑</option>
+							<option value="price-desc">Preis ↓</option>
+							<option value="ingredients-asc">Zutaten ↑</option>
+							<option value="ingredients-desc">Zutaten ↓</option>
+						</select>
+						
+					</div>
+					
+					<div class="controls-row-secondary">
+						<label class="filter-label" data-lang-key="ingredient-filter">Zutaten-Filter (mehrfach auswählbar):</label>
+						<div class="ingredient-tags" id="ingredient-tags">
+							<!-- Zutaten werden dynamisch gefüllt -->
+						</div>
+					</div>
+					
+					<div class="selected-ingredients" id="selected-ingredients" style="display: none;">
+						<div id="selected-ingredients-list"></div>
+					</div>
+					
+					<div class="filter-stats" id="filter-stats"></div>
+				</div>
+			</div>
+
+<div class="section-header-with-toggle">
+    <div id="filter-stats" class="filter-stats">
+        <!-- Wird weiterhin dynamisch befüllt -->
+    </div>
+    
+    <div class="layout-toggle">
+        <span data-lang-key="layout-label">Layout:</span>
+        <div class="toggle-button">
+            <button class="toggle-option active" data-layout="grid">
+                <span data-lang-key="layout-grid">⊞ Grid</span>
+            </button>
+            <button class="toggle-option" data-layout="list">
+                <span data-lang-key="layout-list">☰ List</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+            <!-- Recipe Sections -->
+            <div id="recipe-sections" class="recipe-sections">
+                <!-- Loading State -->
+                <div id="loading" class="no-results">
+                    <span data-lang-key="loading">Lade Tränke...</span>
+                </div>
+            </div>
+        </section>
+</div>
+
+<div class="container">
+        <!-- Maps Tab -->
+        <section id="maps-tab" class="tab-content">
+            <div class="maps-container">
+                <h2 data-lang-key="maps-title">Ingame-Karten</h2>
+                <p data-lang-key="maps-description">Nutze die Maus oder Touch-Gesten zum Zoomen und Navigieren</p>
+                
+				<!-- Districts Map -->
+				<div class="map-section">
+					<h3 data-lang-key="map-districts-title">Kuttenberg - Bezirke</h3>
+					<p data-lang-key="map-districts-desc">Eine Karte von Kuttenberg mit eingezeichneten Bezirken</p>
+					
+					<div id="zoomist-districts" class="zoomist-container">
+						<div class="zoomist-wrapper">
+							<img class="zoomist-image" src="assets/img/maps/map-kuttenberg-districts.png" alt="District Map" />
+						</div>
+					</div>
+				</div>
+				
+				<!-- Underground Map -->
+				<div class="map-section">
+					<h3 data-lang-key="map-underground-title">Kuttenberg - Untergrund</h3>
+					<p data-lang-key="map-underground-desc">Eine Karte des Tunnelsystems in Kuttenberg</p>
+					
+					<div id="zoomist-underground" class="zoomist-container">
+						<div class="zoomist-wrapper">
+							<img class="zoomist-image" src="assets/img/maps/map-kuttenberg-underground.png" alt="Underground Map" />
+						</div>
+					</div>
+				</div>
+	
+            </div>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/zoomist@2/zoomist.umd.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/maps.js"></script>
+    <script src="js/tabs.js"></script>
+    <script src="js/recipes.js"></script>
+    <script src="js/app.js"></script>
+	<script src="pwa-registration.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/ios-pwa-splash@1.0.0/cdn.min.js"></script>
+	<script>iosPWASplash('assets/img/icons/icon-512x512', '#0e1419');</script>
+</body>
+</html>
