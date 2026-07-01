@@ -542,13 +542,14 @@ header .font-serif.text-kcd-gold {
     padding: 0.625rem 0.75rem;
     cursor: pointer;
     user-select: none;
-    background: var(--kcd-surface);
+    background: var(--kcd-hover);
     border-radius: 0.5rem;
-    transition: background-color 0.15s;
+    border: 1px solid transparent;
+    transition: border-color 0.15s;
 }
 
 .timer-header:hover {
-    background: var(--kcd-hover);
+    border-color: var(--kcd-gold-dim);
 }
 
 .timer-header-icon {
@@ -577,7 +578,7 @@ header .font-serif.text-kcd-gold {
 }
 
 .timer-body {
-    padding: 0 0.75rem 0.75rem 0.75rem;
+    padding: 0.75rem;
 }
 
 .timer-body.hidden {

@@ -120,11 +120,12 @@ export function buildRecipeCard(recipe, getLang) {
         onPointerdown: function (e) { e.stopPropagation(); },
     }, timerContainer);
 
-    var bodyGrid = el('div', { class: 'kcd-card-body-grid flex flex-col gap-3' }, ingredientsSection, stepsSection);
+    var rightPanel = el('div', { class: 'flex flex-col gap-3' }, stepsSection, timerControls);
+
+    var bodyGrid = el('div', { class: 'kcd-card-body-grid flex flex-col gap-3' }, ingredientsSection, rightPanel);
 
     var bodyContent = el('div', { class: 'kcd-card-body-content flex flex-col gap-3' },
-        bodyGrid,
-        timerControls
+        bodyGrid
     );
 
     var bodyInner = el('div', { class: 'overflow-hidden' },
