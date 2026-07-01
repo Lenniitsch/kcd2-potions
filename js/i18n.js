@@ -297,9 +297,9 @@ const UI = {
         en: 'Open brew mode',
     },
     'timer.brewComplete': {
-        de: 'Brauvorgang abgeschlossen',
-        it: 'Infusione completata',
-        en: 'Brew complete',
+        de: 'Fertig',
+        it: 'Finito',
+        en: 'Done',
     },
 };
 
