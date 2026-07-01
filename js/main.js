@@ -54,7 +54,7 @@ async function init() {
     var settings = buildSettings();
     header.gearSlot.appendChild(settings.gearBtnDesktop);
     header.gearSlotMobile.appendChild(settings.gearBtnMobile);
-    app.appendChild(settings.popover);
+    document.body.appendChild(settings.popover);
 
     var topDivider = buildOrnamentDivider();
     var ornamentDivider = buildOrnamentDivider();
@@ -158,6 +158,7 @@ function restoreSavedState() {
     if (stored === 'true') settings.autoAdvance = true;
     stored = localStorage.getItem('kcd2-timedStepsOnly');
     if (stored === 'true') settings.timedStepsOnly = true;
+    else if (stored === 'false') settings.timedStepsOnly = false;
     setState('settings', settings);
     } catch (e) {}
 }

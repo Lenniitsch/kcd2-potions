@@ -27,6 +27,8 @@ function SettingsToggleRow(labelKey, descKey, stateKey) {
     function update(val) {
         offBtn.className = 'settings-toggle-seg-btn' + (val ? '' : ' active');
         onBtn.className = 'settings-toggle-seg-btn' + (val ? ' active' : '');
+        offBtn.textContent = getText('settings.off');
+        onBtn.textContent = getText('settings.on');
     }
 
     return {

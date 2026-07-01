@@ -4,7 +4,7 @@ import { getText, getCategoryLabel } from './i18n.js';
 import { getName, getEffect, getIngredients, getSteps } from './recipes.js';
 import { TimerBar } from './ui-timer.js';
 
-var coinSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="10" ry="10"/><line x1="12" y1="2" x2="12" y2="22"/><ellipse cx="12" cy="12" rx="3" ry="10"/></svg>';
+var coinSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="14" r="5"/><circle cx="8" cy="8" r="5"/></svg>';
 
 export var CATEGORY_ICONS = {
     'Heiltrank': '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
@@ -241,6 +241,7 @@ export function buildRecipeCard(recipe, getLang) {
     }
 
     function setActiveStep(idx) {
+        if (idx === activeStepIndex) return;
         activeStepIndex = idx;
         updateStepHighlight();
         if (timerBarInstance) {

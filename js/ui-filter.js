@@ -41,7 +41,8 @@ export function buildFilter() {
     });
 
     var debouncedSearch = debounce(function (e) {
-        setState('filters', { ...state.filters, search: e.target.value });
+        var value = e.target.value;
+        setState('filters', { ...state.filters, search: value });
     }, 300);
     searchInput.addEventListener('input', debouncedSearch);
     searchInput.addEventListener('input', function () {

@@ -379,8 +379,13 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         } else {
             countdownEl.textContent = '\u2014';
             countdownEl.classList.add('timer-countdown--disabled');
-            primaryBtn.innerHTML = nextStepSvg + ' ' + getText('timer.nextStep');
-            primaryBtn.disabled = false;
+            if (isLast) {
+                primaryBtn.innerHTML = checkSvg + ' ' + getText('timer.brewComplete');
+                primaryBtn.disabled = true;
+            } else {
+                primaryBtn.innerHTML = nextStepSvg + ' ' + getText('timer.nextStep');
+                primaryBtn.disabled = false;
+            }
             resetBtn.innerHTML = resetSvg + ' ' + getText('timer.reset');
             resetBtn.disabled = true;
         }
