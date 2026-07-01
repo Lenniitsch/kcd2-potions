@@ -20,7 +20,6 @@ var closeIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" 
 var chevronDown = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
 
 export function buildFilter() {
-    var filtersSectionOpen = true;
     var ingredientsSectionOpen = true;
     state.filters.filterExpanded = true;
 
@@ -28,9 +27,6 @@ export function buildFilter() {
     var mobileToggleBtn;
     var mobileToggleText;
     var filterSectionWrapper;
-    var filterHeader;
-    var filterChevron;
-    var filterBody;
     var searchInput;
     var searchClearBtn;
     var categoryPillsContainer;
@@ -63,12 +59,10 @@ export function buildFilter() {
 
     var searchWrapper = el('div', { class: 'relative mb-2' }, searchInput, searchClearBtn);
 
-    categoryPillsContainer = el('div', { class: 'flex flex-wrap gap-2' });
-
-    filterChevron = el('span', { class: 'ml-1 transition-transform duration-200', html: chevronDown });
+    categoryPillsContainer = el('div', { class: 'flex flex-wrap gap-2 mt-2' });
 
     clearBtn = el('button', {
-        class: 'px-2.5 py-1 rounded text-xs font-medium text-red-400 bg-red-400/10 border border-red-400/20 hover:bg-red-400/20 transition-colors focus:outline-none ml-auto',
+        class: 'mt-2 px-2.5 py-1 rounded text-xs font-medium text-kcd-text-muted hover:text-red-400 hover:bg-red-400/10 transition-colors focus:outline-none self-end',
         onClick: function (e) {
             e.stopPropagation();
             setState('filters', {
@@ -82,19 +76,11 @@ export function buildFilter() {
         },
     });
 
-    var filterLabel = el('span', { class: 'text-xs text-kcd-muted uppercase tracking-wide kcd-section-label' }, getText('section.filters'));
-
-    filterHeader = el('button', {
-        class: 'flex items-center gap-1 w-full hover:text-kcd-text-secondary transition-colors focus:outline-none',
-        onClick: function () {
-            filtersSectionOpen = !filtersSectionOpen;
-            updateFilterUI(state.filters);
-        },
-    }, filterLabel, filterChevron, clearBtn);
-
-    filterBody = el('div', { class: 'pt-2' }, searchWrapper, categoryPillsContainer);
-
-    filterSectionWrapper = el('div', { class: 'kcd-filter-panel bg-kcd-surface rounded-lg p-3 mb-3' }, filterHeader, filterBody);
+    filterSectionWrapper = el('div', { class: 'kcd-filter-panel bg-kcd-surface rounded-lg p-3 mb-3 flex flex-col' },
+        searchWrapper,
+        categoryPillsContainer,
+        clearBtn
+    );
 
     ingredientContainer = el('div', { class: 'flex flex-wrap gap-2' });
 
@@ -116,7 +102,9 @@ export function buildFilter() {
     ingredientHeader.appendChild(ingredientCountEl);
     ingredientHeader.appendChild(ingredientChevron);
 
-    ingredientSectionWrapper = el('div', { class: 'kcd-filter-panel bg-kcd-surface rounded-lg p-3 mb-3' }, ingredientHeader, ingredientBody);
+    ingredientSectionWrapper = el('div', { class: 'mt-3' }, ingredientHeader, ingredientBody);
+
+    filterSectionWrapper.appendChild(ingredientSectionWrapper);
 
     mobileToggleText = document.createTextNode('');
 
@@ -130,8 +118,7 @@ export function buildFilter() {
 
     var root = el('div', { class: 'mb-4' },
         mobileToggleBtn,
-        filterSectionWrapper,
-        ingredientSectionWrapper
+        filterSectionWrapper
     );
 
     function renderCategoryPills(f) {
@@ -250,12 +237,8 @@ export function buildFilter() {
 
         var mobileExpanded = f.filterExpanded;
         filterSectionWrapper.classList.toggle('hidden', !mobileExpanded);
-        ingredientSectionWrapper.classList.toggle('hidden', !mobileExpanded);
 
         mobileToggleText.textContent = f.filterExpanded ? getText('filter.collapse') : getText('filter.expand');
-
-        filterBody.classList.toggle('hidden', !filtersSectionOpen);
-        filterChevron.style.transform = filtersSectionOpen ? 'rotate(180deg)' : 'rotate(0deg)';
 
         ingredientBody.classList.toggle('hidden', !ingredientsSectionOpen);
         ingredientChevron.style.transform = ingredientsSectionOpen ? 'rotate(180deg)' : 'rotate(0deg)';
@@ -269,7 +252,6 @@ export function buildFilter() {
         renderCategoryPills(f);
 
         ingredientLabelText.textContent = getText('filter.ingredientHeader');
-        filterLabel.textContent = getText('section.filters');
 
         renderIngredientTags(f, recipes, lang);
 
