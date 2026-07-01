@@ -426,6 +426,7 @@ header .font-serif.text-kcd-gold {
 
 .kcd-tag:not(.kcd-tag-selected):not(.kcd-tag-disabled):hover {
     filter: brightness(1.2);
+    border-color: currentColor !important;
 }
 
 .kcd-tag-selected {

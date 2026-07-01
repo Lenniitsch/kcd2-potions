@@ -133,7 +133,7 @@ export function buildFilter() {
                 style: isSelected ? {
                     background: 'var(--' + catColor + '-bg)',
                     color: 'var(--' + catColor + ')',
-                    borderColor: 'var(--kcd-gold-dim)',
+                    borderColor: 'var(--' + catColor + ')',
                 } : {
                     background: 'var(--kcd-hover)',
                     color: 'var(--' + catColor + ')',

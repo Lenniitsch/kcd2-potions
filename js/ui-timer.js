@@ -236,7 +236,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         var pos = indices.indexOf(idx);
         var isLast = pos >= 0 && pos === indices.length - 1;
 
-        if (isLast && !(step.duration > 0)) {
+        if (isLast) {
             setActiveStepIndex(0);
             return;
         }
@@ -346,7 +346,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         stepLabelEl.textContent = step.description;
         progressFill.style.width = '0%';
 
-        if (isLast && !isTimed) {
+        if (isLast) {
             countdownEl.textContent = '\u2014';
             countdownEl.classList.add('timer-countdown--disabled');
             primaryBtn.innerHTML = checkSvg + ' ' + getText('timer.brewComplete');
