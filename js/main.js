@@ -100,12 +100,6 @@ async function init() {
     onState('activeTab', pushTabToURL);
 
     try {
-        if (!localStorage.getItem('kcd2-filterExpanded')) {
-            setState('filters', { ...state.filters, filterExpanded: false });
-        }
-    } catch (e) {}
-
-    try {
         await initStore('data/recipes.json', 'data/locales');
         setState('recipes', getAll());
     } catch (err) {
@@ -247,7 +241,6 @@ function pushFiltersToURL(filters) {
     try {
         localStorage.setItem('kcd2-layout', filters.layout);
         localStorage.setItem('kcd2-sort', filters.sort);
-        localStorage.setItem('kcd2-filterExpanded', String(filters.filterExpanded));
     } catch (e) {}
 }
 
