@@ -98,7 +98,7 @@ export function buildRecipeCard(recipe, getLang) {
     var effectText = recipe.effect_description[lang] || recipe.effect_description.de || '';
     var effectEl = el('p', { class: 'text-sm text-kcd-text-secondary leading-snug line-clamp-3 min-h-[3.6rem]' }, effectText);
 
-    var collapsedContent = el('div', { class: 'flex flex-col gap-2' },
+    var collapsedContent = el('div', { class: 'flex flex-col gap-2 cursor-pointer', onClick: toggle },
         headerRow, effectEl
     );
 
@@ -116,20 +116,36 @@ export function buildRecipeCard(recipe, getLang) {
 
     var prevBtn = el('button', {
         class: 'timer-nav-btn',
+        'aria-label': getText('timer.prevStep'),
         onClick: function (e) { e.stopPropagation(); navigateStep(-1); },
-    });
+    }, '\u25C0');
+
     var nextBtn = el('button', {
         class: 'timer-nav-btn',
+        'aria-label': getText('timer.nextStep'),
         onClick: function (e) { e.stopPropagation(); navigateStep(1); },
-    });
-    var toggleBtn = el('button', {
-        class: 'timer-toggle timer-toggle-on',
-        onClick: function (e) { e.stopPropagation(); toggleTimedOnly(); },
-    });
-    var navRow = el('div', { class: 'timer-nav' }, prevBtn, toggleBtn, nextBtn);
+    }, '\u25B6');
+
+    var navRow = el('div', { class: 'timer-nav' }, prevBtn, nextBtn);
+
+    var timedBtn = el('button', {
+        class: 'timer-mode-btn active',
+        onClick: function (e) { e.stopPropagation(); toggleMode(true); },
+    }, 'Timed');
+
+    var allBtn = el('button', {
+        class: 'timer-mode-btn',
+        onClick: function (e) { e.stopPropagation(); toggleMode(false); },
+    }, 'All');
+
+    var timerModeToggle = el('div', { class: 'timer-mode-toggle' }, timedBtn, allBtn);
+    var timerModeRow = el('div', { class: 'timer-mode-row' }, timerModeToggle);
 
     var timerContainer = el('div', {});
-    var timerControls = el('div', { class: 'timer-controls' }, navRow, timerContainer);
+    var timerControls = el('div', {
+        class: 'timer-controls',
+        onPointerdown: function (e) { e.stopPropagation(); },
+    }, timerModeRow, navRow, timerContainer);
 
     var bodyContent = el('div', { class: 'kcd-card-body-content flex flex-col gap-3' },
         ingredientsSection,
@@ -149,11 +165,10 @@ export function buildRecipeCard(recipe, getLang) {
     }, bodyInner);
 
     var root = el('div', {
-        class: 'kcd-card kcd-card-ornamented bg-kcd-surface rounded-lg p-4 cursor-pointer flex flex-col',
+        class: 'kcd-card kcd-card-ornamented bg-kcd-surface rounded-lg p-4 flex flex-col',
         tabindex: '0',
         role: 'button',
         'aria-expanded': 'false',
-        onClick: toggle,
         onKeydown: function (e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -165,29 +180,24 @@ export function buildRecipeCard(recipe, getLang) {
     populateIngredients(ingredientsList, recipe, lang);
     populateSteps(stepsList, recipe, lang, onStepTap);
     updateNavButtons();
-    updateNavLabels();
-    updateToggleLabel();
 
-    function toggleTimedOnly() {
-        showTimedOnly = !showTimedOnly;
+    function toggleMode(timed) {
+        showTimedOnly = timed;
         var newIndices = getIndicesForMode(recipe, showTimedOnly);
         activeStepIndices = newIndices;
-        updateToggleLabel();
+        if (timed) {
+            timedBtn.classList.add('active');
+            allBtn.classList.remove('active');
+        } else {
+            allBtn.classList.add('active');
+            timedBtn.classList.remove('active');
+        }
         if (activeStepIndices.indexOf(activeStepIndex) === -1 && activeStepIndices.length > 0) {
             setActiveStep(activeStepIndices[0]);
         } else if (activeStepIndices.length === 0) {
             setActiveStep(-1);
         } else {
             updateNavButtons();
-        }
-    }
-
-    function updateToggleLabel() {
-        toggleBtn.textContent = showTimedOnly ? 'Timed' : 'All';
-        if (showTimedOnly) {
-            toggleBtn.classList.add('timer-toggle-on');
-        } else {
-            toggleBtn.classList.remove('timer-toggle-on');
         }
     }
 
@@ -265,19 +275,16 @@ export function buildRecipeCard(recipe, getLang) {
         }
     }
 
-    function updateNavLabels() {
-        prevBtn.textContent = '\u25B2 ' + getText('timer.prevStep');
-        nextBtn.textContent = getText('timer.nextStep') + ' \u25BC';
-    }
-
     function enableTimer() {
         while (timerContainer.firstChild) timerContainer.removeChild(timerContainer.firstChild);
         if (!hasTimedSteps) {
             timerContainer.appendChild(el('p', { class: 'text-xs text-kcd-text-muted text-center py-2' },
                 getText('timer.noTimedSteps')));
+            timerModeRow.style.display = 'none';
             navRow.style.display = 'none';
             return;
         }
+        timerModeRow.style.display = '';
         navRow.style.display = '';
         if (timerBarInstance) {
             timerBarInstance.destroy();
@@ -313,7 +320,9 @@ export function buildRecipeCard(recipe, getLang) {
         populateSteps(stepsList, recipe, lang, onStepTap);
         stepsTitle.textContent = getText('card.steps');
 
-        updateNavLabels();
+        prevBtn.setAttribute('aria-label', getText('timer.prevStep'));
+        nextBtn.setAttribute('aria-label', getText('timer.nextStep'));
+
         updateStepHighlight();
 
         if (timerBarInstance) {
@@ -369,6 +378,7 @@ function populateSteps(list, recipe, lang, onStepTap) {
                     e.stopPropagation();
                     if (onStepTap) onStepTap(stepIdx);
                 },
+                onPointerdown: function (e) { e.stopPropagation(); },
             },
                 el('span', { class: 'kcd-step-num' },
                     el('span', {}, (stepIdx + 1))

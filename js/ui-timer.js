@@ -118,12 +118,10 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
     var progressFill = el('div', { class: 'timer-bar-progress-fill' });
     var progressTrack = el('div', { class: 'timer-bar-progress-track' }, progressFill);
 
-    var row1 = el('div', { class: 'timer-bar-row' }, stepLabelEl, timeEl);
-    var row2 = el('div', { class: 'timer-bar-row' }, buttonRow);
-
-    var barEl = el('div', { class: 'timer-bar' }, row1, row2, progressTrack);
+    var barEl = el('div', { class: 'timer-bar' }, stepLabelEl, timeEl, progressTrack, buttonRow);
 
     container.appendChild(barEl);
+    barEl.addEventListener('pointerdown', function (e) { e.stopPropagation(); });
 
     showReadyState();
 
