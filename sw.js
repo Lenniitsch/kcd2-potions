@@ -1,4 +1,4 @@
-var CACHE_NAME = 'kcd2-v10';
+var CACHE_NAME = 'kcd2-v11';
 
 var PRECACHE_URLS = [
     './',
@@ -17,6 +17,9 @@ var PRECACHE_URLS = [
     'js/ui-recipe-list.js',
     'js/ui-maps.js',
     'data/recipes.json',
+    'data/locales/de.json',
+    'data/locales/it.json',
+    'data/locales/en.json',
     'manifest.json',
     'pwa-registration.js',
     'js/vendor/zoomist.umd.js',

@@ -1,6 +1,6 @@
 import { el } from './dom.js';
 import { getText, getCategoryLabel } from './i18n.js';
-import { categorizeStep } from './recipes.js';
+import { getName, getEffect, getIngredients, getSteps } from './recipes.js';
 import { TimerBar } from './ui-timer.js';
 
 var coinSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="10" ry="10"/><line x1="12" y1="2" x2="12" y2="22"/><ellipse cx="12" cy="12" rx="3" ry="10"/></svg>';
@@ -43,7 +43,7 @@ export var CATEGORY_TEXT_CLASS = {
 
 function getTimedOnlyIndices(recipe) {
     var indices = [];
-    var steps = recipe.recipe_steps.de;
+    var steps = getSteps(recipe.id);
     for (var i = 0; i < steps.length; i++) {
         if (steps[i].duration > 0) indices.push(i);
     }
@@ -52,7 +52,7 @@ function getTimedOnlyIndices(recipe) {
 
 function getIndicesForMode(recipe, timedOnly) {
     var indices = [];
-    var steps = recipe.recipe_steps.de;
+    var steps = getSteps(recipe.id);
     for (var i = 0; i < steps.length; i++) {
         if (!timedOnly || steps[i].duration > 0) indices.push(i);
     }
@@ -60,7 +60,7 @@ function getIndicesForMode(recipe, timedOnly) {
 }
 
 export function buildRecipeCard(recipe, getLang) {
-    var lang = getLang();
+    var lang;
     var expanded = false;
     var activeStepIndex = -1;
     var timerBarInstance = null;
@@ -71,7 +71,7 @@ export function buildRecipeCard(recipe, getLang) {
     var hasTimedSteps = timedOnlyIndices.length > 0;
     var activeStepIndices = getIndicesForMode(recipe, showTimedOnly);
 
-    var fullName = recipe.name[lang] || recipe.name.de;
+    var fullName = getName(recipe.id);
     var first = fullName.charAt(0);
     var rest = fullName.slice(1);
     var dropCapSpan = el('span', { class: 'kcd-drop-cap' }, first);
@@ -95,7 +95,7 @@ export function buildRecipeCard(recipe, getLang) {
         el('div', { class: 'flex items-center gap-2 mt-1' }, categoryEl, priceEl)
     );
 
-    var effectText = recipe.effect_description[lang] || recipe.effect_description.de || '';
+    var effectText = getEffect(recipe.id) || '';
     var effectEl = el('p', { class: 'text-sm text-kcd-text-secondary leading-snug line-clamp-3 min-h-[3.6rem]' }, effectText);
 
     var collapsedContent = el('div', { class: 'flex flex-col gap-2 cursor-pointer', onClick: toggle },
@@ -247,7 +247,7 @@ export function buildRecipeCard(recipe, getLang) {
             function () { return activeStepIndex; },
             setActiveStep,
             function () { return activeStepIndices; },
-            function () { return recipe.recipe_steps.de.length; },
+            function () { return getSteps(recipe.id).length; },
             function () { navigateStep(-1); },
             function () { navigateStep(1); },
             function () { toggleMode(!showTimedOnly); },
@@ -258,7 +258,7 @@ export function buildRecipeCard(recipe, getLang) {
     function update(newLang) {
         lang = newLang;
 
-        var updatedFullName = recipe.name[lang] || recipe.name.de;
+        var updatedFullName = getName(recipe.id);
         dropCapSpan.textContent = updatedFullName.charAt(0);
         restSpan.textContent = updatedFullName.slice(1);
 
@@ -268,7 +268,7 @@ export function buildRecipeCard(recipe, getLang) {
 
         priceTextEl.textContent = recipe.price + ' ' + getText('misc.groschen');
 
-        effectEl.textContent = recipe.effect_description[lang] || recipe.effect_description.de || '';
+        effectEl.textContent = getEffect(recipe.id) || '';
 
         while (ingredientsList.firstChild) ingredientsList.removeChild(ingredientsList.firstChild);
         populateIngredients(ingredientsList, recipe, lang);
@@ -303,11 +303,11 @@ export function buildRecipeCard(recipe, getLang) {
 }
 
 function populateIngredients(list, recipe, lang) {
-    var ingNames = recipe.ingredients[lang] || recipe.ingredients.de || [];
-    for (var i = 0; i < ingNames.length; i++) {
-        var parts = ingNames[i].match(/^(\d+)\s*x\s*(.+)$/);
+    var ings = getIngredients(recipe.id);
+    for (var i = 0; i < ings.length; i++) {
+        var parts = ings[i].match(/^(\d+)\s*x\s*(.+)$/);
         var qty = parts ? parts[1] : '';
-        var name = parts ? parts[2] : ingNames[i];
+        var name = parts ? parts[2] : ings[i];
         var li = el('li', { class: 'flex items-center gap-2 text-sm' },
             el('span', { class: 'text-kcd-muted tabular-nums shrink-0' }, qty ? 'x' + qty : ''),
             el('span', { class: 'text-kcd-text' }, name)
@@ -317,14 +317,14 @@ function populateIngredients(list, recipe, lang) {
 }
 
 function populateSteps(list, recipe, lang, onStepTap) {
-    var steps = recipe.recipe_steps[lang] || recipe.recipe_steps.de || [];
+    var steps = getSteps(recipe.id);
     for (var i = 0; i < steps.length; i++) {
         var step = steps[i];
         var stepText = step.description;
         if (step.duration > 0) {
             stepText += ' (' + step.duration + 's)';
         }
-        var stepType = categorizeStep(step.description, lang);
+        var stepType = step.type;
         (function (stepIdx) {
             var li = el('li', {
                 class: 'kcd-step kcd-step-' + stepType,
@@ -333,7 +333,6 @@ function populateSteps(list, recipe, lang, onStepTap) {
                     e.stopPropagation();
                     if (onStepTap) onStepTap(stepIdx);
                 },
-                onPointerdown: function (e) { e.stopPropagation(); },
             },
                 el('span', { class: 'kcd-step-num' },
                     el('span', {}, (stepIdx + 1))

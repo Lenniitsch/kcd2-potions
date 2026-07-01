@@ -1,0 +1,212 @@
+{
+  "ingredients": {
+    "amanita_muscaria": "Amanita muscaria",
+    "belladonna": "Belladonna",
+    "boars_tusk": "Zanna di Cinghiale",
+    "chamomile": "Camomilla",
+    "charcoal": "Carbone",
+    "cobweb": "Ragnatela",
+    "comfrey": "Consolida maggiore",
+    "dandelion": "Tarassaco",
+    "eyebright": "Eufrasia",
+    "freshwater_pearl": "Perla d'acqua dolce",
+    "ginger": "Zenzero",
+    "henbane": "Giusquiamo",
+    "herb_paris": "Uva di Volpe",
+    "leached_coal": "Carbone Lisciviato",
+    "mandrake_root": "Radice di mandragora",
+    "marigold": "Calendula",
+    "mint": "Menta",
+    "nettle": "Ortica",
+    "poppy": "Papavero",
+    "sage": "Salvia",
+    "saltpetre": "Salnitro",
+    "st_johns_wort": "Erba di San Giovanni",
+    "sulphur": "Zolfo",
+    "thistle": "Cardo",
+    "valerian": "Valeriana",
+    "wormwood": "Assenzio"
+  },
+  "steps": {
+    "water": "Acqua",
+    "oil": "Olio",
+    "wine": "Vino",
+    "spirits": "Alcol",
+    "boil": "Bollire",
+    "boil_bellows": "Bollire con mantice",
+    "distil": "Distillare",
+    "pour": "Versare",
+    "grind": "pestare",
+    "cauldron_grind": "Contenuto della caldaia frantumato"
+  },
+  "recipes": {
+    "aqua-vitalis": {
+      "name": "Aqua Vitalis",
+      "effect": {
+        "henrys": "Perdi il 60% di salute in meno quando colpito per 15 minuti. Se stai sanguinando, l'effetto è rallentato del 60%."
+      }
+    },
+    "bockblut-trank": {
+      "name": "Pozione Sangue di Capro",
+      "effect": {
+        "henrys": "+60% resistenza, +30% rigenerazione resistenza per un'ora."
+      }
+    },
+    "elixier-des-aesop": {
+      "name": "Elisir di Esopo",
+      "effect": {
+        "henrys": "+7 Cavalcare e Sussurratore di Cani per un giorno. I cani non notano affatto Heinrich, altri animali reagiscono sensibilmente più tardi."
+      }
+    },
+    "fuchstrank": {
+      "name": "Pozione della Volpe",
+      "effect": {
+        "henrys": "+7 Eloquenza, 50% in più di velocità di lettura e 50% in più di esperienza per due giorni."
+      }
+    },
+    "gegenmittel": {
+      "name": "Antidoto / Bevanda digestiva",
+      "effect": {
+        "henrys": "Cura tutti gli avvelenamenti e aumenta la vitalità di 3 per 20 minuti, ma diminuisce la sazietà di 20."
+      }
+    },
+    "hahnenschreitrank": {
+      "name": "Pozione del Passo del Gallo",
+      "effect": {
+        "henrys": "Energia attuale +30. Consumo di energia ridotto del 50% per un giorno."
+      }
+    },
+    "kamillen-aufguss": {
+      "name": "Infuso di Camomilla",
+      "effect": {
+        "henrys": "Per 48 ore, il sonno ripristina la salute persa con efficienza del 500% e rigenera energia 300% più velocemente."
+      }
+    },
+    "katerbier": {
+      "name": "Birra Anti-Sbornia",
+      "effect": {
+        "henrys": "Fa tornare sobri, cura la sbornia e sopprime temporaneamente gli effetti dell'alcolismo."
+      }
+    },
+    "loewe": {
+      "name": "Leone",
+      "effect": {
+        "henrys": "Aumenta il carisma di 10 per 3 minuti. Se usato insieme a un altro profumo, riduce il carisma di 7."
+      }
+    },
+    "minthe": {
+      "name": "Minthe",
+      "effect": {
+        "henrys": "Aumenta il carisma di 5 per 40 minuti, ma lo riduce di 5 se usato con un altro profumo."
+      }
+    },
+    "ringelblumen-aufguss": {
+      "name": "Infuso di Calendula",
+      "effect": {
+        "henrys": "Cura 60 salute in un minuto. Cura istantaneamente la sbornia."
+      }
+    },
+    "salbe": {
+      "name": "Unguento",
+      "effect": {
+        "henrys": "+6 agilità e -30% costo resistenza durante lo scatto per 10 minuti."
+      }
+    },
+    "schnaps": {
+      "name": "Grappa",
+      "effect": {
+        "henrys": "Forte alcol distillato fatto in casa, ubriaca e migliora l'umore"
+      }
+    },
+    "sud-gegen-schmerzen": {
+      "name": "Decotto Contro il Dolore",
+      "effect": {
+        "henrys": "La perdita massima di resistenza quando la salute viene persa è ridotta del 75% per 25 minuti. Le ferite non impediscono le azioni di Heinrich per la durata della pozione."
+      }
+    },
+    "trank-des-nachtfalken": {
+      "name": "Pozione del Falco Notturno",
+      "effect": {
+        "henrys": "Visione notturna migliorata per 25 minuti. Nessuna perdita di energia durante la durata."
+      }
+    },
+    "puppenmacher-trank": {
+      "name": "Pozione del Burattinaio",
+      "effect": {
+        "henrys": "La vittima non può correre, tutte le abilità con le armi sono ridotte di 5 e subisce lentamente 50 danni."
+      }
+    },
+    "schiesspulver-bleischrot": {
+      "name": "Polvere da Sparo per Pallini di Piombo",
+      "effect": {
+        "henrys": "13 proiettili (250 danni da impatto)"
+      }
+    },
+    "schiesspulver-streuschuss": {
+      "name": "Polvere da Sparo per Pallettoni",
+      "effect": {
+        "henrys": "18 pallettoni (200 danni da impatto)"
+      }
+    },
+    "schlaftrunk": {
+      "name": "Pozione del Sonno",
+      "effect": {
+        "henrys": "Riduce l'energia a 0 e diminuisce la percezione. Le vittime subiscono il 50% di resistenza e rigenerazione in meno per un giorno."
+      }
+    },
+    "trank-des-verderbens": {
+      "name": "Pozione della Rovina",
+      "effect": {
+        "henrys": "Gli avvelenati non possono correre e perdono 110 salute in 15 secondi."
+      }
+    },
+    "schuetzentrunk": {
+      "name": "Pozione dell'Arciere",
+      "effect": {
+        "henrys": "Aumenta il tiro con arco di 8 per 15 minuti. Mirare non costa resistenza durante la durata."
+      }
+    },
+    "wermutgeist": {
+      "name": "Spirito di Assenzio",
+      "effect": {
+        "henrys": "Aumenta la forza di 6 per 15 minuti. Inoltre, attacco e difesa costano il 35% in meno di resistenza."
+      }
+    },
+    "retterschnaps": {
+      "name": "Grappa del Salvatore",
+      "effect": {
+        "henrys": "Salva la partita, cura 30 salute e aumenta forza, vitalità e agilità di 3 per 3 minuti."
+      }
+    },
+    "seife": {
+      "name": "Sapone",
+      "effect": {
+        "henrys": "11 Sapone, pulisce i vestiti in un lavatoio"
+      }
+    },
+    "strauchdiebtrunk": {
+      "name": "Pozione del Ladro dei Cespugli",
+      "effect": {
+        "henrys": "Aumenta artigianato e furto di 8 per un'ora."
+      }
+    },
+    "wasser-der-lethe": {
+      "name": "Acqua del Lete",
+      "effect": {
+        "henrys": "Pozione che azzera tutti i punti specializzazione e consente una nuova distribuzione."
+      }
+    },
+    "alraunentrank": {
+      "name": "Decotto di mandragora",
+      "effect": {
+        "henrys": "Zittisce i pensieri spaventosi e le voci maligne. Cura 75 punti salute in 8 ore, +3 vitalità e i colpi non bloccati infliggono il 10% di danni in meno."
+      }
+    },
+    "fiebertonikum": {
+      "name": "Tonico contro la febbre",
+      "effect": {
+        "henrys": "La febbre e le complicazioni correlate possono spesso portare alla morte. Questo tonico riduce la febbre se somministrato in tempo."
+      }
+    }
+  }
+}

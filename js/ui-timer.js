@@ -1,6 +1,7 @@
 import { el } from './dom.js';
 import { getText } from './i18n.js';
 import { setState, onState } from './state.js';
+import { getSteps } from './recipes.js';
 
 var Timer = function (recipeId, stepIndex, duration) {
     this.recipeId = recipeId;
@@ -103,6 +104,7 @@ var brewPlaySvg = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
 function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStepIndex, getActiveStepIndices, _getTotalSteps, onPrevStep, onNextStep, onToggleMode, showTimedOnly) {
     var timer = null;
     var lang = getLang();
+    var cachedSteps = getSteps(recipe.id);
     var pulseTimeout = null;
 
     var progressLabelEl = el('span', { class: 'timer-progress-label' });
@@ -225,8 +227,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
 
     function handlePrimaryClick(e) {
         var idx = getActiveStepIndex();
-        var steps = recipe.recipe_steps && recipe.recipe_steps.de;
-        if (!steps || !steps[idx] || steps[idx].duration <= 0) return;
+        if (!cachedSteps[idx] || cachedSteps[idx].duration <= 0) return;
         if (!timer || !timer.running) {
             if (timer && timer.pausedRemaining !== null) {
                 handleResume();
@@ -241,9 +242,8 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
     function handleStart() {
         var idx = getActiveStepIndex();
         if (idx < 0) return;
-        var steps = recipe.recipe_steps && recipe.recipe_steps.de;
-        if (!steps || !steps[idx] || steps[idx].duration <= 0) return;
-        var dur = steps[idx].duration;
+        if (!cachedSteps[idx] || cachedSteps[idx].duration <= 0) return;
+        var dur = cachedSteps[idx].duration;
 
         if (pulseTimeout) { clearTimeout(pulseTimeout); pulseTimeout = null; }
         barEl.classList.remove('timer-pulse');
@@ -299,11 +299,9 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
     function updateTickDisplay(remaining) {
         var idx = getActiveStepIndex();
         if (idx < 0) return;
-        var localizedSteps = recipe.recipe_steps[lang];
-        var steps = recipe.recipe_steps.de;
-        var step = (localizedSteps && localizedSteps[idx]) || (steps && steps[idx]);
+        var step = cachedSteps[idx];
         if (!step) return;
-        if (steps[idx].duration <= 0) return;
+        if (cachedSteps[idx].duration <= 0) return;
         stepLabelEl.textContent = step.description;
         countdownEl.textContent = formatTime(remaining);
         countdownEl.classList.remove('timer-countdown--disabled');
@@ -312,9 +310,9 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
             var elapsedMs = Date.now() - timer.startedAt;
             pct = (elapsedMs / (timer.duration * 1000)) * 100;
         } else if (timer && timer.pausedRemaining !== null) {
-            pct = ((steps[idx].duration - timer.pausedRemaining) / steps[idx].duration) * 100;
+            pct = ((cachedSteps[idx].duration - timer.pausedRemaining) / cachedSteps[idx].duration) * 100;
         } else {
-            pct = ((steps[idx].duration - remaining) / steps[idx].duration) * 100;
+            pct = ((cachedSteps[idx].duration - remaining) / cachedSteps[idx].duration) * 100;
         }
         progressFill.style.width = Math.min(100, Math.max(0, pct)) + '%';
     }
@@ -322,9 +320,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
     function showReadyState() {
         var idx = getActiveStepIndex();
         if (idx < 0) return;
-        var localizedSteps = recipe.recipe_steps[lang];
-        var steps = recipe.recipe_steps.de;
-        var step = (localizedSteps && localizedSteps[idx]) || (steps && steps[idx]);
+        var step = cachedSteps[idx];
         if (!step) return;
         var isTimed = step.duration > 0;
         stepLabelEl.textContent = step.description;
@@ -355,9 +351,8 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
         primaryBtn.classList.add('timer-action-primary--running');
         var idx = getActiveStepIndex();
         if (idx >= 0) {
-            var steps = recipe.recipe_steps.de;
-            var step = (recipe.recipe_steps[lang] || steps)[idx];
-            if (step && steps[idx]) stepLabelEl.textContent = step.description;
+            var step = cachedSteps[idx];
+            if (step) stepLabelEl.textContent = step.description;
         }
         primaryBtn.innerHTML = pauseSvg + ' ' + getText('timer.pause');
         primaryBtn.disabled = false;
@@ -373,9 +368,8 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
         primaryBtn.disabled = false;
         var idx = getActiveStepIndex();
         if (idx >= 0) {
-            var steps = recipe.recipe_steps.de;
-            var step = (recipe.recipe_steps[lang] || steps)[idx];
-            if (step && steps[idx]) stepLabelEl.textContent = step.description;
+            var step = cachedSteps[idx];
+            if (step) stepLabelEl.textContent = step.description;
         }
         resetBtn.innerHTML = resetSvg + ' ' + getText('timer.reset');
         resetBtn.disabled = false;
@@ -409,29 +403,27 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
         },
         updateLanguage: function (newLang) {
             lang = newLang;
+            cachedSteps = getSteps(recipe.id);
             headerLabelEl.textContent = timerOpen ? getText('timer.brewMode') : getText('timer.brewModeOpen');
             if (!timer) {
                 var idx = getActiveStepIndex();
                 if (idx >= 0) {
-                    var steps = recipe.recipe_steps.de;
-                    var step = (recipe.recipe_steps[lang] || steps)[idx];
-                    if (step && steps[idx]) stepLabelEl.textContent = step.description;
+                    var step = cachedSteps[idx];
+                    if (step) stepLabelEl.textContent = step.description;
                 }
                 showReadyState();
             } else if (timer.running) {
                 var idx = getActiveStepIndex();
                 if (idx >= 0) {
-                    var steps = recipe.recipe_steps.de;
-                    var step = (recipe.recipe_steps[lang] || steps)[idx];
-                    if (step && steps[idx]) stepLabelEl.textContent = step.description;
+                    var step = cachedSteps[idx];
+                    if (step) stepLabelEl.textContent = step.description;
                 }
                 showRunningState();
             } else {
                 var idx = getActiveStepIndex();
                 if (idx >= 0) {
-                    var steps = recipe.recipe_steps.de;
-                    var step = (recipe.recipe_steps[lang] || steps)[idx];
-                    if (step && steps[idx]) stepLabelEl.textContent = step.description;
+                    var step = cachedSteps[idx];
+                    if (step) stepLabelEl.textContent = step.description;
                 }
                 showPausedState();
             }

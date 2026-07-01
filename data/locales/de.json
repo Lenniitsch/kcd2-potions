@@ -1,0 +1,214 @@
+{
+  "ingredients": {
+    "amanita_muscaria": "Wulstling",
+    "belladonna": "Tollkirsche",
+    "boars_tusk": "Wildschweinhauer",
+    "chamomile": "Kamille",
+    "charcoal": "Holzkohle",
+    "cobweb": "Spinnennetz",
+    "comfrey": "Beinwell",
+    "dandelion": "Löwenzahn",
+    "elderberry_leaves": "Holunderblätter",
+    "eyebright": "Augentrost",
+    "feverfew": "Mutterkraut",
+    "freshwater_pearl": "Frischwasserperle",
+    "ginger": "Ingwer",
+    "henbane": "Bilsenkraut",
+    "herb_paris": "Einbeere",
+    "leached_coal": "Gelaugte Kohle",
+    "mandrake_root": "Alraunwurzel",
+    "marigold": "Ringelblume",
+    "mint": "Minze",
+    "nettle": "Nessel",
+    "poppy": "Mohnblume",
+    "sage": "Salbei",
+    "saltpetre": "Salpeter",
+    "st_johns_wort": "Johanniskraut",
+    "sulphur": "Schwefel",
+    "thistle": "Distel",
+    "valerian": "Baldrian",
+    "wormwood": "Wermut"
+  },
+  "steps": {
+    "water": "Wasser",
+    "oil": "Öl",
+    "wine": "Wein",
+    "spirits": "Alkohol",
+    "boil": "Kochen",
+    "boil_bellows": "Mit Blasebalg kochen",
+    "distil": "Destillieren",
+    "pour": "Einschenken",
+    "grind": "zerstoßen",
+    "cauldron_grind": "Kesselinhalt zerstoßen"
+  },
+  "recipes": {
+    "aqua-vitalis": {
+      "name": "Aqua Vitalis",
+      "effect": {
+        "henrys": "60% weniger Gesundheitsverlust wenn getroffen für 15 Minuten. Bei Blutungen wird der Effekt um 60% verlangsamt."
+      }
+    },
+    "bockblut-trank": {
+      "name": "Bockblut-Trank",
+      "effect": {
+        "henrys": "+60% Ausdauer, +30% Ausdauerregeneration für eine Stunde."
+      }
+    },
+    "elixier-des-aesop": {
+      "name": "Elixier des Äsop",
+      "effect": {
+        "henrys": "+7 Reiten und Hundeflüsterer für einen Tag. Hunde bemerken Heinrich gar nicht, andere Tiere reagieren messbar später."
+      }
+    },
+    "fuchstrank": {
+      "name": "Fuchstrank",
+      "effect": {
+        "henrys": "+7 Redekunst, 50% mehr Lesegeschwindigkeit und 50% mehr Erfahrung für zwei Tage."
+      }
+    },
+    "gegenmittel": {
+      "name": "Gegenmittel / Verdauungstrank",
+      "effect": {
+        "henrys": "Heilt alle Vergiftungen und erhöht Vitalität um 3 für 20 Minuten, senkt aber Sattheit um 20."
+      }
+    },
+    "hahnenschreitrank": {
+      "name": "Hahnenschreitrank",
+      "effect": {
+        "henrys": "Aktuelle Energie +30. Energieverbrauch 50% langsamer für einen Tag."
+      }
+    },
+    "kamillen-aufguss": {
+      "name": "Kamillen-Aufguss",
+      "effect": {
+        "henrys": "48 Stunden lang heilt Schlaf verlorene Gesundheit mit 500% Effizienz und regeneriert Energie 300% schneller."
+      }
+    },
+    "katerbier": {
+      "name": "Katerbier",
+      "effect": {
+        "henrys": "Macht nüchtern, heilt Kater und unterdrückt vorübergehend die Auswirkungen von Trunksucht."
+      }
+    },
+    "loewe": {
+      "name": "Löwe",
+      "effect": {
+        "henrys": "Erhöht Charisma um 10 für 3 Minuten. Bei gleichzeitiger Nutzung mit einem anderen Parfüm sinkt Charisma um 7."
+      }
+    },
+    "minthe": {
+      "name": "Minthe",
+      "effect": {
+        "henrys": "Erhöht Charisma um 5 für 40 Minuten, senkt es aber um 5 bei Nutzung mit einem anderen Parfüm."
+      }
+    },
+    "ringelblumen-aufguss": {
+      "name": "Ringelblumen-Aufguss",
+      "effect": {
+        "henrys": "Heilt 60 Gesundheit innerhalb einer Minute. Heilt Kater sofort."
+      }
+    },
+    "salbe": {
+      "name": "Salbe",
+      "effect": {
+        "henrys": "+6 Agilität und -30% Ausdauerverbrauch beim Spurten für 10 Minuten."
+      }
+    },
+    "schnaps": {
+      "name": "Schnaps",
+      "effect": {
+        "henrys": "Starker selbstgebrannter Alkohol, macht betrunken und hebt die Stimmung"
+      }
+    },
+    "sud-gegen-schmerzen": {
+      "name": "Sud gegen Schmerzen",
+      "effect": {
+        "henrys": "Max. Ausdauerverlust bei Gesundheitsschaden um 75% reduziert für 25 Minuten. Verletzungen behindern Heinrichs Handlungen für die Dauer des Tranks nicht."
+      }
+    },
+    "trank-des-nachtfalken": {
+      "name": "Trank des Nachtfalken",
+      "effect": {
+        "henrys": "Verbesserte Nachtsicht für 25 Minuten. Kein Energieverlust während der Wirkdauer."
+      }
+    },
+    "puppenmacher-trank": {
+      "name": "Puppenmacher-Trank",
+      "effect": {
+        "henrys": "Opfer kann nicht rennen, alle Waffenfertigkeiten sind um 5 reduziert und es erleidet langsam 50 Schaden."
+      }
+    },
+    "schiesspulver-bleischrot": {
+      "name": "Schießpulver für Bleischrot",
+      "effect": {
+        "henrys": "13 Kugeln (250 Wucht-Schaden)"
+      }
+    },
+    "schiesspulver-streuschuss": {
+      "name": "Schießpulver für Streuschuss",
+      "effect": {
+        "henrys": "18 Streuschuss (200 Wucht-Schaden)"
+      }
+    },
+    "schlaftrunk": {
+      "name": "Schlaftrunk",
+      "effect": {
+        "henrys": "Senkt Energie auf 0 und vermindert Wahrnehmung. Opfer erleiden 50% weniger Ausdauer und Ausdauerregeneration für einen Tag."
+      }
+    },
+    "trank-des-verderbens": {
+      "name": "Trank des Verderbens",
+      "effect": {
+        "henrys": "Vergiftete können nicht rennen und verlieren 110 Gesundheit in 15 Sekunden."
+      }
+    },
+    "schuetzentrunk": {
+      "name": "Schützentrunk",
+      "effect": {
+        "henrys": "Erhöht Schießkunst um 8 für 15 Minuten. Zielen kostet während der Wirkdauer keine Ausdauer."
+      }
+    },
+    "wermutgeist": {
+      "name": "Wermutgeist",
+      "effect": {
+        "henrys": "Erhöht Stärke um 6 für 15 Minuten. Zusätzlich kosten Angriff und Verteidigung 35% weniger Ausdauer."
+      }
+    },
+    "retterschnaps": {
+      "name": "Retterschnaps",
+      "effect": {
+        "henrys": "Speichert das Spiel, heilt 30 Gesundheit und erhöht Stärke, Vitalität und Agilität um 3 für 3 Minuten."
+      }
+    },
+    "seife": {
+      "name": "Seife",
+      "effect": {
+        "henrys": "11 Seife, reinigt Kleidung bei einer Waschstelle"
+      }
+    },
+    "strauchdiebtrunk": {
+      "name": "Strauchdiebtrunk",
+      "effect": {
+        "henrys": "Erhöht Handwerk und Stehlen um 8 für eine Stunde."
+      }
+    },
+    "wasser-der-lethe": {
+      "name": "Wasser der Lethe",
+      "effect": {
+        "henrys": "Trank, der alle Spezialisierungspunkte zurücksetzen und eine Neuverteilung ermöglichen"
+      }
+    },
+    "alraunentrank": {
+      "name": "Alraunentrank",
+      "effect": {
+        "henrys": "Lässt die beängstigenden Gedanken und boshaften Stimmen verstummen. Heilt über einen Zeitraum von 8 Stunden 75 Gesundheit, +3 Vitalität und nicht geblockte Treffer verursachen 10 % weniger Schaden."
+      }
+    },
+    "fiebertonikum": {
+      "name": "Fiebertonikum",
+      "effect": {
+        "henrys": "Fieber und damit verbundene Komplikationen können oft zum Tod führen. Dieses Tonikum senkt das Fieber, wenn es rechtzeitig verabreicht wird."
+      }
+    }
+  }
+}

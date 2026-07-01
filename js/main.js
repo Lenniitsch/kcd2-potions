@@ -1,7 +1,7 @@
 import { state, setState, onState } from './state.js';
 import { el } from './dom.js';
 import { setLanguage, CATEGORIES, SORT_OPTIONS } from './i18n.js';
-import { fetchRecipes } from './recipes.js';
+import { init as initStore, getAll, setLang } from './recipes.js';
 import { buildHeader } from './ui-header.js';
 import { buildTabs } from './ui-tabs.js';
 import { buildFilter } from './ui-filter.js';
@@ -18,6 +18,7 @@ async function init() {
     setLanguage(state.language);
 
     onState('language', function (lang) {
+        setLang(lang);
         setLanguage(lang);
         document.documentElement.setAttribute('lang', lang);
         localStorage.setItem('kcd2-lang', lang);
@@ -86,8 +87,8 @@ async function init() {
     }
 
     try {
-        var data = await fetchRecipes('data/recipes.json');
-        setState('recipes', data.recipes);
+        await initStore('data/recipes.json', 'data/locales');
+        setState('recipes', getAll());
     } catch (err) {
         setState('recipes', null);
     }

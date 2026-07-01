@@ -1,0 +1,214 @@
+{
+  "ingredients": {
+    "amanita_muscaria": "Amanita Muscaria",
+    "belladonna": "Belladonna",
+    "boars_tusk": "Boar's Tusk",
+    "chamomile": "Chamomile",
+    "charcoal": "Charcoal",
+    "cobweb": "Cobweb",
+    "comfrey": "Comfrey",
+    "dandelion": "Dandelion",
+    "elderberry_leaves": "Elderberry Leaves",
+    "eyebright": "Eyebright",
+    "feverfew": "Feverfew",
+    "freshwater_pearl": "Freshwater pearl",
+    "ginger": "Ginger",
+    "henbane": "Henbane",
+    "herb_paris": "Herb Paris",
+    "leached_coal": "Leached Coal",
+    "mandrake_root": "Mandrake root",
+    "marigold": "Marigold",
+    "mint": "Mint",
+    "nettle": "Nettle",
+    "poppy": "Poppy",
+    "sage": "Sage",
+    "saltpetre": "Saltpetre",
+    "st_johns_wort": "St. John's Wort",
+    "sulphur": "Sulphur",
+    "thistle": "Thistle",
+    "valerian": "Valerian",
+    "wormwood": "Wormwood"
+  },
+  "steps": {
+    "water": "Water",
+    "oil": "Oil",
+    "wine": "Wine",
+    "spirits": "Spirits",
+    "boil": "Boil",
+    "boil_bellows": "Boil with bellows",
+    "distil": "Distill",
+    "pour": "Pour",
+    "grind": "grind",
+    "cauldron_grind": "Grind the contents of the boiler"
+  },
+  "recipes": {
+    "aqua-vitalis": {
+      "name": "Aqua Vitalis",
+      "effect": {
+        "henrys": "You lose 60% less Health when struck for 15 minutes. If you're Bleeding, the effect is slowed by 60%."
+      }
+    },
+    "bockblut-trank": {
+      "name": "Buck's Blood",
+      "effect": {
+        "henrys": "Increases Stamina by 60% and improves Stamina regeneration by 30% for 1 hour."
+      }
+    },
+    "elixier-des-aesop": {
+      "name": "Aesop",
+      "effect": {
+        "henrys": "Increases your Horsemanship and Houndmaster skills by 7 for 1 full day. Dogs won't notice Henry at all, while other animals will take measurably longer to react to him."
+      }
+    },
+    "fuchstrank": {
+      "name": "Fox",
+      "effect": {
+        "henrys": "Your Speech goes up by 7, you can complete skill books much faster, and you get a 50% boost to earned experience for 2 days."
+      }
+    },
+    "gegenmittel": {
+      "name": "Digestive Potion",
+      "effect": {
+        "henrys": "Cures all poisons and increases Vitality by 3 for 20 minutes, but decreases Nourishment by 20."
+      }
+    },
+    "hahnenschreitrank": {
+      "name": "Cockerel",
+      "effect": {
+        "henrys": "Current Energy +30. Your Energy drains 50% slower for 24 hours."
+      }
+    },
+    "kamillen-aufguss": {
+      "name": "Chamomile Brew",
+      "effect": {
+        "henrys": "For 48 hours, sleep restores lost health at 500% efficiency and regenerates energy 300% faster."
+      }
+    },
+    "katerbier": {
+      "name": "Hair o' the Dog",
+      "effect": {
+        "henrys": "Sobers you up, cures your hangover, and temporarily removes the effects of alcoholism."
+      }
+    },
+    "loewe": {
+      "name": "Lion",
+      "effect": {
+        "henrys": "Increases Charisma by 10 for 3 minutes. If used at the same time as another perfume, lowers your Charisma by 7."
+      }
+    },
+    "minthe": {
+      "name": "Mintha",
+      "effect": {
+        "henrys": "Increases your Charisma by 5 for 40 minutes, but lowers it by 5 if used in conjunction with another perfume."
+      }
+    },
+    "ringelblumen-aufguss": {
+      "name": "Marigold Decoction",
+      "effect": {
+        "henrys": "Heals 60 health over the course of 1 minute. Instantly cures hangovers."
+      }
+    },
+    "salbe": {
+      "name": "Embrocation",
+      "effect": {
+        "henrys": "Adds 6 to Agility and lowers the Stamina cost of sprinting by 30% for 10 minutes."
+      }
+    },
+    "schnaps": {
+      "name": "Moonshine",
+      "effect": {
+        "henrys": "Strong homemade alcohol, causes drunkenness and improves mood"
+      }
+    },
+    "sud-gegen-schmerzen": {
+      "name": "Painkiller Brew",
+      "effect": {
+        "henrys": "Your maximum Stamina decreases 75% less than your health for 25 minutes. Injuries do not impede Henry's actions for the potion's duration."
+      }
+    },
+    "trank-des-nachtfalken": {
+      "name": "Nighthawk",
+      "effect": {
+        "henrys": "You gain enhanced night vision for 25 minutes. While the potion lasts, your Energy does not deplete at all."
+      }
+    },
+    "puppenmacher-trank": {
+      "name": "Dollmaker Potion",
+      "effect": {
+        "henrys": "Victims cannot run, all their weapon skills are reduced by 5, and they gradually suffer 50 damage."
+      }
+    },
+    "schiesspulver-bleischrot": {
+      "name": "Lead Shot Gunpowder",
+      "effect": {
+        "henrys": "13 bullets (250 impact damage)"
+      }
+    },
+    "schiesspulver-streuschuss": {
+      "name": "Scattershot Gunpowder",
+      "effect": {
+        "henrys": "18 Scatter Shot (200 impact damage)"
+      }
+    },
+    "schlaftrunk": {
+      "name": "Lullaby Potion",
+      "effect": {
+        "henrys": "Reduces Energy to 0 and lowers perception. Victims suffer 50% lower Stamina and Stamina regeneration for 24 hours."
+      }
+    },
+    "trank-des-verderbens": {
+      "name": "Bane",
+      "effect": {
+        "henrys": "Poisoned characters cannot run and lose 110 Health in 15 seconds."
+      }
+    },
+    "schuetzentrunk": {
+      "name": "Bowman's Brew",
+      "effect": {
+        "henrys": "Increases Marksmanship by 8 for 15 minutes. While the potion lasts, aiming does not cost Stamina at all."
+      }
+    },
+    "wermutgeist": {
+      "name": "Artemisia",
+      "effect": {
+        "henrys": "Increases Strength by 6 for 15 minutes. In addition, attack and defence cost 35% less Stamina."
+      }
+    },
+    "retterschnaps": {
+      "name": "Saviour Schnapps",
+      "effect": {
+        "henrys": "Saves your game, restores 30 health, and boosts your Strength, Vitality, and Agility by 3 for 3 minutes."
+      }
+    },
+    "seife": {
+      "name": "Soap",
+      "effect": {
+        "henrys": "11 Soap, cleans clothes at a washing place"
+      }
+    },
+    "strauchdiebtrunk": {
+      "name": "Quickfinger Potion",
+      "effect": {
+        "henrys": "Increases Craftsmanship and Thievery by 8 for 60 minutes."
+      }
+    },
+    "wasser-der-lethe": {
+      "name": "Lethean Water",
+      "effect": {
+        "henrys": "Potion that resets all specialisation points and allows them to be redistributed"
+      }
+    },
+    "alraunentrank": {
+      "name": "Mandrake decoction",
+      "effect": {
+        "henrys": "Silences frightening thoughts and malicious voices. Heals 75 health over 8 hours, +3 vitality and unblocked hits deal 10% less damage."
+      }
+    },
+    "fiebertonikum": {
+      "name": "Fever Tonic",
+      "effect": {
+        "henrys": "Fever and related complications can often end in death. This tonic reduces fever if given in time."
+      }
+    }
+  }
+}

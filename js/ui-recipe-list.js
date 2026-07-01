@@ -101,7 +101,7 @@ export function buildRecipeList(outerContainer) {
         var recipes = state.recipes;
         for (var i = 0; i < recipes.length; i++) {
             var recipe = recipes[i];
-            var key = recipe.name.de;
+            var key = recipe.id;
             var card = buildRecipeCard(recipe, function () { return state.language; });
             card.root.classList.add('hidden');
             container.appendChild(card.root);
@@ -162,7 +162,7 @@ export function buildRecipeList(outerContainer) {
 
         var visibleKeys = new Set();
         for (var i = 0; i < sorted.length; i++) {
-            visibleKeys.add(sorted[i].name.de);
+            visibleKeys.add(sorted[i].id);
         }
 
         cardMap.forEach(function (entry, key) {
@@ -175,7 +175,7 @@ export function buildRecipeList(outerContainer) {
         });
 
         for (var i2 = 0; i2 < sorted.length; i2++) {
-            var key = sorted[i2].name.de;
+            var key = sorted[i2].id;
             var entry = cardMap.get(key);
             if (entry) {
                 container.appendChild(entry.root);
