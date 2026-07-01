@@ -389,25 +389,14 @@ header .font-serif.text-kcd-gold {
     display: inline-block;
 }
 
-.kcd-step-base .kcd-step-num {
-    background: var(--step-base-bg);
-    color: var(--step-base);
-}
-
-.kcd-step-ingredient .kcd-step-num {
-    background: var(--step-ingredient-bg);
-    color: var(--step-ingredient);
-}
-
-.kcd-step-cooking .kcd-step-num {
-    background: var(--step-cooking-bg);
-    color: var(--step-cooking);
-}
-
-.kcd-step-finishing .kcd-step-num {
-    background: var(--step-finishing-bg);
-    color: var(--step-finishing);
-}
+.kcd-step-base .kcd-step-num            { background: var(--step-base-bg);       color: var(--step-base); }
+.kcd-step-ingredient .kcd-step-num       { background: var(--step-ingredient-bg); color: var(--step-ingredient); }
+.kcd-step-grind .kcd-step-num            { background: var(--step-ingredient-bg); color: var(--step-ingredient); }
+.kcd-step-boil .kcd-step-num             { background: var(--step-cooking-bg);    color: var(--step-cooking); }
+.kcd-step-boil_bellows .kcd-step-num     { background: var(--step-cooking-bg);    color: var(--step-cooking); }
+.kcd-step-distil .kcd-step-num           { background: var(--step-finishing-bg);  color: var(--step-finishing); }
+.kcd-step-pour .kcd-step-num             { background: var(--step-finishing-bg);  color: var(--step-finishing); }
+.kcd-step-cauldron_grind .kcd-step-num   { background: var(--step-finishing-bg);  color: var(--step-finishing); }
 
 /* ---- Tags ---- */
 

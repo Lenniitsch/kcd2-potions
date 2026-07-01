@@ -57,11 +57,13 @@ export function getCategories() {
 }
 
 export function getName(recipeId) {
-    return store.locales[store.lang].recipes[recipeId].name;
+    var entry = store.locales[store.lang].recipes[recipeId];
+    return entry ? entry.name : recipeId;
 }
 
 export function getEffect(recipeId) {
-    return store.locales[store.lang].recipes[recipeId].effect.henrys;
+    var entry = store.locales[store.lang].recipes[recipeId];
+    return entry ? entry.effect.henrys : '';
 }
 
 export function getIngredients(recipeId) {
@@ -69,7 +71,7 @@ export function getIngredients(recipeId) {
     if (!recipe) return [];
     var ing = store.locales[store.lang].ingredients;
     return recipe.ingredients.map(function (item) {
-        return item.qty + ' x ' + ing[item.key];
+        return item.qty + ' x ' + (ing[item.key] || item.key);
     });
 }
 
@@ -93,9 +95,9 @@ export function getBaseLiquid(recipeId) {
     return renderStep(first);
 }
 
-export function getAllIngredients() {
+export function getAllIngredients(recipes) {
     var map = new Map();
-    store.recipes.forEach(function (recipe) {
+    (recipes || store.recipes).forEach(function (recipe) {
         recipe.ingredients.forEach(function (item) {
             if (!map.has(item.key)) {
                 map.set(item.key, {
@@ -119,7 +121,7 @@ export function getAvailableIngredients(recipes, filtered) {
     return available;
 }
 
-export function filterRecipes(filters) {
+export function filterRecipes(recipes, filters) {
     if (!store.recipes) return [];
     return store.recipes.filter(function (recipe) {
         if (filters.category !== 'all' && recipe.category !== filters.category) {

@@ -227,7 +227,11 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
 
     function handlePrimaryClick(e) {
         var idx = getActiveStepIndex();
-        if (!cachedSteps[idx] || cachedSteps[idx].duration <= 0) return;
+        if (idx < 0) return;
+        if (!cachedSteps[idx] || !(cachedSteps[idx].duration > 0)) {
+            onNextStep();
+            return;
+        }
         if (!timer || !timer.running) {
             if (timer && timer.pausedRemaining !== null) {
                 handleResume();
@@ -242,7 +246,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
     function handleStart() {
         var idx = getActiveStepIndex();
         if (idx < 0) return;
-        if (!cachedSteps[idx] || cachedSteps[idx].duration <= 0) return;
+        if (!cachedSteps[idx] || !(cachedSteps[idx].duration > 0)) return;
         var dur = cachedSteps[idx].duration;
 
         if (pulseTimeout) { clearTimeout(pulseTimeout); pulseTimeout = null; }
@@ -301,7 +305,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
         if (idx < 0) return;
         var step = cachedSteps[idx];
         if (!step) return;
-        if (cachedSteps[idx].duration <= 0) return;
+        if (!(cachedSteps[idx].duration > 0)) return;
         stepLabelEl.textContent = step.description;
         countdownEl.textContent = formatTime(remaining);
         countdownEl.classList.remove('timer-countdown--disabled');
