@@ -89,40 +89,59 @@ Timer.prototype.destroy = function () {
     this._finishCb = null;
 };
 
-function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepIndex, getTimedStepIndices) {
+var prevSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>';
+var nextSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>';
+
+function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepIndex, getActiveStepIndices, getTotalSteps, onPrevStep, onNextStep, onToggleMode, showTimedOnly) {
     var timer = null;
     var lang = getLang();
     var pulseTimeout = null;
 
+    var progressLabelEl = el('span', { class: 'timer-progress-label' });
+    var modeSwitchEl = el('button', {
+        class: 'timer-mode-switch',
+        onClick: function (e) { e.stopPropagation(); onToggleMode(); }
+    });
+
+    var progressRow = el('div', { class: 'timer-progress-row' }, progressLabelEl, modeSwitchEl);
+
     var stepLabelEl = el('span', { class: 'timer-bar-step-label' });
-    var timeEl = el('span', { class: 'timer-bar-time' });
+    var countdownEl = el('span', { class: 'timer-countdown' });
 
-    var startBtn = el('button', {
-        class: 'timer-bar-btn timer-bar-btn-start',
-        onClick: function (e) { e.stopPropagation(); handleStart(); }
-    });
-    var pauseBtn = el('button', {
-        class: 'timer-bar-btn timer-bar-btn-pause',
-        onClick: function (e) { e.stopPropagation(); handlePause(); }
-    });
-    var resumeBtn = el('button', {
-        class: 'timer-bar-btn timer-bar-btn-resume',
-        onClick: function (e) { e.stopPropagation(); handleResume(); }
-    });
-    var resetBtn = el('button', {
-        class: 'timer-bar-btn timer-bar-btn-reset',
-        onClick: function (e) { e.stopPropagation(); handleReset(); }
-    });
+    var stepRow = el('div', { class: 'timer-step-row' }, stepLabelEl, countdownEl);
 
-    var buttonRow = el('div', { class: 'timer-bar-buttons' }, startBtn);
     var progressFill = el('div', { class: 'timer-bar-progress-fill' });
     var progressTrack = el('div', { class: 'timer-bar-progress-track' }, progressFill);
 
-    var barEl = el('div', { class: 'timer-bar' }, stepLabelEl, timeEl, progressTrack, buttonRow);
+    var prevBtn = el('button', {
+        class: 'timer-nav-btn',
+        html: prevSvg,
+        'aria-label': getText('timer.prevStep'),
+        onClick: function (e) { e.stopPropagation(); onPrevStep(); }
+    });
+    var nextBtn = el('button', {
+        class: 'timer-nav-btn',
+        html: nextSvg,
+        'aria-label': getText('timer.nextStep'),
+        onClick: function (e) { e.stopPropagation(); onNextStep(); }
+    });
+    var primaryBtn = el('button', {
+        class: 'timer-action-primary',
+        onClick: function (e) { e.stopPropagation(); handlePrimaryClick(e); }
+    });
+    var resetBtn = el('button', {
+        class: 'timer-action-reset',
+        onClick: function (e) { e.stopPropagation(); handleReset(); }
+    });
+
+    var actionRow = el('div', { class: 'timer-action-row' }, prevBtn, nextBtn, primaryBtn, resetBtn);
+
+    var barEl = el('div', { class: 'timer-bar' }, progressRow, stepRow, progressTrack, actionRow);
 
     container.appendChild(barEl);
     barEl.addEventListener('pointerdown', function (e) { e.stopPropagation(); });
 
+    updateModeSwitch();
     showReadyState();
 
     var globalUnsub = onState('activeTimer', function (value) {
@@ -135,6 +154,43 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
             }
         }
     });
+
+    function updateModeSwitch() {
+        modeSwitchEl.textContent = (showTimedOnly ? 'Timed' : 'All') + ' \u25BE';
+    }
+
+    function updateProgressLabel() {
+        var indices = getActiveStepIndices();
+        var idx = getActiveStepIndex();
+        var pos = indices.indexOf(idx);
+        var x = pos >= 0 ? pos + 1 : 0;
+        var y = indices.length;
+        progressLabelEl.textContent = 'Step ' + x + ' of ' + y;
+    }
+
+    function updateNavButtons() {
+        var indices = getActiveStepIndices();
+        var idx = getActiveStepIndex();
+        if (indices.length <= 1) {
+            prevBtn.disabled = true;
+            nextBtn.disabled = true;
+            return;
+        }
+        prevBtn.disabled = (idx === indices[0]);
+        nextBtn.disabled = (idx === indices[indices.length - 1]);
+    }
+
+    function handlePrimaryClick(e) {
+        if (!timer || !timer.running) {
+            if (timer && timer.pausedRemaining !== null) {
+                handleResume();
+            } else {
+                handleStart();
+            }
+        } else {
+            handlePause();
+        }
+    }
 
     function handleStart() {
         var idx = getActiveStepIndex();
@@ -196,8 +252,8 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         var step = (recipe.recipe_steps[lang] || recipe.recipe_steps.de)[idx];
         if (steps[idx].duration <= 0) return;
         stepLabelEl.textContent = step.description;
-        timeEl.textContent = formatTime(remaining);
-        timeEl.classList.remove('timer-bar-time--disabled');
+        countdownEl.textContent = formatTime(remaining);
+        countdownEl.classList.remove('timer-countdown--disabled');
         var pct = ((steps[idx].duration - remaining) / steps[idx].duration) * 100;
         progressFill.style.width = Math.min(100, Math.max(0, pct)) + '%';
     }
@@ -205,51 +261,53 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
     function showReadyState() {
         var idx = getActiveStepIndex();
         if (idx < 0) return;
-        var steps = recipe.recipe_steps[lang] || recipe.recipe_steps.de;
-        if (!steps[idx]) return;
-        var step = steps[idx];
+        var step = (recipe.recipe_steps[lang] || recipe.recipe_steps.de)[idx];
+        if (!step) return;
         var isTimed = step.duration > 0;
         stepLabelEl.textContent = step.description;
         progressTrack.style.display = 'none';
         progressFill.style.width = '0%';
 
         if (isTimed) {
-            timeEl.textContent = step.duration + 's';
-            timeEl.classList.remove('timer-bar-time--disabled');
-            buttonRow.innerHTML = '';
-            buttonRow.appendChild(startBtn);
-            startBtn.disabled = false;
-            startBtn.textContent = getText('timer.start');
+            countdownEl.textContent = step.duration + 's';
+            countdownEl.classList.remove('timer-countdown--disabled');
+            primaryBtn.textContent = '\u25B6 ' + getText('timer.start') + ' (' + step.duration + 's)';
+            primaryBtn.disabled = false;
+            resetBtn.textContent = '\u21BA ' + getText('timer.reset');
             resetBtn.disabled = false;
-            resetBtn.textContent = getText('timer.reset');
         } else {
-            timeEl.textContent = '\u2014';
-            timeEl.classList.add('timer-bar-time--disabled');
-            buttonRow.innerHTML = '';
-            buttonRow.appendChild(startBtn);
-            buttonRow.appendChild(resetBtn);
-            startBtn.disabled = true;
-            startBtn.textContent = getText('timer.start');
+            countdownEl.textContent = '\u2014';
+            countdownEl.classList.add('timer-countdown--disabled');
+            primaryBtn.textContent = '\u25B6 ' + getText('timer.start');
+            primaryBtn.disabled = true;
+            resetBtn.textContent = '\u21BA ' + getText('timer.reset');
             resetBtn.disabled = true;
-            resetBtn.textContent = getText('timer.reset');
         }
+
+        primaryBtn.classList.remove('timer-action-primary--pause');
+        updateNavButtons();
+        updateProgressLabel();
     }
 
     function showRunningState() {
         progressTrack.style.display = '';
-        buttonRow.innerHTML = '';
-        buttonRow.appendChild(pauseBtn);
-        buttonRow.appendChild(resetBtn);
-        pauseBtn.textContent = getText('timer.pause');
-        resetBtn.textContent = getText('timer.reset');
+        primaryBtn.textContent = '\u23F8 ' + getText('timer.pause');
+        primaryBtn.classList.add('timer-action-primary--pause');
+        primaryBtn.disabled = false;
+        resetBtn.textContent = '\u21BA ' + getText('timer.reset');
+        resetBtn.disabled = false;
+        updateNavButtons();
+        updateProgressLabel();
     }
 
     function showPausedState() {
-        buttonRow.innerHTML = '';
-        buttonRow.appendChild(resumeBtn);
-        buttonRow.appendChild(resetBtn);
-        resumeBtn.textContent = getText('timer.resume');
-        resetBtn.textContent = getText('timer.reset');
+        primaryBtn.textContent = '\u25B6 ' + getText('timer.resume');
+        primaryBtn.classList.remove('timer-action-primary--pause');
+        primaryBtn.disabled = false;
+        resetBtn.textContent = '\u21BA ' + getText('timer.reset');
+        resetBtn.disabled = false;
+        updateNavButtons();
+        updateProgressLabel();
     }
 
     function formatTime(totalSeconds) {
@@ -260,6 +318,11 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
     }
 
     var api = {
+        setMode: function (timed) {
+            showTimedOnly = timed;
+            updateModeSwitch();
+            updateProgressLabel();
+        },
         setStep: function (idx) {
             if (timer) {
                 timer.destroy();

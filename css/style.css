@@ -243,6 +243,10 @@ select:focus-visible {
     transform: scale(0.995);
 }
 
+.kcd-card[aria-expanded="true"]:active {
+    transform: none;
+}
+
 .kcd-card-body {
     display: grid;
     grid-template-rows: 0fr;
@@ -295,10 +299,6 @@ select:focus-visible {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
-}
-
-.kcd-card-list .kcd-card-body-content .timer-controls {
-    grid-column: 1 / -1;
 }
 
 @media (max-width: 639px) {
@@ -372,6 +372,7 @@ header .font-serif.text-kcd-gold {
     border-radius: 0.375rem;
     font-size: 0.875rem;
     line-height: 1.35;
+    cursor: pointer;
 }
 
 .kcd-step-num {
@@ -557,197 +558,80 @@ header .font-serif.text-kcd-gold {
     gap: 0.5rem;
 }
 
-/* Mode toggle — segmented pill */
-
-.timer-mode-row {
-    display: flex;
-    justify-content: center;
-}
-
-.timer-mode-toggle {
-    display: inline-flex;
-    border-radius: 999px;
-    overflow: hidden;
-    border: 1px solid var(--kcd-border);
-}
-
-.timer-mode-btn {
-    min-width: auto;
-    min-height: 28px;
-    padding: 0.25rem 0.75rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-    cursor: pointer;
-    border: none;
-    background: transparent;
-    color: var(--kcd-text-secondary);
-    transition: background-color 0.15s, color 0.15s;
-}
-
-.timer-mode-btn:first-child {
-    border-right: 1px solid var(--kcd-border);
-}
-
-.timer-mode-btn.active {
-    background: color-mix(in srgb, var(--kcd-gold) 18%, transparent);
-    color: var(--kcd-gold);
-}
-
-.timer-mode-btn:hover:not(.active) {
-    background: var(--kcd-hover);
-    color: var(--kcd-text);
-}
-
-/* Nav buttons — icon only */
-
-.timer-nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-.timer-nav-btn {
-    width: 44px;
-    min-width: 44px;
-    min-height: 44px;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    line-height: 1;
-    cursor: pointer;
-    transition: background-color 0.15s, opacity 0.15s, transform 0.1s;
-    background: transparent;
-    border: 1px solid var(--kcd-border);
-    color: var(--kcd-text-secondary);
-}
-
-.timer-nav-btn:hover:not(:disabled) {
-    background: var(--kcd-hover);
-    color: var(--kcd-text);
-    border-color: var(--kcd-gold-dim);
-}
-
-.timer-nav-btn:active:not(:disabled) {
-    transform: scale(0.97);
-}
-
-.timer-nav-btn:disabled {
-    opacity: 0.3;
-    cursor: default;
-}
-
 /* Timer bar */
 
 .timer-bar {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    border-left: 2px solid var(--kcd-gold);
-    padding-left: 0.625rem;
+}
+
+/* Row 1: step progress + mode switch */
+
+.timer-progress-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.timer-progress-label {
+    font-size: 0.6875rem;
+    color: var(--kcd-text-muted);
+    letter-spacing: 0.04em;
+}
+
+.timer-mode-switch {
+    font-size: 0.6875rem;
+    color: var(--kcd-text-secondary);
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    transition: color 0.15s;
+}
+
+.timer-mode-switch:hover {
+    color: var(--kcd-gold);
+}
+
+/* Row 2: step label + countdown + progress */
+
+.timer-step-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
 }
 
 .timer-bar-step-label {
-    font-size: 0.75rem;
-    color: var(--kcd-text-muted);
-    text-align: center;
+    font-size: 0.8125rem;
+    color: var(--kcd-text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+    min-width: 0;
 }
 
-.timer-bar-time {
+.timer-countdown {
     font-family: 'Georgia', serif;
     font-size: 2rem;
     font-weight: 800;
     color: var(--kcd-gold);
     font-variant-numeric: tabular-nums;
-    text-align: center;
+    flex-shrink: 0;
 }
 
-.timer-bar-time--disabled {
+.timer-countdown--disabled {
     color: var(--kcd-text-secondary);
-}
-
-.timer-bar-buttons {
-    display: flex;
-    gap: 0.5rem;
-    flex: 1;
-}
-
-.timer-bar-btn {
-    min-width: 44px;
-    min-height: 44px;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.15s, color 0.15s, transform 0.1s, opacity 0.15s;
-    border: 1px solid transparent;
-    flex: 1;
-}
-
-.timer-bar-btn:active:not(:disabled) {
-    transform: scale(0.97);
-}
-
-.timer-bar-btn:disabled {
-    opacity: 0.35;
-    cursor: default;
-}
-
-.timer-bar-btn-start {
-    background: var(--kcd-gold);
-    color: var(--kcd-bg);
-    border-color: var(--kcd-gold);
-}
-
-.timer-bar-btn-start:hover:not(:disabled) {
-    background: var(--kcd-gold-hover);
-}
-
-.timer-bar-btn-start:disabled {
-    background: var(--kcd-border);
-    color: var(--kcd-text-disabled);
-    border-color: transparent;
-}
-
-.timer-bar-btn-pause,
-.timer-bar-btn-resume {
-    background: var(--kcd-accent);
-    color: white;
-    border-color: var(--kcd-accent);
-}
-
-.timer-bar-btn-pause:hover:not(:disabled),
-.timer-bar-btn-resume:hover:not(:disabled) {
-    background: var(--kcd-accent-hover);
-}
-
-.timer-bar-btn-pause:disabled,
-.timer-bar-btn-resume:disabled {
-    background: var(--kcd-border);
-    color: var(--kcd-text-disabled);
-    border-color: transparent;
-}
-
-.timer-bar-btn-reset {
-    background: transparent;
-    color: var(--kcd-text-secondary);
-    border-color: var(--kcd-border);
-}
-
-.timer-bar-btn-reset:hover:not(:disabled) {
-    background: var(--kcd-hover);
-    color: var(--kcd-text);
 }
 
 /* Progress bar */
 
 .timer-bar-progress-track {
-    height: 3px;
-    background: var(--kcd-border);
+    height: 5px;
+    background: var(--kcd-bg);
     border-radius: 999px;
     overflow: hidden;
 }
@@ -764,15 +648,125 @@ header .font-serif.text-kcd-gold {
     background: var(--kcd-text-disabled);
 }
 
+/* Row 3: nav + primary action + reset */
+
+.timer-action-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.timer-nav-btn {
+    width: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 0.15s, opacity 0.15s, transform 0.1s;
+    background: transparent;
+    border: 1px solid var(--kcd-border);
+    color: var(--kcd-gold-dim);
+    flex-shrink: 0;
+}
+
+.timer-nav-btn svg {
+    display: block;
+}
+
+.timer-nav-btn:hover:not(:disabled) {
+    background: var(--kcd-hover);
+    color: var(--kcd-gold);
+    border-color: var(--kcd-gold-dim);
+}
+
+.timer-nav-btn:active:not(:disabled) {
+    transform: scale(0.97);
+}
+
+.timer-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+.timer-action-primary {
+    flex: 1;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s, transform 0.1s, opacity 0.15s;
+    border: 1px solid transparent;
+    background: var(--kcd-gold);
+    color: var(--kcd-bg);
+    border-color: var(--kcd-gold);
+}
+
+.timer-action-primary:hover:not(:disabled) {
+    background: var(--kcd-gold-hover);
+}
+
+.timer-action-primary:active:not(:disabled) {
+    transform: scale(0.97);
+}
+
+.timer-action-primary:disabled {
+    opacity: 0.35;
+    cursor: default;
+    background: var(--kcd-border);
+    color: var(--kcd-text-disabled);
+    border-color: transparent;
+}
+
+.timer-action-primary--pause {
+    background: #c99a38;
+    color: var(--kcd-bg);
+    border-color: #c99a38;
+}
+
+.timer-action-primary--pause:hover:not(:disabled) {
+    background: #d4a848;
+}
+
+.timer-action-reset {
+    background: transparent;
+    border: none;
+    color: var(--kcd-text-muted);
+    font-size: 0.75rem;
+    cursor: pointer;
+    padding: 0.5rem 0.25rem;
+    white-space: nowrap;
+    transition: color 0.15s;
+    flex-shrink: 0;
+}
+
+.timer-action-reset:hover {
+    color: var(--kcd-text);
+}
+
+.timer-action-reset:active {
+    transform: scale(0.97);
+}
+
+.timer-action-reset:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
 /* Active step highlight */
 
 .kcd-step-active {
-    border-left: 2px solid var(--kcd-gold);
     background: linear-gradient(to right, rgba(243, 205, 118, 0.08), transparent);
 }
 
 [data-theme="light"] .kcd-step-active {
-    border-left-color: var(--kcd-gold);
     background: linear-gradient(to right, rgba(139, 107, 54, 0.08), transparent);
 }
 

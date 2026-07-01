@@ -114,38 +114,11 @@ export function buildRecipeCard(recipe, getLang) {
     );
     var stepsSection = el('div', {}, stepsTitle, stepsList);
 
-    var prevBtn = el('button', {
-        class: 'timer-nav-btn',
-        'aria-label': getText('timer.prevStep'),
-        onClick: function (e) { e.stopPropagation(); navigateStep(-1); },
-    }, '\u25C0');
-
-    var nextBtn = el('button', {
-        class: 'timer-nav-btn',
-        'aria-label': getText('timer.nextStep'),
-        onClick: function (e) { e.stopPropagation(); navigateStep(1); },
-    }, '\u25B6');
-
-    var navRow = el('div', { class: 'timer-nav' }, prevBtn, nextBtn);
-
-    var timedBtn = el('button', {
-        class: 'timer-mode-btn active',
-        onClick: function (e) { e.stopPropagation(); toggleMode(true); },
-    }, 'Timed');
-
-    var allBtn = el('button', {
-        class: 'timer-mode-btn',
-        onClick: function (e) { e.stopPropagation(); toggleMode(false); },
-    }, 'All');
-
-    var timerModeToggle = el('div', { class: 'timer-mode-toggle' }, timedBtn, allBtn);
-    var timerModeRow = el('div', { class: 'timer-mode-row' }, timerModeToggle);
-
     var timerContainer = el('div', {});
     var timerControls = el('div', {
         class: 'timer-controls',
         onPointerdown: function (e) { e.stopPropagation(); },
-    }, timerModeRow, navRow, timerContainer);
+    }, timerContainer);
 
     var bodyContent = el('div', { class: 'kcd-card-body-content flex flex-col gap-3' },
         ingredientsSection,
@@ -179,26 +152,16 @@ export function buildRecipeCard(recipe, getLang) {
 
     populateIngredients(ingredientsList, recipe, lang);
     populateSteps(stepsList, recipe, lang, onStepTap);
-    updateNavButtons();
 
     function toggleMode(timed) {
         showTimedOnly = timed;
-        var newIndices = getIndicesForMode(recipe, showTimedOnly);
-        activeStepIndices = newIndices;
-        if (timed) {
-            timedBtn.classList.add('active');
-            allBtn.classList.remove('active');
-        } else {
-            allBtn.classList.add('active');
-            timedBtn.classList.remove('active');
-        }
+        activeStepIndices = getIndicesForMode(recipe, showTimedOnly);
         if (activeStepIndices.indexOf(activeStepIndex) === -1 && activeStepIndices.length > 0) {
             setActiveStep(activeStepIndices[0]);
         } else if (activeStepIndices.length === 0) {
             setActiveStep(-1);
-        } else {
-            updateNavButtons();
         }
+        if (timerBarInstance) timerBarInstance.setMode(showTimedOnly);
     }
 
     function onStepTap(idx) {
@@ -231,7 +194,6 @@ export function buildRecipeCard(recipe, getLang) {
             activeStepIndex = -1;
         }
         updateStepHighlight();
-        updateNavButtons();
     }
 
     function updateStepHighlight() {
@@ -258,20 +220,8 @@ export function buildRecipeCard(recipe, getLang) {
     function setActiveStep(idx) {
         activeStepIndex = idx;
         updateStepHighlight();
-        updateNavButtons();
         if (timerBarInstance) {
             timerBarInstance.setStep(idx);
-        }
-    }
-
-    function updateNavButtons() {
-        if (activeStepIndices.length <= 1 || activeStepIndex < 0) {
-            prevBtn.disabled = true;
-            nextBtn.disabled = true;
-        } else {
-            var currentIdxInList = activeStepIndices.indexOf(activeStepIndex);
-            prevBtn.disabled = currentIdxInList <= 0;
-            nextBtn.disabled = currentIdxInList >= activeStepIndices.length - 1;
         }
     }
 
@@ -280,12 +230,8 @@ export function buildRecipeCard(recipe, getLang) {
         if (!hasTimedSteps) {
             timerContainer.appendChild(el('p', { class: 'text-xs text-kcd-text-muted text-center py-2' },
                 getText('timer.noTimedSteps')));
-            timerModeRow.style.display = 'none';
-            navRow.style.display = 'none';
             return;
         }
-        timerModeRow.style.display = '';
-        navRow.style.display = '';
         if (timerBarInstance) {
             timerBarInstance.destroy();
             timerBarInstance = null;
@@ -293,7 +239,12 @@ export function buildRecipeCard(recipe, getLang) {
         timerBarInstance = TimerBar(timerContainer, recipe, getLang,
             function () { return activeStepIndex; },
             setActiveStep,
-            function () { return activeStepIndices; }
+            function () { return activeStepIndices; },
+            function () { return recipe.recipe_steps.de.length; },
+            function () { navigateStep(-1); },
+            function () { navigateStep(1); },
+            function () { toggleMode(!showTimedOnly); },
+            showTimedOnly
         );
     }
 
@@ -319,9 +270,6 @@ export function buildRecipeCard(recipe, getLang) {
         while (stepsList.firstChild) stepsList.removeChild(stepsList.firstChild);
         populateSteps(stepsList, recipe, lang, onStepTap);
         stepsTitle.textContent = getText('card.steps');
-
-        prevBtn.setAttribute('aria-label', getText('timer.prevStep'));
-        nextBtn.setAttribute('aria-label', getText('timer.nextStep'));
 
         updateStepHighlight();
 
