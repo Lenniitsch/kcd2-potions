@@ -301,6 +301,51 @@ const UI = {
         it: 'Finito',
         en: 'Done',
     },
+    'settings.title': {
+        de: 'Einstellungen',
+        it: 'Impostazioni',
+        en: 'Settings',
+    },
+    'settings.mediaControls': {
+        de: 'Mediensteuerung',
+        it: 'Controlli multimediali',
+        en: 'Media Controls',
+    },
+    'settings.autoAdvance': {
+        de: 'Automatisch weiter',
+        it: 'Avanzamento automatico',
+        en: 'Auto-advance',
+    },
+    'settings.mediaControlsDesc': {
+        de: 'Steuere den Brau-Timer mit den Medien-Tasten deiner Tastatur.',
+        it: 'Controlla il timer con i tasti multimediali della tastiera.',
+        en: 'Control the brew timer using your keyboard media keys.',
+    },
+    'settings.autoAdvanceDesc': {
+        de: 'Springt nach Ablauf eines Timers automatisch zum nächsten Schritt.',
+        it: 'Passa automaticamente al passo successivo al termine del timer.',
+        en: 'Automatically advance to the next step when a timer finishes.',
+    },
+    'settings.theme': {
+        de: 'Design',
+        it: 'Tema',
+        en: 'Theme',
+    },
+    'settings.themeDesc': {
+        de: 'Wechsle zwischen hellem und dunklem Erscheinungsbild.',
+        it: 'Passa tra tema chiaro e scuro.',
+        en: 'Switch between light and dark appearance.',
+    },
+    'settings.themeDark': {
+        de: 'Dunkel',
+        it: 'Scuro',
+        en: 'Dark',
+    },
+    'settings.themeLight': {
+        de: 'Hell',
+        it: 'Chiaro',
+        en: 'Light',
+    },
 };
 
 export const CATEGORIES = {

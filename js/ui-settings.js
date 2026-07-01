@@ -1,0 +1,157 @@
+import { state, setState, onState } from './state.js';
+import { el } from './dom.js';
+import { getText } from './i18n.js';
+
+var gearSvg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>';
+
+function ToggleSegButton(text, isActive, onClick) {
+    var btn = el('button', {
+        class: 'settings-toggle-seg-btn' + (isActive ? ' active' : ''),
+        onClick: onClick,
+    }, text);
+    return btn;
+}
+
+function SettingsToggleRow(labelKey, descKey, stateKey) {
+    var offBtn = ToggleSegButton('AUS', !state.settings[stateKey], function () {
+        toggleSettingsKey(stateKey, false);
+    });
+    var onBtn = ToggleSegButton('AN', state.settings[stateKey], function () {
+        toggleSettingsKey(stateKey, true);
+    });
+
+    var label = el('span', { class: 'settings-option-label' }, getText(labelKey));
+    var desc = el('span', { class: 'settings-option-desc' }, getText(descKey));
+    var segment = el('div', { class: 'settings-toggle-segment' }, offBtn, onBtn);
+
+    function update(val) {
+        offBtn.className = 'settings-toggle-seg-btn' + (val ? '' : ' active');
+        onBtn.className = 'settings-toggle-seg-btn' + (val ? ' active' : '');
+    }
+
+    return {
+        root: el('div', { class: 'settings-option' }, label, segment, desc),
+        update: update,
+    };
+}
+
+function toggleSettingsKey(key, val) {
+    var settings = Object.assign({}, state.settings);
+    settings[key] = val;
+    setState('settings', settings);
+    localStorage.setItem('kcd2-' + key, String(val));
+}
+
+var gearBtnClass = 'p-2 rounded text-kcd-muted hover:text-kcd-gold hover:bg-kcd-hover transition-colors focus:outline-none';
+
+function buildSettings() {
+    // ---- Option rows ----
+    var mediaControlsRow = SettingsToggleRow('settings.mediaControls', 'settings.mediaControlsDesc', 'mediaControls');
+    var autoAdvanceRow = SettingsToggleRow('settings.autoAdvance', 'settings.autoAdvanceDesc', 'autoAdvance');
+
+    // ---- Theme row ----
+    var darkBtn = ToggleSegButton(getText('settings.themeDark'), state.theme === 'dark', function () {
+        setState('theme', 'dark');
+    });
+    var lightBtn = ToggleSegButton(getText('settings.themeLight'), state.theme !== 'dark', function () {
+        setState('theme', 'light');
+    });
+
+    var themeLabel = el('span', { class: 'settings-option-label' }, getText('settings.theme'));
+    var themeDesc = el('span', { class: 'settings-option-desc' }, getText('settings.themeDesc'));
+    var themeSegment = el('div', { class: 'settings-toggle-segment' }, darkBtn, lightBtn);
+
+    function updateThemeToggle(theme) {
+        var d = theme === 'dark';
+        darkBtn.className = 'settings-toggle-seg-btn' + (d ? ' active' : '');
+        lightBtn.className = 'settings-toggle-seg-btn' + (d ? '' : ' active');
+        darkBtn.textContent = getText('settings.themeDark');
+        lightBtn.textContent = getText('settings.themeLight');
+    }
+
+    var themeOption = el('div', { class: 'settings-option settings-theme-row' },
+        themeLabel,
+        themeSegment,
+        themeDesc
+    );
+
+    // ---- Popover ----
+    var titleEl = el('div', { class: 'settings-title' }, getText('settings.title'));
+
+    var popoverContent = el('div', { class: 'settings-popover-content' },
+        titleEl,
+        mediaControlsRow.root,
+        autoAdvanceRow.root,
+        el('div', { class: 'settings-separator' }),
+        themeOption
+    );
+
+    var popover = el('div', {
+        class: 'settings-popover hidden',
+    }, popoverContent);
+
+    // ---- Gear buttons ----
+    var gearBtnDesktop = el('button', {
+        class: gearBtnClass,
+        'aria-label': getText('settings.title'),
+        onClick: function (e) {
+            e.stopPropagation();
+            togglePopover(gearBtnDesktop);
+        },
+        html: gearSvg,
+    });
+
+    var gearBtnMobile = el('button', {
+        class: 'header-lang-trigger-mobile',
+        'aria-label': getText('settings.title'),
+        onClick: function (e) {
+            e.stopPropagation();
+            togglePopover(gearBtnMobile);
+        },
+        html: gearSvg,
+    });
+
+    // ---- Outside click ----
+    document.addEventListener('click', function (e) {
+        if (!popover.contains(e.target) && !gearBtnDesktop.contains(e.target) && !gearBtnMobile.contains(e.target)) {
+            popover.classList.add('hidden');
+        }
+    });
+
+    function togglePopover(gearEl) {
+        if (popover.classList.contains('hidden')) {
+            var rect = gearEl.getBoundingClientRect();
+            popover.style.top = (rect.bottom + 8) + 'px';
+            popover.style.right = (window.innerWidth - rect.right) + 'px';
+            popover.classList.remove('hidden');
+        } else {
+            popover.classList.add('hidden');
+        }
+    }
+
+    // ---- State subscriptions ----
+    onState('settings', function (settings) {
+        mediaControlsRow.update(settings.mediaControls);
+        autoAdvanceRow.update(settings.autoAdvance);
+    });
+
+    onState('theme', updateThemeToggle);
+
+    onState('language', function () {
+        titleEl.textContent = getText('settings.title');
+        mediaControlsRow.root.querySelector('.settings-option-label').textContent = getText('settings.mediaControls');
+        mediaControlsRow.root.querySelector('.settings-option-desc').textContent = getText('settings.mediaControlsDesc');
+        autoAdvanceRow.root.querySelector('.settings-option-label').textContent = getText('settings.autoAdvance');
+        autoAdvanceRow.root.querySelector('.settings-option-desc').textContent = getText('settings.autoAdvanceDesc');
+        themeLabel.textContent = getText('settings.theme');
+        themeDesc.textContent = getText('settings.themeDesc');
+        darkBtn.textContent = getText('settings.themeDark');
+        lightBtn.textContent = getText('settings.themeLight');
+    });
+
+    updateThemeToggle(state.theme);
+
+    return { gearBtnDesktop: gearBtnDesktop, gearBtnMobile: gearBtnMobile, popover: popover };
+}
+
+export { buildSettings };

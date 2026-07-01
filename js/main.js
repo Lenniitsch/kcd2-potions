@@ -7,6 +7,7 @@ import { buildTabs } from './ui-tabs.js';
 import { buildFilter } from './ui-filter.js';
 import { buildRecipeList } from './ui-recipe-list.js';
 import { buildMaps } from './ui-maps.js';
+import { buildSettings } from './ui-settings.js';
 
 async function init() {
     var app = document.getElementById('app');
@@ -38,6 +39,11 @@ async function init() {
     var filter = buildFilter();
     var recipeList = buildRecipeList(tabs.recipesContent);
     var maps = buildMaps(tabs.mapsContent);
+
+    var settings = buildSettings();
+    header.gearSlot.appendChild(settings.gearBtnDesktop);
+    header.gearSlotMobile.appendChild(settings.gearBtnMobile);
+    app.appendChild(settings.popover);
 
     var topDivider = buildOrnamentDivider();
     var ornamentDivider = buildOrnamentDivider();
@@ -125,6 +131,13 @@ function restoreSavedState() {
     if (Object.keys(filtersPatch).length > 0) {
         setState('filters', Object.assign({}, state.filters, filtersPatch));
     }
+
+    var settings = Object.assign({}, state.settings);
+    stored = localStorage.getItem('kcd2-mediaControls');
+    if (stored === 'true') settings.mediaControls = true;
+    stored = localStorage.getItem('kcd2-autoAdvance');
+    if (stored === 'true') settings.autoAdvance = true;
+    setState('settings', settings);
 }
 
 function restoreStateFromURL() {

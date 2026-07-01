@@ -12,6 +12,10 @@ const state = {
     },
     activeTab: 'recipes',
     activeTimer: null,
+    settings: {
+        mediaControls: false,
+        autoAdvance: false,
+    },
 };
 
 const subscribers = {};

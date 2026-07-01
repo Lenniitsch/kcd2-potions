@@ -1,7 +1,7 @@
 import { el } from './dom.js';
 import { getText } from './i18n.js';
-import { setState, onState } from './state.js';
-import { getSteps } from './recipes.js';
+import { state, setState, onState } from './state.js';
+import { getName, getSteps } from './recipes.js';
 
 var Timer = function (recipeId, stepIndex, duration) {
     this.recipeId = recipeId;
@@ -176,10 +176,12 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
             timerBody.classList.remove('hidden');
             headerChevronEl.classList.add('open');
             headerLabelEl.textContent = getText('timer.brewMode');
+            if (state.settings.mediaControls) setupMediaSession();
         } else {
             timerBody.classList.add('hidden');
             headerChevronEl.classList.remove('open');
             headerLabelEl.textContent = getText('timer.brewModeOpen');
+            clearMediaSession();
         }
     }
 
@@ -238,7 +240,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         var isLast = pos >= 0 && pos === indices.length - 1;
 
         if (isLast) {
-            setActiveStepIndex(0);
+            setActiveStepIndex(indices[0]);
             timerFinished = false;
             return;
         }
@@ -360,7 +362,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         stepLabelEl.textContent = step.description;
         progressFill.style.width = '0%';
 
-        if (isLast) {
+        if (isLast && timerFinished) {
             countdownEl.textContent = '\u2014';
             countdownEl.classList.add('timer-countdown--disabled');
             primaryBtn.innerHTML = checkSvg + ' ' + getText('timer.brewComplete');
@@ -386,6 +388,8 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         primaryBtn.classList.remove('timer-action-primary--running');
         updateNavButtons();
         updateProgressLabel();
+        updateMediaSessionMetadata();
+        if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'paused';
     }
 
     function showNextStepState() {
@@ -404,6 +408,8 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         primaryBtn.classList.remove('timer-action-primary--running');
         updateNavButtons();
         updateProgressLabel();
+        updateMediaSessionMetadata();
+        if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'paused';
     }
 
     function showRunningState() {
@@ -419,6 +425,8 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         resetBtn.disabled = false;
         updateNavButtons();
         updateProgressLabel();
+        updateMediaSessionMetadata();
+        if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'playing';
     }
 
     function showPausedState() {
@@ -434,11 +442,75 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         resetBtn.disabled = false;
         updateNavButtons();
         updateProgressLabel();
+        updateMediaSessionMetadata();
+        if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'paused';
     }
 
     function formatTime(totalSeconds) {
         totalSeconds = Math.max(0, totalSeconds);
         return Math.floor(totalSeconds) + 's';
+    }
+
+    function setupMediaSession() {
+        if (!('mediaSession' in navigator)) return;
+        var recipeName = getName(recipe.id);
+        var idx = getActiveStepIndex();
+        var step = cachedSteps[idx];
+        var stepDesc = step ? step.description : '';
+
+        navigator.mediaSession.metadata = new MediaMetadata({
+            title: recipeName,
+            artist: stepDesc,
+            album: 'KCD2 Potion Guide',
+        });
+        navigator.mediaSession.playbackState = 'paused';
+
+        navigator.mediaSession.setActionHandler('play', function () {
+            var idx = getActiveStepIndex();
+            var step = cachedSteps[idx];
+            if (!step || !(step.duration > 0)) return;
+            if (timer && timer.pausedRemaining !== null) {
+                handleResume();
+            } else if (!timer || !timer.running) {
+                handleStart();
+            }
+        });
+        navigator.mediaSession.setActionHandler('pause', function () {
+            if (timer && timer.running) handlePause();
+        });
+        navigator.mediaSession.setActionHandler('previoustrack', function () {
+            onPrevStep();
+        });
+        navigator.mediaSession.setActionHandler('nexttrack', function () {
+            onNextStep();
+        });
+        navigator.mediaSession.setActionHandler('stop', function () {
+            handleReset();
+        });
+    }
+
+    function clearMediaSession() {
+        if (!('mediaSession' in navigator)) return;
+        navigator.mediaSession.playbackState = 'none';
+        navigator.mediaSession.metadata = null;
+        navigator.mediaSession.setActionHandler('play', null);
+        navigator.mediaSession.setActionHandler('pause', null);
+        navigator.mediaSession.setActionHandler('previoustrack', null);
+        navigator.mediaSession.setActionHandler('nexttrack', null);
+        navigator.mediaSession.setActionHandler('stop', null);
+    }
+
+    function updateMediaSessionMetadata() {
+        if (!('mediaSession' in navigator) || !navigator.mediaSession.metadata) return;
+        var recipeName = getName(recipe.id);
+        var idx = getActiveStepIndex();
+        var step = cachedSteps[idx];
+        var stepDesc = step ? step.description : '';
+        navigator.mediaSession.metadata = new MediaMetadata({
+            title: recipeName,
+            artist: stepDesc,
+            album: 'KCD2 Potion Guide',
+        });
     }
 
     var api = {
@@ -486,6 +558,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
             }
         },
         destroy: function () {
+            clearMediaSession();
             if (timer) {
                 timer.destroy();
                 timer = null;

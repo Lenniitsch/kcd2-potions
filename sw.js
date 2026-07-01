@@ -1,4 +1,4 @@
-var CACHE_NAME = 'kcd2-v11';
+var CACHE_NAME = 'kcd2-v12';
 
 var PRECACHE_URLS = [
     './',
@@ -16,6 +16,7 @@ var PRECACHE_URLS = [
     'js/ui-timer.js',
     'js/ui-recipe-list.js',
     'js/ui-maps.js',
+    'js/ui-settings.js',
     'data/recipes.json',
     'data/locales/de.json',
     'data/locales/it.json',

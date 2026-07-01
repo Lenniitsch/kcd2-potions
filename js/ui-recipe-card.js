@@ -1,4 +1,5 @@
 import { el } from './dom.js';
+import { state } from './state.js';
 import { getText, getCategoryLabel } from './i18n.js';
 import { getName, getEffect, getIngredients, getSteps } from './recipes.js';
 import { TimerBar } from './ui-timer.js';
@@ -254,7 +255,7 @@ export function buildRecipeCard(recipe, getLang) {
             function () { navigateStep(1); },
             function () { toggleMode(!showTimedOnly); },
             showTimedOnly,
-            false
+            state.settings.autoAdvance
         );
 
         var timerHeader = timerControls.querySelector('.timer-header');
