@@ -147,17 +147,17 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
     var barEl = el('div', { class: 'timer-bar' }, progressRow, stepRow, progressTrack, actionRow);
 
     var headerIconEl = el('span', { class: 'timer-header-icon', html: brewPlaySvg });
-    var headerLabelEl = el('span', { class: 'timer-header-label' }, getText('timer.brewMode'));
-    var headerChevronEl = el('span', { class: 'timer-header-chevron open', html: chevronDownSvg });
+    var headerLabelEl = el('span', { class: 'timer-header-label' }, getText('timer.brewModeOpen'));
+    var headerChevronEl = el('span', { class: 'timer-header-chevron', html: chevronDownSvg });
 
-    var timerOpen = true;
+    var timerOpen = false;
 
     var timerHeader = el('div', {
         class: 'timer-header',
         onClick: function (e) { e.stopPropagation(); toggleTimerBody(); },
     }, headerIconEl, headerLabelEl, headerChevronEl);
 
-    var timerBody = el('div', { class: 'timer-body' }, barEl);
+    var timerBody = el('div', { class: 'timer-body hidden' }, barEl);
 
     container.appendChild(timerHeader);
     container.appendChild(timerBody);
