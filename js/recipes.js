@@ -47,7 +47,7 @@ export function getBaseLiquid(recipe, lang) {
 }
 
 export function sortRecipes(recipes, sortKey) {
-    var categoryOrder = ['Heiltrank', 'Kampf-Buff', 'Gift', 'Handwerk', 'Utility', 'DLC'];
+    var categoryOrder = ['Heiltrank', 'Kampf-Buff', 'Gift', 'Werken', 'Sonstiges', 'DLC'];
 
     var sorted = recipes.slice();
 

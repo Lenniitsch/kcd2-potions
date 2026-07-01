@@ -808,3 +808,32 @@ header .font-serif.text-kcd-gold {
 [data-theme="light"] .timer-pulse {
     animation: timer-pulse-light 0.6s ease-in-out 3;
 }
+
+.kcd-back-to-top {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 50;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--kcd-elevated);
+    border: 1px solid var(--kcd-border);
+    color: var(--kcd-gold-dim);
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s, background-color 0.15s, color 0.15s;
+}
+
+.kcd-back-to-top:hover {
+    background: var(--kcd-hover);
+    color: var(--kcd-gold);
+    border-color: var(--kcd-gold-dim);
+    transform: translateY(-2px);
+}
+
+.kcd-back-to-top--visible {
+    display: flex;
+}

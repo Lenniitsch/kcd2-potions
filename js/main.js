@@ -51,6 +51,20 @@ async function init() {
     );
     app.append(footer);
 
+    var backToTopBtn = document.getElementById('back-to-top');
+    if (backToTopBtn) {
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 300) {
+                backToTopBtn.style.display = 'flex';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        }, { passive: true });
+        backToTopBtn.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
     maps.update(state.activeTab);
 
     onState('activeTab', function (tab) {

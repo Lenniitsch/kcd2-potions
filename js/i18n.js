@@ -304,13 +304,13 @@ export const CATEGORIES = {
         it: 'Veleno',
         en: 'Poison',
     },
-    'Handwerk': {
-        de: 'Handwerk',
+    'Werken': {
+        de: 'Werken',
         it: 'Artigianato',
         en: 'Crafting',
     },
-    'Utility': {
-        de: 'Utility',
+    'Sonstiges': {
+        de: 'Sonstiges',
         it: 'Utilità',
         en: 'Utility',
     },
