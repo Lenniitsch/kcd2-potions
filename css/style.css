@@ -861,3 +861,21 @@ header .font-serif.text-kcd-gold {
     border-color: var(--kcd-gold-dim);
     transform: translateY(-2px);
 }
+
+/* Light mode contrast fixes */
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+    background: rgba(139, 107, 54, 0.25);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 107, 54, 0.4);
+}
+
+[data-theme="light"] .timer-header {
+    background: rgba(139, 107, 54, 0.12);
+}
+
+[data-theme="light"] .timer-header-label {
+    color: rgba(30, 22, 10, 0.60);
+}

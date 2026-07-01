@@ -393,6 +393,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
             updateModeSegment();
             updateProgressLabel();
             updateNavButtons();
+            showReadyState();
         },
         setStep: function (idx) {
             if (timer) {
