@@ -30,8 +30,7 @@ export function buildFilter() {
     var categoryPillsContainer;
     var ingredientSectionWrapper;
     var ingredientHeader;
-    var ingredientLabelText;
-    var ingredientCountEl;
+    var ingredientLabelEl;
     var ingredientBody;
     var ingredientContainer;
 
@@ -91,14 +90,10 @@ export function buildFilter() {
 
     ingredientBody = el('div', { class: 'pt-2' }, ingredientContainer);
 
-    ingredientCountEl = el('span', { class: 'font-normal normal-case tracking-normal' });
-
+    ingredientLabelEl = el('span', {}, getText('filter.ingredientHeader'));
     ingredientHeader = el('div', {
         class: 'flex items-center gap-1 w-full text-xs text-kcd-muted uppercase tracking-wide kcd-section-label',
-    });
-    ingredientLabelText = document.createTextNode(getText('filter.ingredientHeader'));
-    ingredientHeader.appendChild(ingredientLabelText);
-    ingredientHeader.appendChild(ingredientCountEl);
+    }, ingredientLabelEl);
 
     ingredientSectionWrapper = el('div', { class: 'border-t border-kcd-border pt-2' }, ingredientHeader, ingredientBody);
 
@@ -175,7 +170,6 @@ export function buildFilter() {
         if (!recipes || recipes.length === 0) return;
 
         var allIngredients = getAllIngredients(recipes);
-        ingredientCountEl.textContent = ' (' + allIngredients.size + ')';
 
         var hasOtherFilters = filters.search !== '' || filters.category !== 'all';
         var hasSelectedIngredients = filters.ingredients && filters.ingredients.size > 0;
@@ -248,7 +242,7 @@ export function buildFilter() {
         var lang = state.language;
 
         var mobileExpanded = f.filterExpanded;
-        filterSectionWrapper.classList.toggle('hidden', !mobileExpanded);
+        filterSectionWrapper.style.display = mobileExpanded ? 'flex' : 'none';
 
         mobileToggleText.textContent = f.filterExpanded ? getText('filter.collapse') : getText('filter.expand');
 
@@ -260,7 +254,7 @@ export function buildFilter() {
 
         renderCategoryPills(f);
 
-        ingredientLabelText.textContent = getText('filter.ingredientHeader');
+        ingredientLabelEl.textContent = getText('filter.ingredientHeader');
 
         renderIngredientTags(f, recipes, lang);
 

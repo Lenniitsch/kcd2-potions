@@ -786,16 +786,15 @@ header .font-serif.text-kcd-gold {
     font-size: 0.75rem;
     font-weight: 500;
     transition: color 0.15s, background-color 0.15s, transform 0.1s;
-    color: var(--kcd-text-muted);
-    background: transparent;
-    border: none;
+    color: #f87171;
+    background: rgba(248, 113, 113, 0.1);
+    border: 1px solid rgba(248, 113, 113, 0.2);
     cursor: pointer;
     flex-shrink: 0;
 }
 
 .filter-clear-btn:hover:not(:disabled) {
-    color: #f87171;
-    background: rgba(248, 113, 113, 0.1);
+    background: rgba(248, 113, 113, 0.22);
 }
 
 .filter-clear-btn:active:not(:disabled) {
@@ -804,6 +803,8 @@ header .font-serif.text-kcd-gold {
 
 .filter-clear-btn:disabled {
     color: var(--kcd-text-disabled);
+    background: transparent;
+    border-color: transparent;
     cursor: default;
 }
 
