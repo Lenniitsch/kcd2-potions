@@ -99,7 +99,7 @@ var nextStepSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16
 
 var chevronDownSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
 
-var brewPlaySvg = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+var brewPlaySvg = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6v4l4 10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2l4-10V3z"/><line x1="5" y1="3" x2="19" y2="3"/></svg>';
 
 function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStepIndex, getActiveStepIndices, _getTotalSteps, onPrevStep, onNextStep, onToggleMode, showTimedOnly) {
     var timer = null;

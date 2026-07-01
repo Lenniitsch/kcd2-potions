@@ -182,6 +182,7 @@ export function buildRecipeCard(recipe, getLang) {
             root.setAttribute('aria-expanded', 'true');
             initActiveStep();
             enableTimer();
+            updateStepHighlight();
         } else {
             bodyEl.className = 'kcd-card-body grid grid-rows-[0fr] transition-[grid-template-rows] duration-300';
             bodyEl.setAttribute('aria-hidden', 'true');
@@ -204,10 +205,11 @@ export function buildRecipeCard(recipe, getLang) {
     }
 
     function updateStepHighlight() {
+        var bodyHidden = timerControls.querySelector('.timer-body.hidden') !== null;
         var items = stepsList.querySelectorAll('li');
         for (var i = 0; i < items.length; i++) {
             var idx = parseInt(items[i].getAttribute('data-step-index'), 10);
-            if (idx === activeStepIndex) {
+            if (!bodyHidden && idx === activeStepIndex) {
                 items[i].classList.add('kcd-step-active');
             } else {
                 items[i].classList.remove('kcd-step-active');
@@ -253,6 +255,13 @@ export function buildRecipeCard(recipe, getLang) {
             function () { toggleMode(!showTimedOnly); },
             showTimedOnly
         );
+
+        var timerHeader = timerControls.querySelector('.timer-header');
+        if (timerHeader) {
+            timerHeader.addEventListener('click', function () {
+                setTimeout(updateStepHighlight, 100);
+            });
+        }
     }
 
     function update(newLang) {
