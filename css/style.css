@@ -543,7 +543,7 @@ header .font-serif.text-kcd-gold {
 
 @media (min-width: 768px) {
     .kcd-filter-panel {
-        display: block !important;
+        display: flex !important;
     }
 }
 

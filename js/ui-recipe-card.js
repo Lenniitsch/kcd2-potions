@@ -5,7 +5,7 @@ import { TimerBar } from './ui-timer.js';
 
 var coinSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="10" ry="10"/><line x1="12" y1="2" x2="12" y2="22"/><ellipse cx="12" cy="12" rx="3" ry="10"/></svg>';
 
-var CATEGORY_ICONS = {
+export var CATEGORY_ICONS = {
     'Heiltrank': '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
     'Kampf-Buff': '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/></svg>',
     'Gift': '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>',
@@ -14,7 +14,7 @@ var CATEGORY_ICONS = {
     'DLC': '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></svg>',
 };
 
-var CATEGORY_COLORS = {
+export var CATEGORY_COLORS = {
     'Heiltrank': 'cat-healing',
     'Kampf-Buff': 'cat-combat',
     'Gift': 'cat-poison',
@@ -23,7 +23,7 @@ var CATEGORY_COLORS = {
     'DLC': 'cat-dlc',
 };
 
-var CATEGORY_BG_CLASS = {
+export var CATEGORY_BG_CLASS = {
     'cat-healing': 'bg-cat-healing/12',
     'cat-combat': 'bg-cat-combat/12',
     'cat-poison': 'bg-cat-poison/12',
@@ -32,7 +32,7 @@ var CATEGORY_BG_CLASS = {
     'cat-dlc': 'bg-cat-dlc/12',
 };
 
-var CATEGORY_TEXT_CLASS = {
+export var CATEGORY_TEXT_CLASS = {
     'cat-healing': 'text-cat-healing',
     'cat-combat': 'text-cat-combat',
     'cat-poison': 'text-cat-poison',

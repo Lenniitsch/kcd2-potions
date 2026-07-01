@@ -2,6 +2,7 @@ import { state, setState, onState } from './state.js';
 import { el } from './dom.js';
 import { getText, getCategoryLabel, CATEGORIES } from './i18n.js';
 import { getAllIngredients, getAvailableIngredients, filterRecipes } from './recipes.js';
+import { CATEGORY_ICONS, CATEGORY_COLORS, CATEGORY_BG_CLASS } from './ui-recipe-card.js';
 
 function debounce(fn, delay) {
     var timer;
@@ -78,7 +79,10 @@ export function buildFilter() {
 
     var clearBtnRow = el('div', { style: { display: 'flex', justifyContent: 'flex-end' } }, clearBtn);
 
-    filterSectionWrapper = el('div', { class: 'kcd-filter-panel bg-kcd-surface rounded-lg p-3 mb-3 flex flex-col gap-3' },
+    filterSectionWrapper = el('div', {
+        class: 'kcd-filter-panel bg-kcd-surface rounded-lg p-3 mb-3',
+        style: { display: 'flex', flexDirection: 'column', gap: '0.75rem' }
+    },
         searchWrapper,
         categoryPillsContainer,
         clearBtnRow
@@ -104,7 +108,7 @@ export function buildFilter() {
     ingredientHeader.appendChild(ingredientCountEl);
     ingredientHeader.appendChild(ingredientChevron);
 
-    ingredientSectionWrapper = el('div', { class: 'border-t border-kcd-border pt-3' }, ingredientHeader, ingredientBody);
+    ingredientSectionWrapper = el('div', { class: 'border-t border-kcd-border pt-2' }, ingredientHeader, ingredientBody);
 
     filterSectionWrapper.appendChild(ingredientSectionWrapper);
 
@@ -126,8 +130,9 @@ export function buildFilter() {
     function renderCategoryPills(f) {
         categoryPillsContainer.textContent = '';
 
+        var allSelected = f.category === 'all';
         var allPill = el('button', {
-            class: 'kcd-tag ' + (f.category === 'all' ? 'kcd-tag-selected' : 'kcd-tag-normal') + ' focus:outline-none',
+            class: 'kcd-tag ' + (allSelected ? 'kcd-tag-selected' : 'kcd-tag-normal') + ' focus:outline-none',
             onClick: function () { setState('filters', { ...state.filters, category: 'all' }); },
         }, getText('filter.categoryAll'));
         categoryPillsContainer.appendChild(allPill);
@@ -135,8 +140,15 @@ export function buildFilter() {
         var categories = Object.keys(CATEGORIES);
         categories.forEach(function (cat) {
             var isSelected = f.category === cat;
+            var catColor = CATEGORY_COLORS[cat] || 'kcd-gold';
+            var catIcon = CATEGORY_ICONS[cat] || '';
             var pill = el('button', {
-                class: 'kcd-tag ' + (isSelected ? 'kcd-tag-selected' : 'kcd-tag-normal') + ' focus:outline-none',
+                class: 'kcd-category-badge ' + CATEGORY_BG_CLASS[catColor] +
+                    (isSelected ? ' ring-1 ring-inset' : ''),
+                style: {
+                    cursor: 'pointer',
+                    opacity: isSelected || f.category === 'all' ? '1' : '0.55',
+                },
                 onClick: function () {
                     if (isSelected) {
                         setState('filters', { ...state.filters, category: 'all' });
@@ -144,7 +156,8 @@ export function buildFilter() {
                         setState('filters', { ...state.filters, category: cat });
                     }
                 },
-            }, getCategoryLabel(cat));
+            });
+            pill.innerHTML = catIcon + ' ' + getCategoryLabel(cat);
             categoryPillsContainer.appendChild(pill);
         });
     }
