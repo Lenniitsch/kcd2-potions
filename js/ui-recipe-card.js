@@ -152,8 +152,8 @@ export function buildRecipeCard(recipe, getLang) {
         },
     }, collapsedContent, bodyEl);
 
-    populateIngredients(ingredientsList, recipe, lang);
-    populateSteps(stepsList, recipe, lang, onStepTap);
+    populateIngredients(ingredientsList, recipe);
+    populateSteps(stepsList, recipe, onStepTap);
 
     function toggleMode(timed) {
         showTimedOnly = timed;
@@ -271,11 +271,11 @@ export function buildRecipeCard(recipe, getLang) {
         effectEl.textContent = getEffect(recipe.id) || '';
 
         while (ingredientsList.firstChild) ingredientsList.removeChild(ingredientsList.firstChild);
-        populateIngredients(ingredientsList, recipe, lang);
+        populateIngredients(ingredientsList, recipe);
         ingredientsTitle.textContent = getText('card.ingredients');
 
         while (stepsList.firstChild) stepsList.removeChild(stepsList.firstChild);
-        populateSteps(stepsList, recipe, lang, onStepTap);
+        populateSteps(stepsList, recipe, onStepTap);
         stepsTitle.textContent = getText('card.steps');
 
         updateStepHighlight();
@@ -302,7 +302,7 @@ export function buildRecipeCard(recipe, getLang) {
     return { root: root, update: update, setLayout: setLayout, collapse: collapse };
 }
 
-function populateIngredients(list, recipe, lang) {
+function populateIngredients(list, recipe) {
     var ings = getIngredients(recipe.id);
     for (var i = 0; i < ings.length; i++) {
         var parts = ings[i].match(/^(\d+)\s*x\s*(.+)$/);
@@ -316,7 +316,7 @@ function populateIngredients(list, recipe, lang) {
     }
 }
 
-function populateSteps(list, recipe, lang, onStepTap) {
+function populateSteps(list, recipe, onStepTap) {
     var steps = getSteps(recipe.id);
     for (var i = 0; i < steps.length; i++) {
         var step = steps[i];

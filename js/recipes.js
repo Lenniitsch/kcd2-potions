@@ -17,14 +17,14 @@ function renderStep(step) {
     var l = store.locales[store.lang].steps;
     var ing = store.locales[store.lang].ingredients;
     switch (step.type) {
-        case 'base':           return l[step.key];
-        case 'ingredient':     return step.qty + ' x ' + ing[step.key];
-        case 'grind':          return step.qty + ' x ' + ing[step.key] + ' ' + l.grind;
-        case 'boil':           return l.boil;
-        case 'boil_bellows':   return l.boil_bellows;
-        case 'distil':         return l.distil;
-        case 'pour':           return l.pour;
-        case 'cauldron_grind': return l.cauldron_grind;
+        case 'base':           return l[step.key] || step.key || '';
+        case 'ingredient':     return (step.qty || '?') + ' x ' + (ing[step.key] || step.key || '?');
+        case 'grind':          return (step.qty || '?') + ' x ' + (ing[step.key] || step.key || '?') + ' ' + (l.grind || '');
+        case 'boil':           return l.boil || '';
+        case 'boil_bellows':   return l.boil_bellows || '';
+        case 'distil':         return l.distil || '';
+        case 'pour':           return l.pour || '';
+        case 'cauldron_grind': return l.cauldron_grind || '';
         default:               return '';
     }
 }
@@ -32,15 +32,15 @@ function renderStep(step) {
 export function init(recipeUrl, localesDir) {
     return fetch(recipeUrl).then(function (r) { return r.json(); }).then(function (data) {
         store.recipes = data.recipes;
-        return Promise.all([
+        return Promise.allSettled([
             fetch(localesDir + '/de.json').then(function (r) { return r.json(); }),
             fetch(localesDir + '/it.json').then(function (r) { return r.json(); }),
             fetch(localesDir + '/en.json').then(function (r) { return r.json(); }),
         ]);
-    }).then(function (locs) {
-        store.locales.de = locs[0];
-        store.locales.it = locs[1];
-        store.locales.en = locs[2];
+    }).then(function (results) {
+        if (results[0].status === 'fulfilled') store.locales.de = results[0].value;
+        if (results[1].status === 'fulfilled') store.locales.it = results[1].value;
+        if (results[2].status === 'fulfilled') store.locales.en = results[2].value;
     });
 }
 
@@ -50,10 +50,6 @@ export function setLang(lang) {
 
 export function getAll() {
     return store.recipes;
-}
-
-export function getCategories() {
-    return ['Heiltrank', 'Kampf-Buff', 'Gift', 'Werken', 'Sonstiges', 'DLC/Quest'];
 }
 
 export function getName(recipeId) {
@@ -85,14 +81,6 @@ export function getSteps(recipeId) {
             type: step.type,
         };
     });
-}
-
-export function getBaseLiquid(recipeId) {
-    var recipe = findRecipe(recipeId);
-    if (!recipe || !recipe.steps || recipe.steps.length === 0) return '';
-    var first = recipe.steps[0];
-    if (first.type === 'base') return store.locales[store.lang].steps[first.key];
-    return renderStep(first);
 }
 
 export function getAllIngredients(recipes) {
