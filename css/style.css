@@ -295,14 +295,14 @@ select:focus-visible {
     margin-top: 0;
 }
 
-.kcd-card-list .kcd-card-body-content {
+.kcd-card-list .kcd-card-body-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
 }
 
 @media (max-width: 639px) {
-    .kcd-card-list .kcd-card-body-content {
+    .kcd-card-list .kcd-card-body-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
     }
@@ -581,19 +581,32 @@ header .font-serif.text-kcd-gold {
     letter-spacing: 0.04em;
 }
 
-.timer-mode-switch {
-    font-size: 0.6875rem;
-    color: var(--kcd-text-secondary);
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 0.25rem 0.5rem;
+/* Mode toggle — segmented */
+.timer-mode-segment {
+    display: inline-flex;
     border-radius: 0.25rem;
-    transition: color 0.15s;
+    overflow: hidden;
+    border: 1px solid var(--kcd-border);
 }
-
-.timer-mode-switch:hover {
+.timer-mode-seg-btn {
+    padding: 0.125rem 0.5rem;
+    font-size: 0.6875rem;
+    border: none;
+    background: transparent;
+    color: var(--kcd-text-muted);
+    cursor: pointer;
+    min-width: auto;
+    transition: background-color 0.15s, color 0.15s;
+}
+.timer-mode-seg-btn.active {
+    background: color-mix(in srgb, var(--kcd-gold) 18%, transparent);
     color: var(--kcd-gold);
+}
+.timer-mode-seg-btn:first-child {
+    border-right: 1px solid var(--kcd-border);
+}
+.timer-mode-seg-btn:hover:not(.active) {
+    color: var(--kcd-text);
 }
 
 /* Row 2: step label + countdown + progress */
@@ -607,9 +620,7 @@ header .font-serif.text-kcd-gold {
 .timer-bar-step-label {
     font-size: 0.8125rem;
     color: var(--kcd-text-secondary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
     flex: 1;
     min-width: 0;
 }
@@ -631,7 +642,7 @@ header .font-serif.text-kcd-gold {
 
 .timer-bar-progress-track {
     height: 5px;
-    background: var(--kcd-bg);
+    background: var(--kcd-surface);
     border-radius: 999px;
     overflow: hidden;
 }
@@ -703,14 +714,12 @@ header .font-serif.text-kcd-gold {
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.15s, color 0.15s, transform 0.1s, opacity 0.15s;
-    border: 1px solid transparent;
-    background: var(--kcd-gold);
-    color: var(--kcd-bg);
-    border-color: var(--kcd-gold);
+    border: 1px solid var(--kcd-gold);
+    background: transparent;
+    color: var(--kcd-gold);
 }
-
 .timer-action-primary:hover:not(:disabled) {
-    background: var(--kcd-gold-hover);
+    background: var(--kcd-hover);
 }
 
 .timer-action-primary:active:not(:disabled) {
@@ -725,14 +734,13 @@ header .font-serif.text-kcd-gold {
     border-color: transparent;
 }
 
-.timer-action-primary--pause {
-    background: #c99a38;
+.timer-action-primary--running {
+    background: var(--kcd-gold);
     color: var(--kcd-bg);
-    border-color: #c99a38;
+    border-color: var(--kcd-gold);
 }
-
-.timer-action-primary--pause:hover:not(:disabled) {
-    background: #d4a848;
+.timer-action-primary--running:hover:not(:disabled) {
+    background: var(--kcd-gold-hover);
 }
 
 .timer-action-reset {

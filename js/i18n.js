@@ -271,6 +271,21 @@ const UI = {
         it: 'Nessun passo a tempo',
         en: 'No timed steps',
     },
+    'timer.stepXofY': {
+        de: 'Schritt {0} von {1}',
+        it: 'Passo {0} di {1}',
+        en: 'Step {0} of {1}',
+    },
+    'timer.modeTimed': {
+        de: 'Timed',
+        it: 'Timed',
+        en: 'Timed',
+    },
+    'timer.modeAll': {
+        de: 'Alle',
+        it: 'Tutti',
+        en: 'All',
+    },
 };
 
 export const CATEGORIES = {

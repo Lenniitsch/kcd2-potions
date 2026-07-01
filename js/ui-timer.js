@@ -91,6 +91,9 @@ Timer.prototype.destroy = function () {
 
 var prevSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>';
 var nextSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>';
+var playSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+var pauseSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+var resetSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>';
 
 function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepIndex, getActiveStepIndices, getTotalSteps, onPrevStep, onNextStep, onToggleMode, showTimedOnly) {
     var timer = null;
@@ -98,12 +101,18 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
     var pulseTimeout = null;
 
     var progressLabelEl = el('span', { class: 'timer-progress-label' });
-    var modeSwitchEl = el('button', {
-        class: 'timer-mode-switch',
+
+    var timedSegBtn = el('button', {
+        class: 'timer-mode-seg-btn active',
         onClick: function (e) { e.stopPropagation(); onToggleMode(); }
     });
+    var allSegBtn = el('button', {
+        class: 'timer-mode-seg-btn',
+        onClick: function (e) { e.stopPropagation(); onToggleMode(); }
+    });
+    var modeSegment = el('div', { class: 'timer-mode-segment' }, timedSegBtn, allSegBtn);
 
-    var progressRow = el('div', { class: 'timer-progress-row' }, progressLabelEl, modeSwitchEl);
+    var progressRow = el('div', { class: 'timer-progress-row' }, progressLabelEl, modeSegment);
 
     var stepLabelEl = el('span', { class: 'timer-bar-step-label' });
     var countdownEl = el('span', { class: 'timer-countdown' });
@@ -141,7 +150,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
     container.appendChild(barEl);
     barEl.addEventListener('pointerdown', function (e) { e.stopPropagation(); });
 
-    updateModeSwitch();
+    updateModeSegment();
     showReadyState();
 
     var globalUnsub = onState('activeTimer', function (value) {
@@ -155,8 +164,16 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         }
     });
 
-    function updateModeSwitch() {
-        modeSwitchEl.textContent = (showTimedOnly ? 'Timed' : 'All') + ' \u25BE';
+    function updateModeSegment() {
+        timedSegBtn.textContent = getText('timer.modeTimed');
+        allSegBtn.textContent = getText('timer.modeAll');
+        if (showTimedOnly) {
+            timedSegBtn.classList.add('active');
+            allSegBtn.classList.remove('active');
+        } else {
+            allSegBtn.classList.add('active');
+            timedSegBtn.classList.remove('active');
+        }
     }
 
     function updateProgressLabel() {
@@ -165,7 +182,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         var pos = indices.indexOf(idx);
         var x = pos >= 0 ? pos + 1 : 0;
         var y = indices.length;
-        progressLabelEl.textContent = 'Step ' + x + ' of ' + y;
+        progressLabelEl.textContent = getText('timer.stepXofY').replace('{0}', x).replace('{1}', y);
     }
 
     function updateNavButtons() {
@@ -271,40 +288,40 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         if (isTimed) {
             countdownEl.textContent = step.duration + 's';
             countdownEl.classList.remove('timer-countdown--disabled');
-            primaryBtn.textContent = '\u25B6 ' + getText('timer.start') + ' (' + step.duration + 's)';
+            primaryBtn.innerHTML = playSvg + ' ' + getText('timer.start');
             primaryBtn.disabled = false;
-            resetBtn.textContent = '\u21BA ' + getText('timer.reset');
+            resetBtn.innerHTML = resetSvg + ' ' + getText('timer.reset');
             resetBtn.disabled = false;
         } else {
             countdownEl.textContent = '\u2014';
             countdownEl.classList.add('timer-countdown--disabled');
-            primaryBtn.textContent = '\u25B6 ' + getText('timer.start');
+            primaryBtn.innerHTML = playSvg + ' ' + getText('timer.start');
             primaryBtn.disabled = true;
-            resetBtn.textContent = '\u21BA ' + getText('timer.reset');
+            resetBtn.innerHTML = resetSvg + ' ' + getText('timer.reset');
             resetBtn.disabled = true;
         }
 
-        primaryBtn.classList.remove('timer-action-primary--pause');
+        primaryBtn.classList.remove('timer-action-primary--running');
         updateNavButtons();
         updateProgressLabel();
     }
 
     function showRunningState() {
         progressTrack.style.display = '';
-        primaryBtn.textContent = '\u23F8 ' + getText('timer.pause');
-        primaryBtn.classList.add('timer-action-primary--pause');
+        primaryBtn.innerHTML = pauseSvg + ' ' + getText('timer.pause');
+        primaryBtn.classList.add('timer-action-primary--running');
         primaryBtn.disabled = false;
-        resetBtn.textContent = '\u21BA ' + getText('timer.reset');
+        resetBtn.innerHTML = resetSvg + ' ' + getText('timer.reset');
         resetBtn.disabled = false;
         updateNavButtons();
         updateProgressLabel();
     }
 
     function showPausedState() {
-        primaryBtn.textContent = '\u25B6 ' + getText('timer.resume');
-        primaryBtn.classList.remove('timer-action-primary--pause');
+        primaryBtn.innerHTML = playSvg + ' ' + getText('timer.resume');
+        primaryBtn.classList.remove('timer-action-primary--running');
         primaryBtn.disabled = false;
-        resetBtn.textContent = '\u21BA ' + getText('timer.reset');
+        resetBtn.innerHTML = resetSvg + ' ' + getText('timer.reset');
         resetBtn.disabled = false;
         updateNavButtons();
         updateProgressLabel();
@@ -320,7 +337,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
     var api = {
         setMode: function (timed) {
             showTimedOnly = timed;
-            updateModeSwitch();
+            updateModeSegment();
             updateProgressLabel();
         },
         setStep: function (idx) {
