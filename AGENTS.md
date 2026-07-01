@@ -84,6 +84,23 @@ TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStep,
 ```
 Default collapsed (body has `hidden` class). Header click toggles body without affecting running timer. Step highlight only appears when body is visible.
 
+## Available MCP Servers
+
+When working on this project, two MCP servers are available to help:
+
+### Chrome DevTools MCP (`chrome-devtools_*`)
+- Inspect the running app at `http://127.0.0.1:8083/`
+- Take snapshots of the DOM (a11y tree)
+- Evaluate JavaScript against the page
+- Check console messages for errors
+- Click elements, navigate, take screenshots
+
+### Tailwind CSS v4 Docs (`tailwindcss-docs_*`)
+- Search Tailwind v4 documentation for utility classes
+- List available utilities by category
+- Fetch and index docs for reference
+- **Note**: This project uses precompiled Tailwind v4 (`css/tailwind.css`). Not all utilities may be included in the build. If a Tailwind class doesn't work, use `css/style.css` classes or inline styles as fallback.
+
 ## Code Style
 
 - **`var` not `let`/`const`** in module-level code and function scopes
