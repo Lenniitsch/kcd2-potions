@@ -14,21 +14,21 @@
     --kcd-accent-hover: #e68438;
 
     --kcd-text: rgba(241, 236, 218, 0.90);
-    --kcd-text-secondary: rgba(241, 236, 218, 0.48);
-    --kcd-text-muted: rgba(241, 236, 218, 0.30);
+    --kcd-text-secondary: rgba(241, 236, 218, 0.55);
+    --kcd-text-muted: rgba(241, 236, 218, 0.55);
     --kcd-text-disabled: rgba(241, 236, 218, 0.16);
     --kcd-ring: var(--kcd-gold);
 
     --cat-healing: #5cb878;
     --cat-healing-bg: rgba(92, 184, 120, 0.10);
-    --cat-combat: #d45a4a;
-    --cat-combat-bg: rgba(212, 90, 74, 0.10);
-    --cat-poison: #a067c9;
-    --cat-poison-bg: rgba(160, 103, 201, 0.10);
-    --cat-crafting: #c49a6c;
-    --cat-crafting-bg: rgba(196, 154, 108, 0.10);
-    --cat-utility: #5b9ecf;
-    --cat-utility-bg: rgba(91, 158, 207, 0.10);
+    --cat-combat: #e87868;
+    --cat-combat-bg: rgba(232, 120, 104, 0.10);
+    --cat-poison: #c090e0;
+    --cat-poison-bg: rgba(192, 144, 224, 0.10);
+    --cat-crafting: #d4a870;
+    --cat-crafting-bg: rgba(212, 168, 112, 0.10);
+    --cat-utility: #6aa8d8;
+    --cat-utility-bg: rgba(106, 168, 216, 0.10);
     --cat-dlc: #d4a03c;
     --cat-dlc-bg: rgba(212, 160, 60, 0.10);
 
@@ -152,6 +152,8 @@ body::before {
 #app {
     position: relative;
     z-index: 1;
+    min-height: 400px;
+    contain: layout style;
 }
 
 /* ---- Scrollbar ---- */

@@ -75,8 +75,7 @@ export function buildHeader() {
     var subtitleSpan = el('span', { class: 'text-sm text-kcd-text-secondary sm:text-base' }, getText('app.subtitle'));
 
     var titleRow = el('div', { class: 'flex items-center gap-3' },
-        titleSpan,
-        el('span', { class: 'kcd-title-ornament kcd-title-ornament-right hidden md:block' })
+        titleSpan
     );
 
     var logo = el('div', { class: 'py-0.5' }, titleRow, subtitleSpan);

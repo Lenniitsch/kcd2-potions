@@ -143,7 +143,6 @@ export function buildFilter() {
                     background: 'var(--kcd-hover)',
                     color: 'var(--' + catColor + ')',
                     borderColor: 'transparent',
-                    opacity: '0.65',
                 },
                 onClick: function () {
                     if (isSelected) {

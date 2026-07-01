@@ -33,6 +33,7 @@ export function buildRecipeList(outerContainer) {
 
     var sortSelect = el('select', {
         class: 'bg-kcd-surface border border-kcd-border rounded-lg pl-2 pr-6 py-1 text-xs text-kcd-text-secondary focus:outline-none appearance-none',
+        'aria-label': getText('filter.sortLabel'),
         onChange: function (e) {
             setState('filters', { ...state.filters, sort: e.target.value });
         },
