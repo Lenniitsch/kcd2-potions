@@ -65,6 +65,7 @@ export function buildRecipeCard(recipe, getLang) {
     var expanded = false;
     var activeStepIndex = -1;
     var timerBarInstance = null;
+    var timerBodyOpen = false;
     var showTimedOnly = state.settings.timedStepsOnly;
     var catColor = CATEGORY_COLORS[recipe.category] || 'kcd-gold';
 
@@ -275,8 +276,14 @@ export function buildRecipeCard(recipe, getLang) {
         var timerHeader = timerControls.querySelector('.timer-header');
         if (timerHeader) {
             timerHeader.addEventListener('click', function () {
+                timerBodyOpen = !timerBodyOpen;
                 setTimeout(updateStepHighlight, 100);
             });
+        }
+
+        if (timerBodyOpen) {
+            var th = timerControls.querySelector('.timer-header');
+            if (th) th.click();
         }
     }
 
