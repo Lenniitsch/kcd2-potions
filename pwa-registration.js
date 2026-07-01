@@ -55,7 +55,6 @@ if ('serviceWorker' in navigator) {
 }
 
 window.addEventListener('beforeinstallprompt', function (e) {
-    e.preventDefault();
     deferredPrompt = e;
 
     var installBtn = document.getElementById('pwa-install-btn');
