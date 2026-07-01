@@ -1,4 +1,4 @@
-var CACHE_NAME = 'kcd2-v13';
+var CACHE_NAME = 'kcd2-v14';
 
 var PRECACHE_URLS = [
     './',

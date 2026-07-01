@@ -108,6 +108,8 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
     var lang = getLang();
     var cachedSteps = getSteps(recipe.id);
     var timerFinished = false;
+    var autoModeActive = false;
+    var autoAdvanceTimeout = null;
 
     var progressLabelEl = el('span', { class: 'timer-progress-label' });
 
@@ -268,6 +270,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
 
     function handleStart() {
         timerFinished = false;
+        if (autoAdvance) autoModeActive = true;
         var idx = getActiveStepIndex();
         if (idx < 0) return;
         if (!cachedSteps[idx] || !(cachedSteps[idx].duration > 0)) return;
@@ -292,6 +295,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         timer.pause();
         updateTickDisplay(timer.pausedRemaining);
         showPausedState();
+        clearAutoTimeout();
     }
 
     function handleResume() {
@@ -305,6 +309,8 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         timer.destroy();
         timer = null;
         setState('activeTimer', null);
+        autoModeActive = false;
+        clearAutoTimeout();
         showReadyState();
     }
 
@@ -317,15 +323,44 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         var pos = indices.indexOf(idx);
         var hasNext = pos >= 0 && pos < indices.length - 1;
 
+        if (autoModeActive && hasNext) {
+            advanceToNext();
+            return;
+        }
         if (autoAdvance && hasNext) {
             onNextStep();
+            return;
+        }
+        timerFinished = true;
+        autoModeActive = false;
+        if (hasNext) {
+            showNextStepState();
         } else {
-            timerFinished = true;
-            if (hasNext) {
-                showNextStepState();
-            } else {
-                showReadyState();
-            }
+            showReadyState();
+        }
+    }
+
+    function advanceToNext() {
+        onNextStep();
+        var step = cachedSteps[getActiveStepIndex()];
+        if (step && step.duration > 0) {
+            handleStart();
+        } else {
+            showReadyState();
+            autoAdvanceTimeout = setTimeout(function () {
+                autoAdvanceTimeout = null;
+                if (!autoModeActive) return;
+                var indices = getActiveStepIndices();
+                var idx = getActiveStepIndex();
+                var pos = indices.indexOf(idx);
+                var hasNext = pos >= 0 && pos < indices.length - 1;
+                if (hasNext) {
+                    advanceToNext();
+                } else {
+                    autoModeActive = false;
+                    showReadyState();
+                }
+            }, state.settings.autoAdvanceDelay);
         }
     }
 
@@ -456,6 +491,13 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         return Math.floor(totalSeconds) + 's';
     }
 
+    function clearAutoTimeout() {
+        if (autoAdvanceTimeout) {
+            clearTimeout(autoAdvanceTimeout);
+            autoAdvanceTimeout = null;
+        }
+    }
+
     function setupMediaSession() {
         if (!('mediaSession' in navigator)) return;
         var recipeName = getName(recipe.id);
@@ -549,6 +591,8 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
                 setState('activeTimer', null);
             }
             timerFinished = false;
+            autoModeActive = false;
+            clearAutoTimeout();
             showReadyState();
         },
         updateLanguage: function (newLang) {
@@ -580,6 +624,8 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         },
         destroy: function () {
             clearMediaSession();
+            autoModeActive = false;
+            clearAutoTimeout();
             if (timer) {
                 timer.destroy();
                 timer = null;

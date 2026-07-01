@@ -153,6 +153,11 @@ function restoreSavedState() {
     stored = localStorage.getItem('kcd2-timedStepsOnly');
     if (stored === 'true') settings.timedStepsOnly = true;
     else if (stored === 'false') settings.timedStepsOnly = false;
+    stored = localStorage.getItem('kcd2-autoAdvanceDelay');
+    if (stored && /^\d+$/.test(stored)) {
+        var val = parseInt(stored, 10);
+        if (val >= 0 && val <= 5000) settings.autoAdvanceDelay = val;
+    }
     setState('settings', settings);
     } catch (e) {}
 }

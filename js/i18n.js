@@ -371,6 +371,21 @@ const UI = {
         it: 'Mostra solo passi con durata all\'apertura di una ricetta.',
         en: 'Show only steps with a duration when opening a recipe.',
     },
+    'settings.autoAdvanceDelay': {
+        de: 'Pausenlänge (ms)',
+        it: 'Durata pausa (ms)',
+        en: 'Pause length (ms)',
+    },
+    'settings.autoAdvanceDelayDesc': {
+        de: 'Dauer in Millisekunden, die nicht-zeitgesteuerte Schritte im Auto-Modus gezeigt werden.',
+        it: 'Durata in millisecondi per cui i passi non a tempo vengono mostrati in modalità automatica.',
+        en: 'How long non-timed steps are shown during auto-brew, in milliseconds.',
+    },
+    'settings.autoAdvanceDelayReset': {
+        de: 'Zurücksetzen',
+        it: 'Ripristina',
+        en: 'Reset',
+    },
 };
 
 export const CATEGORIES = {

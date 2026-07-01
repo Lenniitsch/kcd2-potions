@@ -49,6 +49,52 @@ var gearBtnClass = 'p-2 rounded text-kcd-muted hover:text-kcd-gold hover:bg-kcd-
 function buildSettings() {
     var mediaControlsRow = SettingsToggleRow('settings.mediaControls', 'settings.mediaControlsDesc', 'mediaControls');
     var autoAdvanceRow = SettingsToggleRow('settings.autoAdvance', 'settings.autoAdvanceDesc', 'autoAdvance');
+
+    // ---- Delay input row ----
+    var delayInput = el('input', {
+        type: 'number',
+        class: 'settings-delay-input',
+        min: '0',
+        max: '5000',
+        step: '50',
+        value: String(state.settings.autoAdvanceDelay),
+        onInput: function () {
+            var val = parseInt(delayInput.value, 10);
+            if (isNaN(val) || val < 0) return;
+            if (val > 5000) delayInput.value = '5000';
+        },
+        onBlur: function () { saveDelay(); },
+        onKeydown: function (e) { if (e.key === 'Enter') { saveDelay(); delayInput.blur(); } },
+    });
+
+    function saveDelay() {
+        var val = parseInt(delayInput.value, 10);
+        if (isNaN(val) || val < 0) val = 300;
+        if (val > 5000) val = 5000;
+        delayInput.value = String(val);
+        toggleSettingsKey('autoAdvanceDelay', val);
+    }
+
+    var delayResetBtn = el('button', {
+        class: 'settings-delay-reset-btn',
+        onClick: function () {
+            delayInput.value = '300';
+            toggleSettingsKey('autoAdvanceDelay', 300);
+        },
+    }, getText('settings.autoAdvanceDelayReset'));
+
+    var delayLabel = el('span', { class: 'settings-option-label' }, getText('settings.autoAdvanceDelay'));
+    var delayDesc = el('span', { class: 'settings-option-desc' }, getText('settings.autoAdvanceDelayDesc'));
+    var delayInputRow = el('div', { class: 'settings-delay-input-row' }, delayInput, delayResetBtn);
+
+    function updateDelay(val) {
+        delayInput.value = String(val);
+    }
+
+    var delayOption = el('div', { class: 'settings-option' },
+        delayLabel, delayInputRow, delayDesc
+    );
+
     var timedStepsRow = SettingsToggleRow('settings.timedStepsOnly', 'settings.timedStepsOnlyDesc', 'timedStepsOnly');
 
     // ---- Theme row ----
@@ -86,6 +132,7 @@ function buildSettings() {
         titleEl,
         mediaControlsRow.root,
         autoAdvanceRow.root,
+        delayOption,
         timedStepsRow.root,
         el('div', { class: 'settings-separator' }),
         themeOption
@@ -155,6 +202,7 @@ function buildSettings() {
     onState('settings', function (settings) {
         mediaControlsRow.update(settings.mediaControls);
         autoAdvanceRow.update(settings.autoAdvance);
+        updateDelay(settings.autoAdvanceDelay);
         timedStepsRow.update(settings.timedStepsOnly);
     });
 
@@ -166,6 +214,9 @@ function buildSettings() {
         mediaControlsRow.root.querySelector('.settings-option-desc').textContent = getText('settings.mediaControlsDesc');
         autoAdvanceRow.root.querySelector('.settings-option-label').textContent = getText('settings.autoAdvance');
         autoAdvanceRow.root.querySelector('.settings-option-desc').textContent = getText('settings.autoAdvanceDesc');
+        delayLabel.textContent = getText('settings.autoAdvanceDelay');
+        delayDesc.textContent = getText('settings.autoAdvanceDelayDesc');
+        delayResetBtn.textContent = getText('settings.autoAdvanceDelayReset');
         timedStepsRow.root.querySelector('.settings-option-label').textContent = getText('settings.timedStepsOnly');
         timedStepsRow.root.querySelector('.settings-option-desc').textContent = getText('settings.timedStepsOnlyDesc');
         themeLabel.textContent = getText('settings.theme');
