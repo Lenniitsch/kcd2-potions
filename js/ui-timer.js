@@ -99,7 +99,6 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
     var timer = null;
     var lang = getLang();
     var pulseTimeout = null;
-    var barAnimInterval = null;
 
     var progressLabelEl = el('span', { class: 'timer-progress-label' });
 
@@ -180,8 +179,10 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
     function updateProgressLabel() {
         var indices = getActiveStepIndices();
         var idx = getActiveStepIndex();
+        if (idx < 0 || indices.length === 0) return;
         var pos = indices.indexOf(idx);
-        var x = pos >= 0 ? pos + 1 : 0;
+        if (pos < 0) return;
+        var x = pos + 1;
         var y = indices.length;
         progressLabelEl.textContent = getText('timer.stepXofY').replace('{0}', x).replace('{1}', y);
     }
@@ -229,7 +230,6 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         timer.start();
         setState('activeTimer', { recipeId: recipe.id, stepIndex: idx });
         showRunningState();
-        startBarAnimation(idx, dur);
     }
 
     function handlePause() {
@@ -237,14 +237,12 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         timer.pause();
         updateTickDisplay(timer.pausedRemaining);
         showPausedState();
-        stopBarAnimation();
     }
 
     function handleResume() {
         if (!timer) return;
         timer.resume();
         showRunningState();
-        startBarAnimation(timer.stepIndex, timer.duration);
     }
 
     function handleReset() {
@@ -252,7 +250,6 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         timer.destroy();
         timer = null;
         setState('activeTimer', null);
-        stopBarAnimation();
         showReadyState();
     }
 
@@ -264,25 +261,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         }, 1800);
         timer = null;
         setState('activeTimer', null);
-        stopBarAnimation();
         showReadyState();
-    }
-
-    function startBarAnimation(stepIdx, totalDur) {
-        stopBarAnimation();
-        var startTime = Date.now();
-        barAnimInterval = setInterval(function () {
-            var elapsed = (Date.now() - startTime) / 1000;
-            var pct = Math.min(100, (elapsed / totalDur) * 100);
-            progressFill.style.width = Math.max(0, pct) + '%';
-        }, 100);
-    }
-
-    function stopBarAnimation() {
-        if (barAnimInterval) {
-            clearInterval(barAnimInterval);
-            barAnimInterval = null;
-        }
     }
 
     function updateTickDisplay(remaining) {
@@ -294,7 +273,15 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         stepLabelEl.textContent = step.description;
         countdownEl.textContent = formatTime(remaining);
         countdownEl.classList.remove('timer-countdown--disabled');
-        var pct = ((steps[idx].duration - remaining) / steps[idx].duration) * 100;
+        var pct;
+        if (timer && timer.running) {
+            var elapsedMs = Date.now() - timer.startedAt;
+            pct = (elapsedMs / (timer.duration * 1000)) * 100;
+        } else if (timer && timer.pausedRemaining !== null) {
+            pct = ((steps[idx].duration - timer.pausedRemaining) / steps[idx].duration) * 100;
+        } else {
+            pct = ((steps[idx].duration - remaining) / steps[idx].duration) * 100;
+        }
         progressFill.style.width = Math.min(100, Math.max(0, pct)) + '%';
     }
 
@@ -330,6 +317,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
 
     function showRunningState() {
         primaryBtn.classList.add('timer-action-primary--running');
+        primaryBtn.innerHTML = pauseSvg + ' ' + getText('timer.pause');
         primaryBtn.disabled = false;
         resetBtn.innerHTML = resetSvg + ' ' + getText('timer.reset');
         resetBtn.disabled = false;
@@ -370,11 +358,11 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         },
         updateLanguage: function (newLang) {
             lang = newLang;
-            if (!timer || !timer.running) {
+            if (!timer) {
                 showReadyState();
             } else if (timer.running) {
                 showRunningState();
-            } else if (timer.pausedRemaining !== null) {
+            } else {
                 showPausedState();
             }
         },
@@ -384,7 +372,6 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
                 timer = null;
             }
             if (pulseTimeout) clearTimeout(pulseTimeout);
-            stopBarAnimation();
             globalUnsub();
             if (barEl.parentNode) barEl.parentNode.removeChild(barEl);
         }
