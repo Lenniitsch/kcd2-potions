@@ -57,12 +57,12 @@ export function buildFilter() {
     });
     searchClearBtn.innerHTML = closeIcon;
 
-    var searchWrapper = el('div', { class: 'relative mb-2' }, searchInput, searchClearBtn);
+    var searchWrapper = el('div', { class: 'relative' }, searchInput, searchClearBtn);
 
-    categoryPillsContainer = el('div', { class: 'flex flex-wrap gap-2 mt-2' });
+    categoryPillsContainer = el('div', { class: 'flex flex-wrap gap-2' });
 
     clearBtn = el('button', {
-        class: 'mt-2 px-2.5 py-1 rounded text-xs font-medium text-kcd-text-muted hover:text-red-400 hover:bg-red-400/10 transition-colors focus:outline-none self-end',
+        class: 'px-2.5 py-1 rounded text-xs font-medium text-kcd-text-muted hover:text-red-400 hover:bg-red-400/10 transition-colors focus:outline-none',
         onClick: function (e) {
             e.stopPropagation();
             setState('filters', {
@@ -76,10 +76,12 @@ export function buildFilter() {
         },
     });
 
-    filterSectionWrapper = el('div', { class: 'kcd-filter-panel bg-kcd-surface rounded-lg p-3 mb-3 flex flex-col' },
+    var clearBtnRow = el('div', { style: { display: 'flex', justifyContent: 'flex-end' } }, clearBtn);
+
+    filterSectionWrapper = el('div', { class: 'kcd-filter-panel bg-kcd-surface rounded-lg p-3 mb-3 flex flex-col gap-3' },
         searchWrapper,
         categoryPillsContainer,
-        clearBtn
+        clearBtnRow
     );
 
     ingredientContainer = el('div', { class: 'flex flex-wrap gap-2' });
@@ -102,7 +104,7 @@ export function buildFilter() {
     ingredientHeader.appendChild(ingredientCountEl);
     ingredientHeader.appendChild(ingredientChevron);
 
-    ingredientSectionWrapper = el('div', { class: 'mt-3' }, ingredientHeader, ingredientBody);
+    ingredientSectionWrapper = el('div', { class: 'border-t border-kcd-border pt-3' }, ingredientHeader, ingredientBody);
 
     filterSectionWrapper.appendChild(ingredientSectionWrapper);
 
