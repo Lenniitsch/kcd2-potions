@@ -254,7 +254,7 @@ export function buildRecipeCard(recipe, getLang) {
             function () { navigateStep(1); },
             function () { toggleMode(!showTimedOnly); },
             showTimedOnly,
-            true
+            false
         );
 
         var timerHeader = timerControls.querySelector('.timer-header');

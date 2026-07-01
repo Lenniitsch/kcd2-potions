@@ -107,6 +107,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
     var timer = null;
     var lang = getLang();
     var cachedSteps = getSteps(recipe.id);
+    var timerFinished = false;
 
     var progressLabelEl = el('span', { class: 'timer-progress-label' });
 
@@ -238,6 +239,13 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
 
         if (isLast) {
             setActiveStepIndex(0);
+            timerFinished = false;
+            return;
+        }
+
+        if (timerFinished) {
+            timerFinished = false;
+            onNextStep();
             return;
         }
 
@@ -257,6 +265,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
     }
 
     function handleStart() {
+        timerFinished = false;
         var idx = getActiveStepIndex();
         if (idx < 0) return;
         if (!cachedSteps[idx] || !(cachedSteps[idx].duration > 0)) return;
@@ -309,7 +318,12 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         if (autoAdvance && hasNext) {
             onNextStep();
         } else {
-            showReadyState();
+            timerFinished = true;
+            if (hasNext) {
+                showNextStepState();
+            } else {
+                showReadyState();
+            }
         }
     }
 
@@ -374,6 +388,24 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         updateProgressLabel();
     }
 
+    function showNextStepState() {
+        var idx = getActiveStepIndex();
+        if (idx < 0) return;
+        var step = cachedSteps[idx];
+        if (!step) return;
+        stepLabelEl.textContent = step.description;
+        countdownEl.textContent = '\u2014';
+        countdownEl.classList.add('timer-countdown--disabled');
+        progressFill.style.width = '0%';
+        primaryBtn.innerHTML = nextStepSvg + ' ' + getText('timer.nextStep');
+        primaryBtn.disabled = false;
+        resetBtn.innerHTML = resetSvg + ' ' + getText('timer.reset');
+        resetBtn.disabled = true;
+        primaryBtn.classList.remove('timer-action-primary--running');
+        updateNavButtons();
+        updateProgressLabel();
+    }
+
     function showRunningState() {
         primaryBtn.classList.add('timer-action-primary--running');
         var idx = getActiveStepIndex();
@@ -423,6 +455,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
                 timer = null;
                 setState('activeTimer', null);
             }
+            timerFinished = false;
             showReadyState();
         },
         updateLanguage: function (newLang) {
