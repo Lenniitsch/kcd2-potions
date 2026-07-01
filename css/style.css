@@ -835,22 +835,7 @@ header .font-serif.text-kcd-gold {
 
 /* Pulse animation on timer finish */
 
-@keyframes timer-pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(243, 205, 118, 0); }
-    25%, 75%  { box-shadow: 0 0 0 2px rgba(243, 205, 118, 0.5); }
-    50%      { box-shadow: 0 0 0 0 rgba(243, 205, 118, 0); }
-}
-@keyframes timer-pulse-light {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(139, 107, 54, 0); }
-    25%, 75%  { box-shadow: 0 0 0 2px rgba(139, 107, 54, 0.5); }
-    50%      { box-shadow: 0 0 0 0 rgba(139, 107, 54, 0); }
-}
-.timer-pulse {
-    animation: timer-pulse 0.6s ease-in-out 3;
-}
-[data-theme="light"] .timer-pulse {
-    animation: timer-pulse-light 0.6s ease-in-out 3;
-}
+
 
 .kcd-back-to-top {
     position: fixed;

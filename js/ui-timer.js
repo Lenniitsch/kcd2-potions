@@ -105,7 +105,6 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
     var timer = null;
     var lang = getLang();
     var cachedSteps = getSteps(recipe.id);
-    var pulseTimeout = null;
 
     var progressLabelEl = el('span', { class: 'timer-progress-label' });
 
@@ -249,9 +248,6 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
         if (!cachedSteps[idx] || !(cachedSteps[idx].duration > 0)) return;
         var dur = cachedSteps[idx].duration;
 
-        if (pulseTimeout) { clearTimeout(pulseTimeout); pulseTimeout = null; }
-        barEl.classList.remove('timer-pulse');
-
         if (timer) timer.destroy();
 
         timer = new Timer(recipe.id, idx, dur);
@@ -280,8 +276,6 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
     }
 
     function handleReset() {
-        if (pulseTimeout) { clearTimeout(pulseTimeout); pulseTimeout = null; }
-        barEl.classList.remove('timer-pulse');
         if (!timer) return;
         timer.destroy();
         timer = null;
@@ -290,14 +284,19 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
     }
 
     function handleFinish() {
-        if (pulseTimeout) clearTimeout(pulseTimeout);
-        barEl.classList.add('timer-pulse');
-        pulseTimeout = setTimeout(function () {
-            barEl.classList.remove('timer-pulse');
-        }, 1800);
         timer = null;
         setState('activeTimer', null);
-        showReadyState();
+
+        var indices = getActiveStepIndices();
+        var idx = getActiveStepIndex();
+        var pos = indices.indexOf(idx);
+        var hasNext = pos >= 0 && pos < indices.length - 1;
+
+        if (hasNext) {
+            onNextStep();
+        } else {
+            showReadyState();
+        }
     }
 
     function updateTickDisplay(remaining) {
@@ -401,8 +400,6 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
                 timer = null;
                 setState('activeTimer', null);
             }
-            if (pulseTimeout) { clearTimeout(pulseTimeout); pulseTimeout = null; }
-            barEl.classList.remove('timer-pulse');
             showReadyState();
         },
         updateLanguage: function (newLang) {
@@ -437,8 +434,6 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
                 timer.destroy();
                 timer = null;
             }
-            if (pulseTimeout) clearTimeout(pulseTimeout);
-            barEl.classList.remove('timer-pulse');
             globalUnsub();
             if (timerHeader.parentNode) timerHeader.parentNode.removeChild(timerHeader);
             if (timerBody.parentNode) timerBody.parentNode.removeChild(timerBody);
