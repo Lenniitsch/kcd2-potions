@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@theme inline {
+    --color-kcd-bg: var(--kcd-bg);
+    --color-kcd-surface: var(--kcd-surface);
+    --color-kcd-elevated: var(--kcd-elevated);
+    --color-kcd-border: var(--kcd-border);
+    --color-kcd-hover: var(--kcd-hover);
+    --color-kcd-gold: var(--kcd-gold);
+    --color-kcd-gold-hover: var(--kcd-gold-hover);
+    --color-kcd-gold-dim: var(--kcd-gold-dim);
+    --color-kcd-accent: var(--kcd-accent);
+    --color-kcd-text: var(--kcd-text);
+    --color-kcd-text-secondary: var(--kcd-text-secondary);
+    --color-kcd-muted: var(--kcd-text-muted);
+    --color-kcd-ring: var(--kcd-gold);
+    --color-cat-healing: var(--cat-healing);
+    --color-cat-combat: var(--cat-combat);
+    --color-cat-poison: var(--cat-poison);
+    --color-cat-crafting: var(--cat-crafting);
+    --color-cat-utility: var(--cat-utility);
+    --color-cat-dlc: var(--cat-dlc);
+    --font-serif: Georgia, 'Times New Roman', serif;
+}

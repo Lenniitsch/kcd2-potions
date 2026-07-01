@@ -1,0 +1,310 @@
+import { state, setState, onState } from './state.js';
+import { el } from './dom.js';
+import { getText, getCategoryLabel, getSortLabel, CATEGORIES, SORT_OPTIONS } from './i18n.js';
+import { getAllIngredients, getAvailableIngredients, filterRecipes } from './recipes.js';
+
+function debounce(fn, delay) {
+    var timer;
+    return function () {
+        var context = this;
+        var args = arguments;
+        clearTimeout(timer);
+        timer = setTimeout(function () { fn.apply(context, args); }, delay);
+    };
+}
+
+var INPUT_CLASS = 'bg-kcd-surface border border-kcd-border rounded-lg pl-3 pr-10 py-2 text-sm text-kcd-text placeholder:text-kcd-muted w-full focus:outline-none';
+var SELECT_CLASS = 'bg-kcd-surface border border-kcd-border rounded-lg pl-3 pr-10 py-2 text-sm text-kcd-text w-full focus:outline-none';
+
+var closeIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+
+var chevronDown = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+
+export function buildFilter() {
+    var filtersSectionOpen = true;
+    var ingredientsSectionOpen = true;
+    state.filters.filterExpanded = true;
+
+    var clearBtn;
+    var mobileToggleBtn;
+    var mobileToggleText;
+    var filterSectionWrapper;
+    var filterHeader;
+    var filterChevron;
+    var filterBody;
+    var searchInput;
+    var searchClearBtn;
+    var categorySelect;
+    var sortSelect;
+    var ingredientSectionWrapper;
+    var ingredientHeader;
+    var ingredientLabelText;
+    var ingredientCountEl;
+    var ingredientChevron;
+    var ingredientBody;
+    var ingredientContainer;
+
+    searchInput = el('input', {
+        type: 'text',
+        class: INPUT_CLASS,
+    });
+
+    var debouncedSearch = debounce(function (e) {
+        setState('filters', { ...state.filters, search: e.target.value });
+    }, 300);
+    searchInput.addEventListener('input', debouncedSearch);
+
+    searchClearBtn = el('button', {
+        class: 'absolute right-2 top-1/2 -translate-y-1/2 p-1 text-kcd-muted hover:text-kcd-text rounded',
+        onClick: function () {
+            searchInput.value = '';
+            setState('filters', { ...state.filters, search: '' });
+        },
+    });
+    searchClearBtn.innerHTML = closeIcon;
+
+    var searchWrapper = el('div', { class: 'relative mb-2' }, searchInput, searchClearBtn);
+
+    categorySelect = el('select', {
+        class: SELECT_CLASS + ' flex-1 min-w-0',
+        onChange: function (e) {
+            setState('filters', { ...state.filters, category: e.target.value });
+        },
+    });
+
+    sortSelect = el('select', {
+        class: SELECT_CLASS + ' flex-1 min-w-0',
+        onChange: function (e) {
+            setState('filters', { ...state.filters, sort: e.target.value });
+        },
+    });
+
+    var selectRow = el('div', { class: 'flex flex-wrap items-center gap-2 mb-2' }, categorySelect, sortSelect);
+
+    filterChevron = el('span', { class: 'ml-1 transition-transform duration-200', html: chevronDown });
+
+    clearBtn = el('button', {
+        class: 'px-2.5 py-1 rounded text-xs font-medium text-red-400 bg-red-400/10 border border-red-400/20 hover:bg-red-400/20 transition-colors focus:outline-none ml-auto',
+        onClick: function (e) {
+            e.stopPropagation();
+            setState('filters', {
+                search: '',
+                category: 'all',
+                ingredients: new Set(),
+                sort: 'name-asc',
+                layout: state.filters.layout,
+                filterExpanded: state.filters.filterExpanded,
+            });
+        },
+    });
+
+    var filterLabel = el('span', { class: 'text-xs text-kcd-muted uppercase tracking-wide kcd-section-label' }, getText('section.filters'));
+
+    filterHeader = el('button', {
+        class: 'flex items-center gap-1 w-full hover:text-kcd-text-secondary transition-colors focus:outline-none',
+        onClick: function () {
+            filtersSectionOpen = !filtersSectionOpen;
+            updateFilterUI(state.filters);
+        },
+    }, filterLabel, filterChevron, clearBtn);
+
+    filterBody = el('div', { class: 'pt-2' }, searchWrapper, selectRow);
+
+    filterSectionWrapper = el('div', { class: 'kcd-filter-panel bg-kcd-surface rounded-lg p-3 mb-3' }, filterHeader, filterBody);
+
+    ingredientContainer = el('div', { class: 'flex flex-wrap gap-2' });
+
+    ingredientBody = el('div', { class: 'pt-2' }, ingredientContainer);
+
+    ingredientChevron = el('span', { class: 'ml-1 transition-transform duration-200', html: chevronDown });
+
+    ingredientCountEl = el('span', { class: 'font-normal normal-case tracking-normal' });
+
+    ingredientHeader = el('button', {
+        class: 'flex items-center gap-1 w-full text-xs text-kcd-muted uppercase tracking-wide kcd-section-label hover:text-kcd-text-secondary transition-colors focus:outline-none',
+        onClick: function () {
+            ingredientsSectionOpen = !ingredientsSectionOpen;
+            updateFilterUI(state.filters);
+        },
+    });
+    ingredientLabelText = document.createTextNode(getText('filter.ingredientHeader'));
+    ingredientHeader.appendChild(ingredientLabelText);
+    ingredientHeader.appendChild(ingredientCountEl);
+    ingredientHeader.appendChild(ingredientChevron);
+
+    ingredientSectionWrapper = el('div', { class: 'kcd-filter-panel bg-kcd-surface rounded-lg p-3 mb-3' }, ingredientHeader, ingredientBody);
+
+    mobileToggleText = document.createTextNode('');
+
+    mobileToggleBtn = el('button', {
+        class: 'w-full px-3 py-2 rounded-lg text-sm text-kcd-text-secondary hover:text-kcd-text bg-kcd-surface transition-colors md:hidden mb-2 focus:outline-none',
+        onClick: function () {
+            setState('filters', { ...state.filters, filterExpanded: !state.filters.filterExpanded });
+        },
+    });
+    mobileToggleBtn.appendChild(mobileToggleText);
+
+    var root = el('div', { class: 'mb-4' },
+        mobileToggleBtn,
+        filterSectionWrapper,
+        ingredientSectionWrapper
+    );
+
+    function populateCategoryOptions() {
+        categorySelect.textContent = '';
+        categorySelect.appendChild(el('option', { value: 'all' }, getText('filter.categoryAll')));
+        var categories = Object.keys(CATEGORIES);
+        categories.forEach(function (cat) {
+            categorySelect.appendChild(el('option', { value: cat }, getCategoryLabel(cat)));
+        });
+    }
+
+    function populateSortOptions() {
+        sortSelect.textContent = '';
+        var sortKeys = Object.keys(SORT_OPTIONS);
+        sortKeys.forEach(function (key) {
+            sortSelect.appendChild(el('option', { value: key }, getSortLabel(key)));
+        });
+    }
+
+    function toggleIngredient(id) {
+        var newSet = new Set(state.filters.ingredients);
+        if (newSet.has(id)) {
+            newSet.delete(id);
+        } else {
+            newSet.add(id);
+        }
+        setState('filters', { ...state.filters, ingredients: newSet });
+    }
+
+    function renderIngredientTags(filters, recipes, lang) {
+        ingredientContainer.textContent = '';
+
+        if (!recipes || recipes.length === 0) return;
+
+        var allIngredients = getAllIngredients(recipes);
+        ingredientCountEl.textContent = ' (' + allIngredients.size + ')';
+
+        var hasOtherFilters = filters.search !== '' || filters.category !== 'all';
+        var hasSelectedIngredients = filters.ingredients && filters.ingredients.size > 0;
+
+        var availableIngredients;
+        if (!hasOtherFilters && !hasSelectedIngredients) {
+            availableIngredients = new Set(allIngredients.keys());
+        } else {
+            var filtersWithoutIngredients = { ...filters, ingredients: new Set() };
+            var filtered = filterRecipes(recipes, filtersWithoutIngredients);
+            availableIngredients = getAvailableIngredients(recipes, filtered);
+        }
+
+        var sortedIds = Array.from(allIngredients.keys()).sort(function (a, b) {
+            var mapA = allIngredients.get(a);
+            var mapB = allIngredients.get(b);
+            var nameA = (mapA[lang] || mapA.de || a).toLowerCase();
+            var nameB = (mapB[lang] || mapB.de || b).toLowerCase();
+            return nameA.localeCompare(nameB);
+        });
+
+        var disabledTooltip = getText('misc.ingredientDisabled');
+        var canShowTooltip = CSS.supports('selector(:has(*))');
+
+        sortedIds.forEach(function (id) {
+            var isSelected = filters.ingredients && filters.ingredients.has(id);
+            var isDisabled = !isSelected && !availableIngredients.has(id);
+
+            var tagClass;
+            if (isSelected) {
+                tagClass = 'kcd-tag kcd-tag-selected';
+            } else if (isDisabled) {
+                tagClass = 'kcd-tag kcd-tag-disabled';
+            } else {
+                tagClass = 'kcd-tag kcd-tag-normal';
+            }
+
+            var ingData = allIngredients.get(id);
+            var name = ingData[lang] || ingData.de || id;
+
+            if (isDisabled && canShowTooltip) {
+                ingredientContainer.appendChild(el('span', {
+                    class: tagClass,
+                    title: disabledTooltip,
+                    style: { position: 'relative' },
+                },
+                    el('span', { html: name }),
+                    el('span', { class: 'kcd-tooltip' }, disabledTooltip)
+                ));
+            } else if (isDisabled) {
+                ingredientContainer.appendChild(el('span', {
+                    class: tagClass,
+                    title: disabledTooltip,
+                }, name));
+            } else {
+                ingredientContainer.appendChild(el('button', {
+                    class: tagClass + ' focus:outline-none',
+                    'data-ingredient': id,
+                    onClick: function () {
+                        toggleIngredient(id);
+                    },
+                }, name));
+            }
+        });
+    }
+
+    function updateFilterUI(filters) {
+        var f = filters || state.filters;
+        var recipes = state.recipes || [];
+        var lang = state.language;
+
+        var mobileExpanded = f.filterExpanded;
+        filterSectionWrapper.classList.toggle('hidden', !mobileExpanded);
+        ingredientSectionWrapper.classList.toggle('hidden', !mobileExpanded);
+
+        mobileToggleText.textContent = f.filterExpanded ? getText('filter.collapse') : getText('filter.expand');
+
+        filterBody.classList.toggle('hidden', !filtersSectionOpen);
+        filterChevron.style.transform = filtersSectionOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+
+        ingredientBody.classList.toggle('hidden', !ingredientsSectionOpen);
+        ingredientChevron.style.transform = ingredientsSectionOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+
+        searchInput.placeholder = getText('filter.searchPlaceholder');
+        if (searchInput.value !== f.search) {
+            searchInput.value = f.search;
+        }
+        searchClearBtn.classList.toggle('hidden', !f.search);
+
+        populateCategoryOptions();
+        categorySelect.value = f.category;
+
+        populateSortOptions();
+        sortSelect.value = f.sort;
+
+        ingredientLabelText.textContent = getText('filter.ingredientHeader');
+        filterLabel.textContent = getText('section.filters');
+
+        renderIngredientTags(f, recipes, lang);
+
+        var activeCount = 0;
+        if (f.search) activeCount++;
+        if (f.category !== 'all') activeCount++;
+        if (f.ingredients && f.ingredients.size > 0) activeCount++;
+
+        if (activeCount > 0) {
+            clearBtn.classList.remove('hidden');
+        } else {
+            clearBtn.classList.add('hidden');
+        }
+
+        clearBtn.textContent = getText('filter.clearFilters');
+    }
+
+    onState('filters', updateFilterUI);
+    onState('language', function () { updateFilterUI(state.filters); });
+    onState('recipes', function () {
+        updateFilterUI(state.filters);
+    });
+
+    updateFilterUI(state.filters);
+
+    return { root: root, update: function () { updateFilterUI(state.filters); } };
+}

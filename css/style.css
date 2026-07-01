@@ -1,0 +1,716 @@
+:root {
+    --kcd-bg: #000713;
+    --kcd-surface: #0a1425;
+    --kcd-elevated: #111e35;
+    --kcd-hover: rgba(243, 205, 118, 0.07);
+    --kcd-border: rgba(243, 205, 118, 0.08);
+    --kcd-border-strong: rgba(243, 205, 118, 0.16);
+
+    --kcd-gold: #f3cd76;
+    --kcd-gold-hover: #f5d88a;
+    --kcd-gold-dim: #b8932e;
+
+    --kcd-accent: #d27329;
+    --kcd-accent-hover: #e68438;
+
+    --kcd-text: rgba(241, 236, 218, 0.90);
+    --kcd-text-secondary: rgba(241, 236, 218, 0.48);
+    --kcd-text-muted: rgba(241, 236, 218, 0.30);
+    --kcd-text-disabled: rgba(241, 236, 218, 0.16);
+    --kcd-ring: var(--kcd-gold);
+
+    --cat-healing: #5cb878;
+    --cat-healing-bg: rgba(92, 184, 120, 0.10);
+    --cat-combat: #d45a4a;
+    --cat-combat-bg: rgba(212, 90, 74, 0.10);
+    --cat-poison: #a067c9;
+    --cat-poison-bg: rgba(160, 103, 201, 0.10);
+    --cat-crafting: #c49a6c;
+    --cat-crafting-bg: rgba(196, 154, 108, 0.10);
+    --cat-utility: #5b9ecf;
+    --cat-utility-bg: rgba(91, 158, 207, 0.10);
+    --cat-dlc: #d4a03c;
+    --cat-dlc-bg: rgba(212, 160, 60, 0.10);
+
+    --step-base: #6db88a;
+    --step-base-bg: rgba(109, 184, 138, 0.10);
+    --step-ingredient: #d4a028;
+    --step-ingredient-bg: rgba(212, 160, 40, 0.10);
+    --step-cooking: #d64828;
+    --step-cooking-bg: rgba(214, 72, 40, 0.10);
+    --step-finishing: #38b878;
+    --step-finishing-bg: rgba(56, 184, 120, 0.10);
+
+    --zoomist-wrapper-bg-color: var(--kcd-elevated);
+    --zoomist-slider-bg-color: rgba(0, 7, 19, 0.8);
+    --zoomist-slider-track-color: rgba(243, 205, 118, 0.08);
+    --zoomist-slider-track-color-hover: rgba(243, 205, 118, 0.16);
+    --zoomist-slider-bar-color: var(--kcd-gold);
+    --zoomist-slider-bar-color-hover: var(--kcd-gold-hover);
+    --zoomist-slider-button-color: var(--kcd-gold);
+    --zoomist-zoomer-button-color: rgba(0, 7, 19, 0.7);
+    --zoomist-zoomer-button-color-hover: rgba(0, 7, 19, 0.85);
+    --zoomist-zoomer-button-color-disabled: rgba(0, 7, 19, 0.3);
+    --zoomist-zoomer-button-opacity-disabled: 0.5;
+    --zoomist-zoomer-icon-color: rgba(241, 236, 218, 0.85);
+    --zoomist-zoomer-icon-color-hover: var(--kcd-gold);
+    --zoomist-zoomer-icon-color-disabled: rgba(241, 236, 218, 0.25);
+}
+
+[data-theme="light"] {
+    --kcd-bg: #f1ecd8;
+    --kcd-surface: #f9f5e8;
+    --kcd-elevated: #ffffff;
+    --kcd-hover: rgba(139, 107, 54, 0.07);
+    --kcd-border: rgba(139, 107, 54, 0.10);
+    --kcd-border-strong: rgba(139, 107, 54, 0.18);
+
+    --kcd-gold: #8e7228;
+    --kcd-gold-hover: #6d5416;
+    --kcd-gold-dim: #a88838;
+
+    --kcd-accent: #a85820;
+    --kcd-accent-hover: #c06828;
+
+    --kcd-text: rgba(30, 22, 10, 0.88);
+    --kcd-text-secondary: rgba(30, 22, 10, 0.44);
+    --kcd-text-muted: rgba(30, 22, 10, 0.28);
+    --kcd-text-disabled: rgba(30, 22, 10, 0.18);
+    --kcd-ring: var(--kcd-gold);
+
+    --cat-healing: #3d8b5a;
+    --cat-healing-bg: rgba(61, 139, 90, 0.07);
+    --cat-combat: #b84030;
+    --cat-combat-bg: rgba(184, 64, 48, 0.07);
+    --cat-poison: #7a3fb0;
+    --cat-poison-bg: rgba(122, 63, 176, 0.07);
+    --cat-crafting: #9a6840;
+    --cat-crafting-bg: rgba(154, 104, 64, 0.07);
+    --cat-utility: #3d78a8;
+    --cat-utility-bg: rgba(61, 120, 168, 0.07);
+    --cat-dlc: #b0802a;
+    --cat-dlc-bg: rgba(176, 128, 42, 0.07);
+
+    --step-base: #3d9a5e;
+    --step-base-bg: rgba(61, 154, 94, 0.07);
+    --step-ingredient: #c88e18;
+    --step-ingredient-bg: rgba(200, 142, 24, 0.07);
+    --step-cooking: #c4381e;
+    --step-cooking-bg: rgba(196, 56, 30, 0.07);
+    --step-finishing: #1a9e54;
+    --step-finishing-bg: rgba(26, 158, 84, 0.07);
+
+    --zoomist-wrapper-bg-color: #ffffff;
+    --zoomist-slider-bg-color: rgba(241, 236, 216, 0.95);
+    --zoomist-slider-track-color: rgba(139, 107, 54, 0.06);
+    --zoomist-slider-track-color-hover: rgba(139, 107, 54, 0.12);
+    --zoomist-slider-bar-color: var(--kcd-gold);
+    --zoomist-slider-bar-color-hover: var(--kcd-gold-hover);
+    --zoomist-slider-button-color: var(--kcd-gold);
+    --zoomist-zoomer-button-color: rgba(255, 255, 255, 0.9);
+    --zoomist-zoomer-button-color-hover: rgba(139, 107, 54, 0.07);
+    --zoomist-zoomer-button-color-disabled: rgba(255, 255, 255, 0.5);
+    --zoomist-zoomer-icon-color: rgba(30, 22, 10, 0.52);
+    --zoomist-zoomer-icon-color-hover: var(--kcd-gold);
+    --zoomist-zoomer-icon-color-disabled: rgba(30, 22, 10, 0.20);
+}
+
+@font-face {
+    font-family: 'OldLondon';
+    src: url('../assets/fonts/oldlondon-webfont.woff2') format('woff2'),
+         url('../assets/fonts/oldlondon-webfont.woff') format('woff'),
+         url('../assets/fonts/oldlondon-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.07;
+    mix-blend-mode: overlay;
+    background-image: url('../assets/img/noise.png');
+    background-repeat: repeat;
+    background-size: 64px 64px;
+}
+
+[data-theme="light"] body::before {
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+}
+
+#app {
+    position: relative;
+    z-index: 1;
+}
+
+/* ---- Scrollbar ---- */
+
+html {
+    scrollbar-color: var(--kcd-border-strong) var(--kcd-surface);
+    scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--kcd-surface);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--kcd-border-strong);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--kcd-gold-dim);
+}
+
+/* ---- Focus ---- */
+
+button:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--kcd-ring);
+    border-radius: 3px;
+}
+
+input:focus-visible,
+select:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--kcd-ring);
+}
+
+/* ---- Card ---- */
+
+.kcd-card {
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    border: 1px solid var(--kcd-border);
+}
+
+.kcd-card-ornamented {
+    position: relative;
+}
+
+.kcd-card-ornamented::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 22px;
+    height: 22px;
+    border-top: 1px solid var(--kcd-gold-dim);
+    border-left: 1px solid var(--kcd-gold-dim);
+    border-radius: 4px 0 0 0;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.kcd-card-ornamented::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 12px;
+    height: 12px;
+    border-top: 1px solid var(--kcd-gold-dim);
+    border-left: 1px solid var(--kcd-gold-dim);
+    border-radius: 2px 0 0 0;
+    opacity: 0.25;
+    pointer-events: none;
+}
+
+.kcd-card:hover {
+    box-shadow: 0 2px 16px rgba(243, 205, 118, 0.06);
+    border-color: var(--kcd-border-strong);
+}
+
+.kcd-card:active {
+    transform: scale(0.995);
+}
+
+.kcd-card-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+}
+
+.kcd-card-body.expanded {
+    grid-template-rows: 1fr;
+}
+
+.kcd-card-body-inner {
+    overflow: hidden;
+}
+
+/* ---- List layout ---- */
+
+.kcd-card-list {
+    flex-direction: column;
+    padding: 0.75rem 1rem;
+}
+
+.kcd-card-list .kcd-card-header {
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.kcd-card-list .kcd-card-header > :first-child {
+    flex: 1;
+    min-width: 0;
+}
+
+.kcd-card-list .font-serif {
+    line-height: 1.25;
+}
+
+.kcd-card-list .kcd-card-body {
+    margin-top: 0.5rem;
+}
+
+.kcd-card-list .kcd-card-body.expanded .overflow-hidden > div {
+    padding-top: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.kcd-card-list .kcd-card-body.expanded .overflow-hidden > div > * {
+    margin-top: 0;
+}
+
+.kcd-card-list .kcd-card-body-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.kcd-card-list .kcd-card-body-content .timer-nav,
+.kcd-card-list .kcd-card-body-content > div:last-child {
+    grid-column: 1 / -1;
+}
+
+@media (max-width: 639px) {
+    .kcd-card-list .kcd-card-body-content {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .kcd-card-list .kcd-card-header > :first-child {
+        flex: auto;
+    }
+}
+
+/* ---- Drop cap ---- */
+
+.kcd-drop-cap {
+    font-family: 'OldLondon', Georgia, serif;
+    font-size: 155%;
+    color: var(--kcd-gold);
+}
+
+/* ---- Ornament divider ---- */
+
+.kcd-ornament-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin: 1.25rem 0;
+}
+
+.kcd-ornament-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent 0%, var(--kcd-gold-dim) 20%, var(--kcd-gold-dim) 80%, transparent 100%);
+    opacity: 0.6;
+}
+
+.kcd-ornament-diamond {
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    background: var(--kcd-gold-dim);
+    transform: rotate(45deg);
+    opacity: 0.7;
+}
+
+header .font-serif.text-kcd-gold {
+    font-family: 'OldLondon', Georgia, serif;
+}
+
+/* ---- Title ornament ---- */
+
+.kcd-title-ornament {
+    display: block;
+    width: 36px;
+    height: 1px;
+    flex-shrink: 0;
+    opacity: 0.5;
+}
+
+.kcd-title-ornament-right {
+    background: linear-gradient(to left, transparent 0%, var(--kcd-gold-dim) 100%);
+}
+
+/* ---- Step markers (diamond) ---- */
+
+.kcd-step {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    line-height: 1.35;
+}
+
+.kcd-step-num {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+    border-radius: 3px;
+    transform: rotate(45deg);
+}
+
+.kcd-step-num span {
+    transform: rotate(-45deg);
+    display: inline-block;
+}
+
+.kcd-step-base .kcd-step-num {
+    background: var(--step-base-bg);
+    color: var(--step-base);
+}
+
+.kcd-step-ingredient .kcd-step-num {
+    background: var(--step-ingredient-bg);
+    color: var(--step-ingredient);
+}
+
+.kcd-step-cooking .kcd-step-num {
+    background: var(--step-cooking-bg);
+    color: var(--step-cooking);
+}
+
+.kcd-step-finishing .kcd-step-num {
+    background: var(--step-finishing-bg);
+    color: var(--step-finishing);
+}
+
+/* ---- Tags ---- */
+
+.kcd-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    line-height: 1.25;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+}
+
+.kcd-tag-normal {
+    background: var(--kcd-hover);
+    color: var(--kcd-text-secondary);
+}
+
+.kcd-tag-normal:hover {
+    color: var(--kcd-text);
+    border-color: var(--kcd-border-strong);
+}
+
+.kcd-tag-selected {
+    background: color-mix(in srgb, var(--kcd-gold) 14%, transparent);
+    color: var(--kcd-gold);
+    border-color: var(--kcd-gold-dim);
+}
+
+.kcd-tag-selected:hover {
+    background: color-mix(in srgb, var(--kcd-gold) 22%, transparent);
+}
+
+.kcd-tag-disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+    background: var(--kcd-hover);
+    color: var(--kcd-muted);
+}
+
+/* ---- Tooltip ---- */
+
+.kcd-tooltip {
+    position: absolute;
+    bottom: calc(100% + 0.5rem);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.6875rem;
+    line-height: 1.25;
+    white-space: nowrap;
+    background: var(--kcd-elevated);
+    color: var(--kcd-text);
+    border: 1px solid var(--kcd-border);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.kcd-tag-disabled:hover .kcd-tooltip,
+.kcd-tag-disabled:focus-visible .kcd-tooltip {
+    opacity: 1;
+}
+
+/* ---- Category badge ---- */
+
+.kcd-category-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+.kcd-category-badge svg {
+    flex-shrink: 0;
+    opacity: 0.7;
+}
+
+/* ---- Spinner ---- */
+
+.kcd-spinner {
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid var(--kcd-border);
+    border-top-color: var(--kcd-gold);
+    border-radius: 50%;
+    animation: kcd-spin 0.6s linear infinite;
+}
+
+.kcd-section-label {
+}
+
+@keyframes kcd-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ---- Misc ---- */
+
+.kcd-pressed {
+    transform: scale(0.97);
+    transition: transform 0.1s ease;
+}
+
+/* ---- Zoomist ---- */
+
+.zoomist-image {
+    min-height: 300px;
+}
+
+.zoomist-container {
+    max-width: 100%;
+    max-height: 64vh;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid var(--kcd-border);
+}
+
+@media (min-width: 768px) {
+    .kcd-filter-panel {
+        display: block !important;
+    }
+}
+
+/* ---- Timer bar ---- */
+
+.timer-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border: 1px solid var(--kcd-border);
+    border-radius: 0.5rem;
+    background: var(--kcd-surface);
+}
+
+.timer-bar-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.timer-bar-step-label {
+    font-size: 0.875rem;
+    color: var(--kcd-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+    min-width: 0;
+}
+
+.timer-bar-time {
+    font-family: 'Georgia', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--kcd-gold);
+    font-variant-numeric: tabular-nums;
+    min-width: 4ch;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.timer-bar-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.timer-bar-btn {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s;
+    border: 1px solid transparent;
+    flex: 1;
+}
+
+.timer-bar-btn-start {
+    background: var(--kcd-gold);
+    color: var(--kcd-bg);
+    border-color: var(--kcd-gold);
+}
+
+.timer-bar-btn-start:hover {
+    background: var(--kcd-gold-hover);
+}
+
+.timer-bar-btn-pause,
+.timer-bar-btn-resume {
+    background: var(--kcd-accent);
+    color: white;
+    border-color: var(--kcd-accent);
+}
+
+.timer-bar-btn-pause:hover,
+.timer-bar-btn-resume:hover {
+    background: var(--kcd-accent-hover);
+}
+
+.timer-bar-btn-reset {
+    background: transparent;
+    color: var(--kcd-text-secondary);
+    border-color: var(--kcd-border);
+}
+
+.timer-bar-btn-reset:hover {
+    background: var(--kcd-hover);
+    color: var(--kcd-text);
+}
+
+/* Progress bar */
+
+.timer-bar-progress-track {
+    height: 3px;
+    background: var(--kcd-border);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.timer-bar-progress-fill {
+    height: 100%;
+    background: var(--kcd-gold);
+    border-radius: 999px;
+    width: 0%;
+    transition: width 0.25s linear;
+}
+
+/* Active step highlight */
+
+.kcd-step-active {
+    border-left: 2px solid var(--kcd-gold);
+    background: linear-gradient(to right, rgba(243, 205, 118, 0.08), transparent);
+}
+
+[data-theme="light"] .kcd-step-active {
+    border-left-color: var(--kcd-gold);
+    background: linear-gradient(to right, rgba(139, 107, 54, 0.08), transparent);
+}
+
+/* Pulse animation on timer finish */
+
+@keyframes timer-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(243, 205, 118, 0); }
+    25%      { box-shadow: 0 0 0 2px rgba(243, 205, 118, 0.5); }
+    50%      { box-shadow: 0 0 0 0 rgba(243, 205, 118, 0); }
+    75%      { box-shadow: 0 0 0 2px rgba(243, 205, 118, 0.5); }
+}
+
+.timer-pulse {
+    animation: timer-pulse 0.6s ease-in-out 3;
+}
+
+/* Prev/Next nav buttons */
+
+.timer-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+}
+
+.timer-nav-btn {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.15s, opacity 0.15s;
+    background: transparent;
+    border: 1px solid var(--kcd-border);
+    color: var(--kcd-text-secondary);
+}
+
+.timer-nav-btn:hover:not(:disabled) {
+    background: var(--kcd-hover);
+    color: var(--kcd-text);
+    border-color: var(--kcd-gold-dim);
+}
+
+.timer-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
