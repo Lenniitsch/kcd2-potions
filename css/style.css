@@ -531,10 +531,57 @@ header .font-serif.text-kcd-gold {
 .timer-controls {
     background: var(--kcd-elevated);
     border-radius: 0.5rem;
-    padding: 0.75rem;
     display: flex;
     flex-direction: column;
+}
+
+.timer-header {
+    display: flex;
+    align-items: center;
     gap: 0.5rem;
+    padding: 0.625rem 0.75rem;
+    cursor: pointer;
+    user-select: none;
+    background: var(--kcd-surface);
+    border-radius: 0.5rem;
+    transition: background-color 0.15s;
+}
+
+.timer-header:hover {
+    background: var(--kcd-hover);
+}
+
+.timer-header-icon {
+    color: var(--kcd-gold);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.timer-header-label {
+    font-size: 0.8125rem;
+    color: var(--kcd-text-secondary);
+    flex: 1;
+}
+
+.timer-header-chevron {
+    color: var(--kcd-text-muted);
+    flex-shrink: 0;
+    transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.timer-header-chevron.open {
+    transform: rotate(180deg);
+}
+
+.timer-body {
+    padding: 0 0.75rem 0.75rem 0.75rem;
+}
+
+.timer-body.hidden {
+    display: none;
 }
 
 /* Timer bar */

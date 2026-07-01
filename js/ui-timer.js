@@ -96,6 +96,10 @@ var pauseSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" v
 var resetSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>';
 var nextStepSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>';
 
+var chevronDownSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+
+var brewPlaySvg = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+
 function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStepIndex, getActiveStepIndices, _getTotalSteps, onPrevStep, onNextStep, onToggleMode, showTimedOnly) {
     var timer = null;
     var lang = getLang();
@@ -142,11 +146,38 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
 
     var barEl = el('div', { class: 'timer-bar' }, progressRow, stepRow, progressTrack, actionRow);
 
-    container.appendChild(barEl);
-    barEl.addEventListener('pointerdown', function (e) { e.stopPropagation(); });
+    var headerIconEl = el('span', { class: 'timer-header-icon', html: brewPlaySvg });
+    var headerLabelEl = el('span', { class: 'timer-header-label' }, getText('timer.brewMode'));
+    var headerChevronEl = el('span', { class: 'timer-header-chevron open', html: chevronDownSvg });
+
+    var timerOpen = true;
+
+    var timerHeader = el('div', {
+        class: 'timer-header',
+        onClick: function (e) { e.stopPropagation(); toggleTimerBody(); },
+    }, headerIconEl, headerLabelEl, headerChevronEl);
+
+    var timerBody = el('div', { class: 'timer-body' }, barEl);
+
+    container.appendChild(timerHeader);
+    container.appendChild(timerBody);
+    timerBody.addEventListener('pointerdown', function (e) { e.stopPropagation(); });
 
     updateModeSegment();
     showReadyState();
+
+    function toggleTimerBody() {
+        timerOpen = !timerOpen;
+        if (timerOpen) {
+            timerBody.classList.remove('hidden');
+            headerChevronEl.classList.add('open');
+            headerLabelEl.textContent = getText('timer.brewMode');
+        } else {
+            timerBody.classList.add('hidden');
+            headerChevronEl.classList.remove('open');
+            headerLabelEl.textContent = getText('timer.brewModeOpen');
+        }
+    }
 
     var globalUnsub = onState('activeTimer', function (value) {
         if (!timer) return;
@@ -378,6 +409,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
         },
         updateLanguage: function (newLang) {
             lang = newLang;
+            headerLabelEl.textContent = timerOpen ? getText('timer.brewMode') : getText('timer.brewModeOpen');
             if (!timer) {
                 var idx = getActiveStepIndex();
                 if (idx >= 0) {
@@ -412,7 +444,8 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
             if (pulseTimeout) clearTimeout(pulseTimeout);
             barEl.classList.remove('timer-pulse');
             globalUnsub();
-            if (barEl.parentNode) barEl.parentNode.removeChild(barEl);
+            if (timerHeader.parentNode) timerHeader.parentNode.removeChild(timerHeader);
+            if (timerBody.parentNode) timerBody.parentNode.removeChild(timerBody);
         }
     };
 

@@ -9,7 +9,7 @@
       "Gift",
       "Werken",
       "Sonstiges",
-      "DLC"
+      "DLC/Quest"
     ],
     "it": [
       "Pozione Curativa",
@@ -17,7 +17,7 @@
       "Veleno",
       "Artigianato",
       "Utilità",
-      "DLC"
+      "DLC/Quest"
     ],
     "en": [
       "Healing Potion",
@@ -25,7 +25,7 @@
       "Poison",
       "Crafting",
       "Utility",
-      "DLC"
+      "DLC/Quest"
     ]
   },
   "languages": [
@@ -3783,7 +3783,7 @@
     },
     {
       "id": "alraunentrank",
-      "category": "DLC",
+      "category": "DLC/Quest",
       "name": {
         "de": "Alraunentrank",
         "it": "Decotto di mandragora",
@@ -3928,8 +3928,8 @@
       }
     },
     {
-      "id": "fiebertonikum",
-      "category": "Sonstiges",
+    "id": "fiebertonikum",
+    "category": "DLC/Quest",
       "name": {
         "de": "Fiebertonikum",
         "it": "Tonico contro la febbre",

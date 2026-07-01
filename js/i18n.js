@@ -286,6 +286,16 @@ const UI = {
         it: 'Tutti',
         en: 'All',
     },
+    'timer.brewMode': {
+        de: 'Braumodus',
+        it: 'Modalità infusione',
+        en: 'Brew mode',
+    },
+    'timer.brewModeOpen': {
+        de: 'Braumodus öffnen',
+        it: 'Apri modalità infusione',
+        en: 'Open brew mode',
+    },
 };
 
 export const CATEGORIES = {
@@ -314,10 +324,10 @@ export const CATEGORIES = {
         it: 'Utilità',
         en: 'Utility',
     },
-    'DLC': {
-        de: 'DLC',
-        it: 'DLC',
-        en: 'DLC',
+    'DLC/Quest': {
+        de: 'DLC/Quest',
+        it: 'DLC/Quest',
+        en: 'DLC/Quest',
     },
 };
 
