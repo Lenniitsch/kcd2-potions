@@ -270,7 +270,8 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
 
     function handleStart() {
         timerFinished = false;
-        if (autoAdvance) autoModeActive = true;
+        clearAutoTimeout();
+        if (state.settings.autoAdvance) autoModeActive = true;
         var idx = getActiveStepIndex();
         if (idx < 0) return;
         if (!cachedSteps[idx] || !(cachedSteps[idx].duration > 0)) return;
@@ -327,7 +328,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
             advanceToNext();
             return;
         }
-        if (autoAdvance && hasNext) {
+        if (autoAdvance && hasNext && !autoModeActive) {
             onNextStep();
             return;
         }
@@ -357,6 +358,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
                 if (hasNext) {
                     advanceToNext();
                 } else {
+                    timerFinished = true;
                     autoModeActive = false;
                     showReadyState();
                 }

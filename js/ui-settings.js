@@ -64,7 +64,7 @@ function buildSettings() {
             if (val > 5000) delayInput.value = '5000';
         },
         onBlur: function () { saveDelay(); },
-        onKeydown: function (e) { if (e.key === 'Enter') { saveDelay(); delayInput.blur(); } },
+        onKeydown: function (e) { if (e.key === 'Enter') { saveDelay(); } },
     });
 
     function saveDelay() {
