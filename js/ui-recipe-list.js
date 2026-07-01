@@ -103,7 +103,7 @@ export function buildRecipeList(outerContainer) {
             var recipe = recipes[i];
             var key = recipe.name.de;
             var card = buildRecipeCard(recipe, function () { return state.language; });
-            card.root.style.display = 'none';
+            card.root.classList.add('hidden');
             container.appendChild(card.root);
             cardMap.set(key, card);
         }
@@ -113,7 +113,7 @@ export function buildRecipeList(outerContainer) {
     function render() {
         if (state.recipes === null) {
             if (currentMode !== 'error') {
-                cardMap.forEach(function (entry) { entry.root.style.display = 'none'; });
+                cardMap.forEach(function (entry) { entry.root.classList.add('hidden'); });
                 currentMode = 'error';
             }
             container.className = 'flex items-center justify-center py-20';
@@ -147,7 +147,7 @@ export function buildRecipeList(outerContainer) {
         countEl.textContent = getText('filter.statsShowing').replace('{0}', sorted.length).replace('{1}', state.recipes.length);
 
         if (sorted.length === 0) {
-            cardMap.forEach(function (entry) { entry.root.style.display = 'none'; });
+            cardMap.forEach(function (entry) { entry.root.classList.add('hidden'); });
             container.className = 'flex items-center justify-center py-20';
             if (!container.contains(emptyEl)) container.appendChild(emptyEl);
             currentMode = 'empty';
@@ -167,10 +167,10 @@ export function buildRecipeList(outerContainer) {
 
         cardMap.forEach(function (entry, key) {
             if (visibleKeys.has(key)) {
-                entry.root.style.display = '';
+                entry.root.classList.remove('hidden');
                 if (entry.setLayout) entry.setLayout(state.filters.layout);
             } else {
-                entry.root.style.display = 'none';
+                entry.root.classList.add('hidden');
             }
         });
 

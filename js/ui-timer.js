@@ -96,7 +96,7 @@ var pauseSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" v
 var resetSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>';
 var nextStepSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>';
 
-function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepIndex, getActiveStepIndices, getTotalSteps, onPrevStep, onNextStep, onToggleMode, showTimedOnly) {
+function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStepIndex, getActiveStepIndices, _getTotalSteps, onPrevStep, onNextStep, onToggleMode, showTimedOnly) {
     var timer = null;
     var lang = getLang();
     var pulseTimeout = null;
@@ -194,11 +194,8 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
 
     function handlePrimaryClick(e) {
         var idx = getActiveStepIndex();
-        var steps = recipe.recipe_steps.de;
-        if (idx >= 0 && steps[idx] && steps[idx].duration <= 0) {
-            onNextStep();
-            return;
-        }
+        var steps = recipe.recipe_steps && recipe.recipe_steps.de;
+        if (!steps || !steps[idx] || steps[idx].duration <= 0) return;
         if (!timer || !timer.running) {
             if (timer && timer.pausedRemaining !== null) {
                 handleResume();
@@ -213,9 +210,12 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
     function handleStart() {
         var idx = getActiveStepIndex();
         if (idx < 0) return;
-        var steps = recipe.recipe_steps.de;
-        if (!steps[idx] || steps[idx].duration <= 0) return;
+        var steps = recipe.recipe_steps && recipe.recipe_steps.de;
+        if (!steps || !steps[idx] || steps[idx].duration <= 0) return;
         var dur = steps[idx].duration;
+
+        if (pulseTimeout) { clearTimeout(pulseTimeout); pulseTimeout = null; }
+        barEl.classList.remove('timer-pulse');
 
         if (timer) timer.destroy();
 
@@ -245,6 +245,8 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
     }
 
     function handleReset() {
+        if (pulseTimeout) { clearTimeout(pulseTimeout); pulseTimeout = null; }
+        barEl.classList.remove('timer-pulse');
         if (!timer) return;
         timer.destroy();
         timer = null;
@@ -266,8 +268,10 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
     function updateTickDisplay(remaining) {
         var idx = getActiveStepIndex();
         if (idx < 0) return;
+        var localizedSteps = recipe.recipe_steps[lang];
         var steps = recipe.recipe_steps.de;
-        var step = (recipe.recipe_steps[lang] || recipe.recipe_steps.de)[idx];
+        var step = (localizedSteps && localizedSteps[idx]) || (steps && steps[idx]);
+        if (!step) return;
         if (steps[idx].duration <= 0) return;
         stepLabelEl.textContent = step.description;
         countdownEl.textContent = formatTime(remaining);
@@ -287,7 +291,9 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
     function showReadyState() {
         var idx = getActiveStepIndex();
         if (idx < 0) return;
-        var step = (recipe.recipe_steps[lang] || recipe.recipe_steps.de)[idx];
+        var localizedSteps = recipe.recipe_steps[lang];
+        var steps = recipe.recipe_steps.de;
+        var step = (localizedSteps && localizedSteps[idx]) || (steps && steps[idx]);
         if (!step) return;
         var isTimed = step.duration > 0;
         stepLabelEl.textContent = step.description;
@@ -316,6 +322,12 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
 
     function showRunningState() {
         primaryBtn.classList.add('timer-action-primary--running');
+        var idx = getActiveStepIndex();
+        if (idx >= 0) {
+            var steps = recipe.recipe_steps.de;
+            var step = (recipe.recipe_steps[lang] || steps)[idx];
+            if (step && steps[idx]) stepLabelEl.textContent = step.description;
+        }
         primaryBtn.innerHTML = pauseSvg + ' ' + getText('timer.pause');
         primaryBtn.disabled = false;
         resetBtn.innerHTML = resetSvg + ' ' + getText('timer.reset');
@@ -328,6 +340,12 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         primaryBtn.innerHTML = playSvg + ' ' + getText('timer.resume');
         primaryBtn.classList.remove('timer-action-primary--running');
         primaryBtn.disabled = false;
+        var idx = getActiveStepIndex();
+        if (idx >= 0) {
+            var steps = recipe.recipe_steps.de;
+            var step = (recipe.recipe_steps[lang] || steps)[idx];
+            if (step && steps[idx]) stepLabelEl.textContent = step.description;
+        }
         resetBtn.innerHTML = resetSvg + ' ' + getText('timer.reset');
         resetBtn.disabled = false;
         updateNavButtons();
@@ -354,15 +372,35 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
                 timer = null;
                 setState('activeTimer', null);
             }
+            if (pulseTimeout) { clearTimeout(pulseTimeout); pulseTimeout = null; }
+            barEl.classList.remove('timer-pulse');
             showReadyState();
         },
         updateLanguage: function (newLang) {
             lang = newLang;
             if (!timer) {
+                var idx = getActiveStepIndex();
+                if (idx >= 0) {
+                    var steps = recipe.recipe_steps.de;
+                    var step = (recipe.recipe_steps[lang] || steps)[idx];
+                    if (step && steps[idx]) stepLabelEl.textContent = step.description;
+                }
                 showReadyState();
             } else if (timer.running) {
+                var idx = getActiveStepIndex();
+                if (idx >= 0) {
+                    var steps = recipe.recipe_steps.de;
+                    var step = (recipe.recipe_steps[lang] || steps)[idx];
+                    if (step && steps[idx]) stepLabelEl.textContent = step.description;
+                }
                 showRunningState();
             } else {
+                var idx = getActiveStepIndex();
+                if (idx >= 0) {
+                    var steps = recipe.recipe_steps.de;
+                    var step = (recipe.recipe_steps[lang] || steps)[idx];
+                    if (step && steps[idx]) stepLabelEl.textContent = step.description;
+                }
                 showPausedState();
             }
         },
@@ -372,6 +410,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
                 timer = null;
             }
             if (pulseTimeout) clearTimeout(pulseTimeout);
+            barEl.classList.remove('timer-pulse');
             globalUnsub();
             if (barEl.parentNode) barEl.parentNode.removeChild(barEl);
         }

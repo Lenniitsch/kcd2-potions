@@ -53,7 +53,7 @@ export function buildFilter() {
     });
     searchClearBtn.innerHTML = closeIcon;
 
-    var searchWrapper = el('div', { class: 'relative', style: { flex: '1' } }, searchInput, searchClearBtn);
+    var searchWrapper = el('div', { class: 'relative flex-1' }, searchInput, searchClearBtn);
 
     categoryPillsContainer = el('div', { class: 'flex flex-wrap gap-2' });
 
@@ -73,14 +73,13 @@ export function buildFilter() {
         },
     });
 
-    var searchRow = el('div', { style: { display: 'flex', alignItems: 'center', gap: '0.5rem' } },
+    var searchRow = el('div', { class: 'flex items-center gap-2' },
         searchWrapper,
         clearBtn
     );
 
     filterSectionWrapper = el('div', {
-        class: 'kcd-filter-panel bg-kcd-surface rounded-lg p-3 mb-3',
-        style: { display: 'flex', flexDirection: 'column', gap: '0.75rem' }
+        class: 'kcd-filter-panel bg-kcd-surface rounded-lg p-3 mb-3 flex flex-col gap-3'
     },
         searchRow,
         categoryPillsContainer
@@ -212,9 +211,8 @@ export function buildFilter() {
 
             if (isDisabled && canShowTooltip) {
                 ingredientContainer.appendChild(el('span', {
-                    class: tagClass,
+                    class: tagClass + ' relative',
                     title: disabledTooltip,
-                    style: { position: 'relative' },
                 },
                     el('span', { html: name }),
                     el('span', { class: 'kcd-tooltip' }, disabledTooltip)
@@ -242,7 +240,7 @@ export function buildFilter() {
         var lang = state.language;
 
         var mobileExpanded = f.filterExpanded;
-        filterSectionWrapper.style.display = mobileExpanded ? 'flex' : 'none';
+        filterSectionWrapper.classList.toggle('hidden', !mobileExpanded);
 
         mobileToggleText.textContent = f.filterExpanded ? getText('filter.collapse') : getText('filter.expand');
 

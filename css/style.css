@@ -127,9 +127,9 @@
 
 html {
     scroll-behavior: smooth;
+    scrollbar-color: var(--kcd-border-strong) var(--kcd-surface);
+    scrollbar-width: thin;
 }
-
-
 
 body::before {
     content: '';
@@ -155,11 +155,6 @@ body::before {
 }
 
 /* ---- Scrollbar ---- */
-
-html {
-    scrollbar-color: var(--kcd-border-strong) var(--kcd-surface);
-    scrollbar-width: thin;
-}
 
 ::-webkit-scrollbar {
     width: 8px;
@@ -454,7 +449,7 @@ header .font-serif.text-kcd-gold {
     opacity: 0.25;
     cursor: not-allowed;
     background: var(--kcd-hover);
-    color: var(--kcd-muted);
+    color: var(--kcd-text-muted);
 }
 
 /* ---- Tooltip ---- */
@@ -513,18 +508,8 @@ header .font-serif.text-kcd-gold {
     animation: kcd-spin 0.6s linear infinite;
 }
 
-.kcd-section-label {
-}
-
 @keyframes kcd-spin {
     to { transform: rotate(360deg); }
-}
-
-/* ---- Misc ---- */
-
-.kcd-pressed {
-    transform: scale(0.97);
-    transition: transform 0.1s ease;
 }
 
 /* ---- Zoomist ---- */
@@ -540,8 +525,6 @@ header .font-serif.text-kcd-gold {
     overflow: hidden;
     border: 1px solid var(--kcd-border);
 }
-
-@media (min-width: 768px) {}
 
 /* ---- Timer Controls ---- */
 
@@ -856,8 +839,4 @@ header .font-serif.text-kcd-gold {
     color: var(--kcd-gold);
     border-color: var(--kcd-gold-dim);
     transform: translateY(-2px);
-}
-
-.kcd-back-to-top--visible {
-    display: flex;
 }

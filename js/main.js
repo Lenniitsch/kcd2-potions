@@ -55,9 +55,9 @@ async function init() {
     if (backToTopBtn) {
         window.addEventListener('scroll', function () {
             if (window.scrollY > 300) {
-                backToTopBtn.style.display = 'flex';
+                backToTopBtn.classList.remove('hidden');
             } else {
-                backToTopBtn.style.display = 'none';
+                backToTopBtn.classList.add('hidden');
             }
         }, { passive: true });
         backToTopBtn.addEventListener('click', function () {
@@ -69,14 +69,14 @@ async function init() {
 
     onState('activeTab', function (tab) {
         var showRecipes = tab === 'recipes';
-        filter.root.style.display = showRecipes ? '' : 'none';
-        topDivider.style.display = showRecipes ? '' : 'none';
-        ornamentDivider.style.display = showRecipes ? '' : 'none';
+        filter.root.classList.toggle('hidden', !showRecipes);
+        topDivider.classList.toggle('hidden', !showRecipes);
+        ornamentDivider.classList.toggle('hidden', !showRecipes);
     });
 
-    filter.root.style.display = state.activeTab === 'recipes' ? '' : 'none';
-    topDivider.style.display = state.activeTab === 'recipes' ? '' : 'none';
-    ornamentDivider.style.display = state.activeTab === 'recipes' ? '' : 'none';
+    filter.root.classList.toggle('hidden', state.activeTab !== 'recipes');
+    topDivider.classList.toggle('hidden', state.activeTab !== 'recipes');
+    ornamentDivider.classList.toggle('hidden', state.activeTab !== 'recipes');
 
     onState('filters', pushFiltersToURL);
     onState('activeTab', pushTabToURL);

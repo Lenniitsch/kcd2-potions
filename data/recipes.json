@@ -1,7 +1,7 @@
 {
-  "schema_version": "3.0.0",
+  "schema_version": "3.1.0",
   "last_updated": "2026-07-01",
-  "total_recipes": 27,
+  "total_recipes": 28,
   "categories": {
     "de": [
       "Heiltrank",
@@ -43,9 +43,9 @@
         "en": "Aqua Vitalis"
       },
       "effect_description": {
-        "de": "60% weniger Gesundheitsverlust und Blutung, Dauer abhängig von Qualität (5-15 Minuten)",
-        "it": "60% in meno di perdita di salute e sanguinamento, durata dipende dalla qualità (5-15 minuti)",
-        "en": "60% less health loss and bleeding, duration depends on quality (5-15 minutes)"
+        "de": "60% weniger Gesundheitsverlust wenn getroffen für 15 Minuten. Bei Blutungen wird der Effekt um 60% verlangsamt.",
+        "it": "Perdi il 60% di salute in meno quando colpito per 15 minuti. Se stai sanguinando, l'effetto è rallentato del 60%.",
+        "en": "You lose 60% less Health when struck for 15 minutes. If you're Bleeding, the effect is slowed by 60%."
       },
       "price": 70,
       "ingredients": {
@@ -145,7 +145,35 @@
       "tags": [
         "healing",
         "short-duration"
-      ]
+      ],
+      "effect_tiers": {
+        "weak": {
+          "de": "15% weniger Gesundheitsverlust wenn getroffen für 5 Minuten.",
+          "it": "Perdi il 15% di salute in meno quando colpito per 5 minuti.",
+          "en": "You lose 15% less Health when struck for 5 minutes."
+        },
+        "standard": {
+          "de": "15% weniger Gesundheitsverlust wenn getroffen für 10 Minuten. Bei Blutungen wird der Effekt um 10% verlangsamt.",
+          "it": "Perdi il 15% di salute in meno quando colpito per 10 minuti. Se stai sanguinando, l'effetto è rallentato del 10%.",
+          "en": "You lose 15% less Health when struck for 10 minutes. If you're Bleeding, the effect is slowed by 10%."
+        },
+        "strong": {
+          "de": "50% weniger Gesundheitsverlust wenn getroffen für 10 Minuten. Bei Blutungen wird der Effekt um 50% verlangsamt.",
+          "it": "Perdi il 50% di salute in meno quando colpito per 10 minuti. Se stai sanguinando, l'effetto è rallentato del 50%.",
+          "en": "You lose 50% less Health when struck for 10 minutes. If you're Bleeding, the effect is slowed by 50%."
+        },
+        "henrys": {
+          "de": "60% weniger Gesundheitsverlust wenn getroffen für 15 Minuten. Bei Blutungen wird der Effekt um 60% verlangsamt.",
+          "it": "Perdi il 60% di salute in meno quando colpito per 15 minuti. Se stai sanguinando, l'effetto è rallentato del 60%.",
+          "en": "You lose 60% less Health when struck for 15 minutes. If you're Bleeding, the effect is slowed by 60%."
+        }
+      },
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "bockblut-trank",
@@ -156,9 +184,9 @@
         "en": "Buck's Blood"
       },
       "effect_description": {
-        "de": "+60% Ausdauer, +30% Ausdauerregeneration für eine Stunde",
-        "it": "+60% resistenza, +30% rigenerazione resistenza per un'ora",
-        "en": "+60% stamina, +30% stamina regeneration for one hour"
+        "de": "+60% Ausdauer, +30% Ausdauerregeneration für eine Stunde.",
+        "it": "+60% resistenza, +30% rigenerazione resistenza per un'ora.",
+        "en": "Increases Stamina by 60% and improves Stamina regeneration by 30% for 1 hour."
       },
       "price": 70,
       "ingredients": {
@@ -273,7 +301,35 @@
       "tags": [
         "combat",
         "long-duration"
-      ]
+      ],
+      "effect_tiers": {
+        "weak": {
+          "de": "+25% Ausdauer für 20 Minuten.",
+          "it": "+25% resistenza per 20 minuti.",
+          "en": "Increases Stamina by 25% for 20 minutes."
+        },
+        "standard": {
+          "de": "+30% Ausdauer für 20 Minuten.",
+          "it": "+30% resistenza per 20 minuti.",
+          "en": "Increases Stamina by 30% for 20 minutes."
+        },
+        "strong": {
+          "de": "+30% Ausdauer, +15% Ausdauerregeneration für 40 Minuten.",
+          "it": "+30% resistenza, +15% rigenerazione resistenza per 40 minuti.",
+          "en": "Increases Stamina by 30% and improves Stamina regeneration by 15% for 40 minutes."
+        },
+        "henrys": {
+          "de": "+60% Ausdauer, +30% Ausdauerregeneration für eine Stunde.",
+          "it": "+60% resistenza, +30% rigenerazione resistenza per un'ora.",
+          "en": "Increases Stamina by 60% and improves Stamina regeneration by 30% for 1 hour."
+        }
+      },
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "elixier-des-aesop",
@@ -284,9 +340,9 @@
         "en": "Aesop"
       },
       "effect_description": {
-        "de": "+7 Reiten und Hundeflüsterer für einen Tag, Tiere reagieren später auf Heinrich, Hunde gar nicht",
-        "it": "+7 Cavalcare e Sussurratore di Cani per un giorno, gli animali reagiscono più tardi a Heinrich, i cani per niente",
-        "en": "+7 Riding and Dog Handling for one day, animals take less notice of you, dogs won't bark at you"
+        "de": "+7 Reiten und Hundeflüsterer für einen Tag. Hunde bemerken Heinrich gar nicht, andere Tiere reagieren messbar später.",
+        "it": "+7 Cavalcare e Sussurratore di Cani per un giorno. I cani non notano affatto Heinrich, altri animali reagiscono sensibilmente più tardi.",
+        "en": "Increases your Horsemanship and Houndmaster skills by 7 for 1 full day. Dogs won't notice Henry at all, while other animals will take measurably longer to react to him."
       },
       "price": 70,
       "ingredients": {
@@ -389,7 +445,35 @@
       "tags": [
         "combat",
         "long-duration"
-      ]
+      ],
+      "effect_tiers": {
+        "weak": {
+          "de": "+3 Reiten und Hundeflüsterer für 6 Stunden. Tiere beachten Heinrich weniger.",
+          "it": "+3 Cavalcare e Sussurratore di Cani per 6 ore. Gli animali prestano meno attenzione a Heinrich.",
+          "en": "Increases your Horsemanship and Houndmaster skills by 3 for 6 hours. Animals pay less attention to Henry."
+        },
+        "standard": {
+          "de": "+3 Reiten und Hundeflüsterer für 12 Stunden. Tiere beachten Heinrich weniger.",
+          "it": "+3 Cavalcare e Sussurratore di Cani per 12 ore. Gli animali prestano meno attenzione a Heinrich.",
+          "en": "Increases your Horsemanship and Houndmaster skills by 3 for 12 hours. Animals pay less attention to Henry."
+        },
+        "strong": {
+          "de": "+5 Reiten und Hundeflüsterer für 12 Stunden. Hunde bemerken Heinrich gar nicht, andere Tiere reagieren messbar später.",
+          "it": "+5 Cavalcare e Sussurratore di Cani per 12 ore. I cani non notano affatto Heinrich, altri animali reagiscono sensibilmente più tardi.",
+          "en": "Increases your Horsemanship and Houndmaster skills by 5 for 12 hours. Dogs won't notice Henry at all, while other animals will take measurably longer to react to him."
+        },
+        "henrys": {
+          "de": "+7 Reiten und Hundeflüsterer für einen Tag. Hunde bemerken Heinrich gar nicht, andere Tiere reagieren messbar später.",
+          "it": "+7 Cavalcare e Sussurratore di Cani per un giorno. I cani non notano affatto Heinrich, altri animali reagiscono sensibilmente più tardi.",
+          "en": "Increases your Horsemanship and Houndmaster skills by 7 for 1 full day. Dogs won't notice Henry at all, while other animals will take measurably longer to react to him."
+        }
+      },
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "fuchstrank",
@@ -400,9 +484,9 @@
         "en": "Fox"
       },
       "effect_description": {
-        "de": "+7 Redekunst, 50% mehr Lesegeschwindigkeit und -erfahrung für einen Tag",
-        "it": "+7 Eloquenza, 50% in più di velocità di lettura ed esperienza per un giorno",
-        "en": "+7 Speech, 50% faster reading speed and +50% reading experience for one day"
+        "de": "+7 Redekunst, 50% mehr Lesegeschwindigkeit und 50% mehr Erfahrung für zwei Tage.",
+        "it": "+7 Eloquenza, 50% in più di velocità di lettura e 50% in più di esperienza per due giorni.",
+        "en": "Your Speech goes up by 7, you can complete skill books much faster, and you get a 50% boost to earned experience for 2 days."
       },
       "price": 70,
       "ingredients": {
@@ -532,7 +616,35 @@
       "tags": [
         "combat",
         "long-duration"
-      ]
+      ],
+      "effect_tiers": {
+        "weak": {
+          "de": "+3 Redekunst für 12 Stunden.",
+          "it": "+3 Eloquenza per 12 ore.",
+          "en": "Your Speech goes up by 3 for 12 hours."
+        },
+        "standard": {
+          "de": "+3 Redekunst und du kannst Fertigkeitsbücher viel schneller abschließen für einen Tag.",
+          "it": "+3 Eloquenza e puoi completare i libri di abilità molto più velocemente per un giorno.",
+          "en": "Your Speech goes up by 3 and you can complete skill books much faster for 1 day."
+        },
+        "strong": {
+          "de": "+5 Redekunst und du kannst Fertigkeitsbücher viel schneller abschließen für einen Tag.",
+          "it": "+5 Eloquenza e puoi completare i libri di abilità molto più velocemente per un giorno.",
+          "en": "Your Speech goes up by 5 and you can complete skill books much faster for 1 day."
+        },
+        "henrys": {
+          "de": "+7 Redekunst, 50% mehr Lesegeschwindigkeit und 50% mehr Erfahrung für zwei Tage.",
+          "it": "+7 Eloquenza, 50% in più di velocità di lettura e 50% in più di esperienza per due giorni.",
+          "en": "Your Speech goes up by 7, you can complete skill books much faster, and you get a 50% boost to earned experience for 2 days."
+        }
+      },
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "gegenmittel",
@@ -543,9 +655,9 @@
         "en": "Digestive Potion"
       },
       "effect_description": {
-        "de": "Heilt Vergiftungen, -30 Sattheit, +3 Vitalität für 20 Minuten",
-        "it": "Cura gli avvelenamenti, -30 sazietà, +3 vitalità per 20 minuti",
-        "en": "Cures poisoning, -30 nourishment, +3 vitality for 20 minutes"
+        "de": "Heilt alle Vergiftungen und erhöht Vitalität um 3 für 20 Minuten, senkt aber Sattheit um 20.",
+        "it": "Cura tutti gli avvelenamenti e aumenta la vitalità di 3 per 20 minuti, ma diminuisce la sazietà di 20.",
+        "en": "Cures all poisons and increases Vitality by 3 for 20 minutes, but decreases Nourishment by 20."
       },
       "price": 50,
       "ingredients": {
@@ -660,7 +772,35 @@
       "tags": [
         "healing",
         "short-duration"
-      ]
+      ],
+      "effect_tiers": {
+        "weak": {
+          "de": "Heilt Lebensmittelvergiftung, senkt aber Sattheit um 20.",
+          "it": "Cura l'intossicazione alimentare, ma diminuisce la sazietà di 20.",
+          "en": "Cures food poisoning, but decreases Nourishment by 20."
+        },
+        "standard": {
+          "de": "Heilt alle Vergiftungen und erhöht Vitalität um 1 für 10 Minuten, senkt aber Sattheit um 20.",
+          "it": "Cura tutti gli avvelenamenti e aumenta la vitalità di 1 per 10 minuti, ma diminuisce la sazietà di 20.",
+          "en": "Cures all poisons and increases Vitality by 1 for 10 minutes, but decreases Nourishment by 20."
+        },
+        "strong": {
+          "de": "Heilt alle Vergiftungen und erhöht Vitalität um 2 für 10 Minuten, senkt aber Sattheit um 20.",
+          "it": "Cura tutti gli avvelenamenti e aumenta la vitalità di 2 per 10 minuti, ma diminuisce la sazietà di 20.",
+          "en": "Cures all poisons and increases Vitality by 2 for 10 minutes, but decreases Nourishment by 20."
+        },
+        "henrys": {
+          "de": "Heilt alle Vergiftungen und erhöht Vitalität um 3 für 20 Minuten, senkt aber Sattheit um 20.",
+          "it": "Cura tutti gli avvelenamenti e aumenta la vitalità di 3 per 20 minuti, ma diminuisce la sazietà di 20.",
+          "en": "Cures all poisons and increases Vitality by 3 for 20 minutes, but decreases Nourishment by 20."
+        }
+      },
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "hahnenschreitrank",
@@ -671,9 +811,9 @@
         "en": "Cockerel"
       },
       "effect_description": {
-        "de": "+30 Energie, 50% geringerer Energieverbrauch für einen Tag",
-        "it": "+30 energia, 50% meno consumo di energia per un giorno",
-        "en": "+30 Energy, 50% less energy consumption for one day"
+        "de": "Aktuelle Energie +30. Energieverbrauch 50% langsamer für einen Tag.",
+        "it": "Energia attuale +30. Consumo di energia ridotto del 50% per un giorno.",
+        "en": "Current Energy +30. Your Energy drains 50% slower for 24 hours."
       },
       "price": 70,
       "ingredients": {
@@ -773,7 +913,35 @@
       "tags": [
         "combat",
         "long-duration"
-      ]
+      ],
+      "effect_tiers": {
+        "weak": {
+          "de": "Aktuelle Energie +10.",
+          "it": "Energia attuale +10.",
+          "en": "Current Energy +10."
+        },
+        "standard": {
+          "de": "Aktuelle Energie +20.",
+          "it": "Energia attuale +20.",
+          "en": "Current Energy +20."
+        },
+        "strong": {
+          "de": "Aktuelle Energie +20. Energieverbrauch 20% langsamer für 12 Stunden.",
+          "it": "Energia attuale +20. Consumo di energia ridotto del 20% per 12 ore.",
+          "en": "Current Energy +20. Your Energy drains 20% slower for 12 hours."
+        },
+        "henrys": {
+          "de": "Aktuelle Energie +30. Energieverbrauch 50% langsamer für einen Tag.",
+          "it": "Energia attuale +30. Consumo di energia ridotto del 50% per un giorno.",
+          "en": "Current Energy +30. Your Energy drains 50% slower for 24 hours."
+        }
+      },
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "kamillen-aufguss",
@@ -784,9 +952,9 @@
         "en": "Chamomile Brew"
       },
       "effect_description": {
-        "de": "Zwei Tage lang fünffache Heilung und dreifache Energieregeneration im Schlaf",
-        "it": "Per due giorni guarigione quintupla e rigenerazione energetica tripla nel sonno",
-        "en": "Five times faster healing and three times faster energy regeneration during sleep for two days"
+        "de": "48 Stunden lang heilt Schlaf verlorene Gesundheit mit 500% Effizienz und regeneriert Energie 300% schneller.",
+        "it": "Per 48 ore, il sonno ripristina la salute persa con efficienza del 500% e rigenera energia 300% più velocemente.",
+        "en": "For 48 hours, sleep restores lost health at 500% efficiency and regenerates energy 300% faster."
       },
       "price": 50,
       "ingredients": {
@@ -874,7 +1042,35 @@
       "tags": [
         "healing",
         "long-duration"
-      ]
+      ],
+      "effect_tiers": {
+        "weak": {
+          "de": "12 Stunden lang heilt Schlaf verlorene Gesundheit mit 200% Effizienz.",
+          "it": "Per 12 ore, il sonno ripristina la salute persa con efficienza del 200%.",
+          "en": "For 12 hours, sleep restores lost health at 200% efficiency."
+        },
+        "standard": {
+          "de": "24 Stunden lang heilt Schlaf verlorene Gesundheit mit 300% Effizienz.",
+          "it": "Per 24 ore, il sonno ripristina la salute persa con efficienza del 300%.",
+          "en": "For 24 hours, sleep restores lost health at 300% efficiency."
+        },
+        "strong": {
+          "de": "24 Stunden lang heilt Schlaf verlorene Gesundheit mit 300% Effizienz und regeneriert Energie 200% schneller.",
+          "it": "Per 24 ore, il sonno ripristina la salute persa con efficienza del 300% e rigenera energia 200% più velocemente.",
+          "en": "For 24 hours, sleep restores lost health at 300% efficiency and regenerates energy 200% faster."
+        },
+        "henrys": {
+          "de": "48 Stunden lang heilt Schlaf verlorene Gesundheit mit 500% Effizienz und regeneriert Energie 300% schneller.",
+          "it": "Per 48 ore, il sonno ripristina la salute persa con efficienza del 500% e rigenera energia 300% più velocemente.",
+          "en": "For 48 hours, sleep restores lost health at 500% efficiency and regenerates energy 300% faster."
+        }
+      },
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "katerbier",
@@ -885,9 +1081,9 @@
         "en": "Hair o' the Dog"
       },
       "effect_description": {
-        "de": "Entfernt Trunkenheit und Kater, unterdrückt Trunksucht für drei Stunden",
-        "it": "Rimuove ubriachezza e sbornia, sopprime la dipendenza dall'alcol per tre ore",
-        "en": "Removes drunkenness and hangover, suppresses alcoholism for three hours"
+        "de": "Macht nüchtern, heilt Kater und unterdrückt vorübergehend die Auswirkungen von Trunksucht.",
+        "it": "Fa tornare sobri, cura la sbornia e sopprime temporaneamente gli effetti dell'alcolismo.",
+        "en": "Sobers you up, cures your hangover, and temporarily removes the effects of alcoholism."
       },
       "price": 70,
       "ingredients": {
@@ -990,7 +1186,35 @@
       "tags": [
         "healing",
         "long-duration"
-      ]
+      ],
+      "effect_tiers": {
+        "weak": {
+          "de": "Verringert aktuelle Trunkenheit.",
+          "it": "Diminuisce l'ubriachezza attuale.",
+          "en": "Decreases your current drunkenness."
+        },
+        "standard": {
+          "de": "Verringert aktuelle Trunkenheit oder heilt einen Kater.",
+          "it": "Diminuisce l'ubriachezza attuale o cura la sbornia.",
+          "en": "Decreases your current drunkenness or cures a hangover."
+        },
+        "strong": {
+          "de": "Macht schnell nüchtern und heilt Kater.",
+          "it": "Fa tornare sobri rapidamente e cura la sbornia.",
+          "en": "Rapidly sobers you up and cures hangovers."
+        },
+        "henrys": {
+          "de": "Macht nüchtern, heilt Kater und unterdrückt vorübergehend die Auswirkungen von Trunksucht.",
+          "it": "Fa tornare sobri, cura la sbornia e sopprime temporaneamente gli effetti dell'alcolismo.",
+          "en": "Sobers you up, cures your hangover, and temporarily removes the effects of alcoholism."
+        }
+      },
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "loewe",
@@ -1001,9 +1225,9 @@
         "en": "Lion"
       },
       "effect_description": {
-        "de": "+10 Charisma für zehn Minuten, -7 Charisma mit anderem Parfüm",
-        "it": "+10 carisma per dieci minuti, -7 carisma con altro profumo",
-        "en": "+10 charisma for ten minutes, -7 charisma with other perfume"
+        "de": "Erhöht Charisma um 10 für 3 Minuten. Bei gleichzeitiger Nutzung mit einem anderen Parfüm sinkt Charisma um 7.",
+        "it": "Aumenta il carisma di 10 per 3 minuti. Se usato insieme a un altro profumo, riduce il carisma di 7.",
+        "en": "Increases Charisma by 10 for 3 minutes. If used at the same time as another perfume, lowers your Charisma by 7."
       },
       "price": 90,
       "ingredients": {
@@ -1091,7 +1315,35 @@
       "tags": [
         "combat",
         "short-duration"
-      ]
+      ],
+      "effect_tiers": {
+        "weak": {
+          "de": "Erhöht Charisma um 3 für 3 Minuten. Bei gleichzeitiger Nutzung mit einem anderen Parfüm sinkt Charisma um 7.",
+          "it": "Aumenta il carisma di 3 per 3 minuti. Se usato insieme a un altro profumo, riduce il carisma di 7.",
+          "en": "Increases Charisma by 3 for 3 minutes. If used at the same time as another perfume, lowers your Charisma by 7."
+        },
+        "standard": {
+          "de": "Erhöht Charisma um 4 für 3 Minuten. Bei gleichzeitiger Nutzung mit einem anderen Parfüm sinkt Charisma um 7.",
+          "it": "Aumenta il carisma di 4 per 3 minuti. Se usato insieme a un altro profumo, riduce il carisma di 7.",
+          "en": "Increases Charisma by 4 for 3 minutes. If used at the same time as another perfume, lowers your Charisma by 7."
+        },
+        "strong": {
+          "de": "Erhöht Charisma um 7 für 3 Minuten. Bei gleichzeitiger Nutzung mit einem anderen Parfüm sinkt Charisma um 7.",
+          "it": "Aumenta il carisma di 7 per 3 minuti. Se usato insieme a un altro profumo, riduce il carisma di 7.",
+          "en": "Increases Charisma by 7 for 3 minutes. If used at the same time as another perfume, lowers your Charisma by 7."
+        },
+        "henrys": {
+          "de": "Erhöht Charisma um 10 für 3 Minuten. Bei gleichzeitiger Nutzung mit einem anderen Parfüm sinkt Charisma um 7.",
+          "it": "Aumenta il carisma di 10 per 3 minuti. Se usato insieme a un altro profumo, riduce il carisma di 7.",
+          "en": "Increases Charisma by 10 for 3 minutes. If used at the same time as another perfume, lowers your Charisma by 7."
+        }
+      },
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "minthe",
@@ -1102,9 +1354,9 @@
         "en": "Mintha"
       },
       "effect_description": {
-        "de": "+5 Charisma für 40 Minuten, -5 Charisma mit anderem Parfüm",
-        "it": "+5 carisma per 40 minuti, -5 carisma con altro profumo",
-        "en": "+5 charisma for 40 minutes, -5 charisma with other perfume"
+        "de": "Erhöht Charisma um 5 für 40 Minuten, senkt es aber um 5 bei Nutzung mit einem anderen Parfüm.",
+        "it": "Aumenta il carisma di 5 per 40 minuti, ma lo riduce di 5 se usato con un altro profumo.",
+        "en": "Increases your Charisma by 5 for 40 minutes, but lowers it by 5 if used in conjunction with another perfume."
       },
       "price": 60,
       "ingredients": {
@@ -1219,7 +1471,35 @@
       "tags": [
         "combat",
         "short-duration"
-      ]
+      ],
+      "effect_tiers": {
+        "weak": {
+          "de": "Erhöht Charisma um 1 für 20 Minuten, senkt es aber um 5 bei Nutzung mit einem anderen Parfüm.",
+          "it": "Aumenta il carisma di 1 per 20 minuti, ma lo riduce di 5 se usato con un altro profumo.",
+          "en": "Increases your Charisma by 1 for 20 minutes, but lowers it by 5 if used in conjunction with another perfume."
+        },
+        "standard": {
+          "de": "Erhöht Charisma um 2 für 20 Minuten, senkt es aber um 5 bei Nutzung mit einem anderen Parfüm.",
+          "it": "Aumenta il carisma di 2 per 20 minuti, ma lo riduce di 5 se usato con un altro profumo.",
+          "en": "Increases your Charisma by 2 for 20 minutes, but lowers it by 5 if used in conjunction with another perfume."
+        },
+        "strong": {
+          "de": "Erhöht Charisma um 3 für 30 Minuten, senkt es aber um 5 bei Nutzung mit einem anderen Parfüm.",
+          "it": "Aumenta il carisma di 3 per 30 minuti, ma lo riduce di 5 se usato con un altro profumo.",
+          "en": "Increases your Charisma by 3 for 30 minutes, but lowers it by 5 if used in conjunction with another perfume."
+        },
+        "henrys": {
+          "de": "Erhöht Charisma um 5 für 40 Minuten, senkt es aber um 5 bei Nutzung mit einem anderen Parfüm.",
+          "it": "Aumenta il carisma di 5 per 40 minuti, ma lo riduce di 5 se usato con un altro profumo.",
+          "en": "Increases your Charisma by 5 for 40 minutes, but lowers it by 5 if used in conjunction with another perfume."
+        }
+      },
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "ringelblumen-aufguss",
@@ -1230,9 +1510,9 @@
         "en": "Marigold Decoction"
       },
       "effect_description": {
-        "de": "Entfernt Kater und heilt 60 Gesundheit innerhalb einer Minute",
-        "it": "rimuove la sbornia e cura 60 salute entro un minuto",
-        "en": "Removes hangover and heals 60 health within one minute"
+        "de": "Heilt 60 Gesundheit innerhalb einer Minute. Heilt Kater sofort.",
+        "it": "Cura 60 salute in un minuto. Cura istantaneamente la sbornia.",
+        "en": "Heals 60 health over the course of 1 minute. Instantly cures hangovers."
       },
       "price": 60,
       "ingredients": {
@@ -1320,7 +1600,35 @@
       "tags": [
         "healing",
         "short-duration"
-      ]
+      ],
+      "effect_tiers": {
+        "weak": {
+          "de": "Heilt 15 Gesundheit innerhalb einer Minute. Kater vergehen 50% schneller.",
+          "it": "Cura 15 salute in un minuto. La sbornia passa il 50% più velocemente.",
+          "en": "Heals 15 health over the course of 1 minute. Hangovers pass 50% faster."
+        },
+        "standard": {
+          "de": "Heilt 25 Gesundheit innerhalb einer Minute. Kater vergehen 100% schneller.",
+          "it": "Cura 25 salute in un minuto. La sbornia passa il 100% più velocemente.",
+          "en": "Heals 25 health over the course of 1 minute. Hangovers pass 100% faster."
+        },
+        "strong": {
+          "de": "Heilt 40 Gesundheit innerhalb einer Minute. Heilt Kater sofort.",
+          "it": "Cura 40 salute in un minuto. Cura istantaneamente la sbornia.",
+          "en": "Heals 40 health over the course of 1 minute. Instantly cures hangovers."
+        },
+        "henrys": {
+          "de": "Heilt 60 Gesundheit innerhalb einer Minute. Heilt Kater sofort.",
+          "it": "Cura 60 salute in un minuto. Cura istantaneamente la sbornia.",
+          "en": "Heals 60 health over the course of 1 minute. Instantly cures hangovers."
+        }
+      },
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "salbe",
@@ -1331,9 +1639,9 @@
         "en": "Embrocation"
       },
       "effect_description": {
-        "de": "+6 Agilität, -30% Ausdauerverbrauch beim Spurten für 20 Minuten",
-        "it": "+6 agilità, -30% consumo resistenza durante lo scatto per 20 minuti",
-        "en": "+6 agility, -30% stamina consumption while sprinting for 20 minutes"
+        "de": "+6 Agilität und -30% Ausdauerverbrauch beim Spurten für 10 Minuten.",
+        "it": "+6 agilità e -30% costo resistenza durante lo scatto per 10 minuti.",
+        "en": "Adds 6 to Agility and lowers the Stamina cost of sprinting by 30% for 10 minutes."
       },
       "price": 70,
       "ingredients": {
@@ -1463,7 +1771,35 @@
       "tags": [
         "combat",
         "short-duration"
-      ]
+      ],
+      "effect_tiers": {
+        "weak": {
+          "de": "+2 Agilität für 10 Minuten.",
+          "it": "+2 agilità per 10 minuti.",
+          "en": "Adds 2 to Agility for 10 minutes."
+        },
+        "standard": {
+          "de": "+4 Agilität und -10% Ausdauerverbrauch beim Spurten für 10 Minuten.",
+          "it": "+4 agilità e -10% costo resistenza durante lo scatto per 10 minuti.",
+          "en": "Adds 4 to Agility and lowers the Stamina cost of sprinting by 10% for 10 minutes."
+        },
+        "strong": {
+          "de": "+4 Agilität und -20% Ausdauerverbrauch beim Spurten für 10 Minuten.",
+          "it": "+4 agilità e -20% costo resistenza durante lo scatto per 10 minuti.",
+          "en": "Adds 4 to Agility and lowers the Stamina cost of sprinting by 20% for 10 minutes."
+        },
+        "henrys": {
+          "de": "+6 Agilität und -30% Ausdauerverbrauch beim Spurten für 10 Minuten.",
+          "it": "+6 agilità e -30% costo resistenza durante lo scatto per 10 minuti.",
+          "en": "Adds 6 to Agility and lowers the Stamina cost of sprinting by 30% for 10 minutes."
+        }
+      },
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "schnaps",
@@ -1575,7 +1911,13 @@
       },
       "tags": [
         "utility"
-      ]
+      ],
+      "quantity": {
+        "base": 6,
+        "matter_i": 7,
+        "matter_ii": 8,
+        "matter_both": 11
+      }
     },
     {
       "id": "sud-gegen-schmerzen",
@@ -1586,9 +1928,9 @@
         "en": "Painkiller Brew"
       },
       "effect_description": {
-        "de": "Unterdrückt Verletzungseffekte (verschwommene Sicht usw.), -75% max. Ausdauerverlust bei Gesundheitsverlust für 15 Minuten",
-        "it": "Sopprime gli effetti delle ferite (vista offuscata ecc.), -75% perdita massima resistenza per perdita salute per 15 minuti",
-        "en": "Suppresses injury effects (blurred vision, etc.), -75% max. stamina loss when health is lost for 15 minutes"
+        "de": "Max. Ausdauerverlust bei Gesundheitsschaden um 75% reduziert für 25 Minuten. Verletzungen behindern Heinrichs Handlungen für die Dauer des Tranks nicht.",
+        "it": "La perdita massima di resistenza quando la salute viene persa è ridotta del 75% per 25 minuti. Le ferite non impediscono le azioni di Heinrich per la durata della pozione.",
+        "en": "Your maximum Stamina decreases 75% less than your health for 25 minutes. Injuries do not impede Henry's actions for the potion's duration."
       },
       "price": 70,
       "ingredients": {
@@ -1703,7 +2045,35 @@
       "tags": [
         "combat",
         "short-duration"
-      ]
+      ],
+      "effect_tiers": {
+        "weak": {
+          "de": "Max. Ausdauerverlust bei Gesundheitsschaden um 15% reduziert für 10 Minuten. Verletzungen behindern Heinrichs Handlungen für die Dauer des Tranks nicht.",
+          "it": "La perdita massima di resistenza quando la salute viene persa è ridotta del 15% per 10 minuti. Le ferite non impediscono le azioni di Heinrich per la durata della pozione.",
+          "en": "Your maximum Stamina decreases 15% less than your health for 10 minutes. Injuries do not impede Henry's actions for the potion's duration."
+        },
+        "standard": {
+          "de": "Max. Ausdauerverlust bei Gesundheitsschaden um 30% reduziert für 15 Minuten. Verletzungen behindern Heinrichs Handlungen für die Dauer des Tranks nicht.",
+          "it": "La perdita massima di resistenza quando la salute viene persa è ridotta del 30% per 15 minuti. Le ferite non impediscono le azioni di Heinrich per la durata della pozione.",
+          "en": "Your maximum Stamina decreases 30% less than your health for 15 minutes. Injuries do not impede Henry's actions for the potion's duration."
+        },
+        "strong": {
+          "de": "Max. Ausdauerverlust bei Gesundheitsschaden um 50% reduziert für 20 Minuten. Verletzungen behindern Heinrichs Handlungen für die Dauer des Tranks nicht.",
+          "it": "La perdita massima di resistenza quando la salute viene persa è ridotta del 50% per 20 minuti. Le ferite non impediscono le azioni di Heinrich per la durata della pozione.",
+          "en": "Your maximum Stamina decreases 50% less than your health for 20 minutes. Injuries do not impede Henry's actions for the potion's duration."
+        },
+        "henrys": {
+          "de": "Max. Ausdauerverlust bei Gesundheitsschaden um 75% reduziert für 25 Minuten. Verletzungen behindern Heinrichs Handlungen für die Dauer des Tranks nicht.",
+          "it": "La perdita massima di resistenza quando la salute viene persa è ridotta del 75% per 25 minuti. Le ferite non impediscono le azioni di Heinrich per la durata della pozione.",
+          "en": "Your maximum Stamina decreases 75% less than your health for 25 minutes. Injuries do not impede Henry's actions for the potion's duration."
+        }
+      },
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "trank-des-nachtfalken",
@@ -1714,9 +2084,9 @@
         "en": "Nighthawk"
       },
       "effect_description": {
-        "de": "Nachtsicht und kein Energieverlust für 25 Minuten",
-        "it": "visione notturna e nessuna perdita di energia per 25 minuti",
-        "en": "Night vision and no stamina loss for 25 minutes"
+        "de": "Verbesserte Nachtsicht für 25 Minuten. Kein Energieverlust während der Wirkdauer.",
+        "it": "Visione notturna migliorata per 25 minuti. Nessuna perdita di energia durante la durata.",
+        "en": "You gain enhanced night vision for 25 minutes. While the potion lasts, your Energy does not deplete at all."
       },
       "price": 70,
       "ingredients": {
@@ -1819,7 +2189,35 @@
       "tags": [
         "combat",
         "short-duration"
-      ]
+      ],
+      "effect_tiers": {
+        "weak": {
+          "de": "Verbesserte Nachtsicht für 10 Minuten.",
+          "it": "Visione notturna migliorata per 10 minuti.",
+          "en": "You gain enhanced night vision for 10 minutes."
+        },
+        "standard": {
+          "de": "Verbesserte Nachtsicht für 15 Minuten. Energieverbrauch 25% langsamer.",
+          "it": "Visione notturna migliorata per 15 minuti. Consumo di energia ridotto del 25%.",
+          "en": "You gain enhanced night vision for 15 minutes. Your Energy depletes 25% slower."
+        },
+        "strong": {
+          "de": "Verbesserte Nachtsicht für 20 Minuten. Energieverbrauch 50% langsamer.",
+          "it": "Visione notturna migliorata per 20 minuti. Consumo di energia ridotto del 50%.",
+          "en": "You gain enhanced night vision for 20 minutes. Your Energy depletes 50% slower."
+        },
+        "henrys": {
+          "de": "Verbesserte Nachtsicht für 25 Minuten. Kein Energieverlust während der Wirkdauer.",
+          "it": "Visione notturna migliorata per 25 minuti. Nessuna perdita di energia durante la durata.",
+          "en": "You gain enhanced night vision for 25 minutes. While the potion lasts, your Energy does not deplete at all."
+        }
+      },
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "puppenmacher-trank",
@@ -1830,9 +2228,9 @@
         "en": "Dollmaker Potion"
       },
       "effect_description": {
-        "de": "Opfer kann nicht rennen, -5 Waffenfertigkeiten, zieht langsam 50 Gesundheit ab",
-        "it": "la vittima non può correre, -5 abilità con armi, sottrae lentamente 50 salute",
-        "en": "Victim cannot run, -5 weapon skills, slowly drains 50 health away"
+        "de": "Opfer kann nicht rennen, alle Waffenfertigkeiten sind um 5 reduziert und es erleidet langsam 50 Schaden.",
+        "it": "La vittima non può correre, tutte le abilità con le armi sono ridotte di 5 e subisce lentamente 50 danni.",
+        "en": "Victims cannot run, all their weapon skills are reduced by 5, and they gradually suffer 50 damage."
       },
       "price": 60,
       "ingredients": {
@@ -1931,7 +2329,35 @@
       },
       "tags": [
         "poison"
-      ]
+      ],
+      "effect_tiers": {
+        "weak": {
+          "de": "Opfer kann nicht rennen und alle Waffenfertigkeiten sind um 3 reduziert.",
+          "it": "La vittima non può correre e tutte le abilità con le armi sono ridotte di 3.",
+          "en": "Victims cannot run and all their weapon skills are reduced by 3."
+        },
+        "standard": {
+          "de": "Opfer kann nicht rennen, alle Waffenfertigkeiten sind um 3 reduziert und es erleidet langsam 20 Schaden.",
+          "it": "La vittima non può correre, tutte le abilità con le armi sono ridotte di 3 e subisce lentamente 20 danni.",
+          "en": "Victims cannot run, all their weapon skills are reduced by 3, and they gradually suffer 20 damage."
+        },
+        "strong": {
+          "de": "Opfer kann nicht rennen, alle Waffenfertigkeiten sind um 4 reduziert und es erleidet langsam 30 Schaden.",
+          "it": "La vittima non può correre, tutte le abilità con le armi sono ridotte di 4 e subisce lentamente 30 danni.",
+          "en": "Victims cannot run, all their weapon skills are reduced by 4, and they gradually suffer 30 damage."
+        },
+        "henrys": {
+          "de": "Opfer kann nicht rennen, alle Waffenfertigkeiten sind um 5 reduziert und es erleidet langsam 50 Schaden.",
+          "it": "La vittima non può correre, tutte le abilità con le armi sono ridotte di 5 e subisce lentamente 50 danni.",
+          "en": "Victims cannot run, all their weapon skills are reduced by 5, and they gradually suffer 50 damage."
+        }
+      },
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "schiesspulver-bleischrot",
@@ -2058,7 +2484,19 @@
       },
       "tags": [
         "crafting"
-      ]
+      ],
+      "quantity": {
+        "base": 7,
+        "matter_i": 8,
+        "matter_ii": 9,
+        "matter_both": 10,
+        "secrets_of_secrets": {
+          "base": 10,
+          "matter_i": 11,
+          "matter_ii": 12,
+          "matter_both": 13
+        }
+      }
     },
     {
       "id": "schiesspulver-streuschuss",
@@ -2185,7 +2623,19 @@
       },
       "tags": [
         "crafting"
-      ]
+      ],
+      "quantity": {
+        "base": 10,
+        "matter_i": 11,
+        "matter_ii": 12,
+        "matter_both": 13,
+        "secrets_of_secrets": {
+          "base": 15,
+          "matter_i": 16,
+          "matter_ii": 17,
+          "matter_both": 18
+        }
+      }
     },
     {
       "id": "schlaftrunk",
@@ -2196,9 +2646,9 @@
         "en": "Lullaby Potion"
       },
       "effect_description": {
-        "de": "Waffen- und Kesselgift, senkt Energie auf 0, vermindert Wahrnehmung und senkt Ausdauer und Ausdauerregeneration um 50% für einen Tag",
-        "it": "Armi e veleno bollente, riduce l'energia a 0, diminuisce la percezione e riduce la resistenza e la rigenerazione della resistenza del 50% per un giorno.",
-        "en": "Weapon and cauldron poison, reduces energy to 0, diminishes perception, and reduces stamina and stamina regeneration by 50% for one day."
+        "de": "Senkt Energie auf 0 und vermindert Wahrnehmung. Opfer erleiden 50% weniger Ausdauer und Ausdauerregeneration für einen Tag.",
+        "it": "Riduce l'energia a 0 e diminuisce la percezione. Le vittime subiscono il 50% di resistenza e rigenerazione in meno per un giorno.",
+        "en": "Reduces Energy to 0 and lowers perception. Victims suffer 50% lower Stamina and Stamina regeneration for 24 hours."
       },
       "price": 60,
       "ingredients": {
@@ -2313,7 +2763,35 @@
       "tags": [
         "healing",
         "long-duration"
-      ]
+      ],
+      "effect_tiers": {
+        "weak": {
+          "de": "Senkt Energie auf 0 und vermindert Wahrnehmung.",
+          "it": "Riduce l'energia a 0 e diminuisce la percezione.",
+          "en": "Reduces Energy to 0 and lowers perception."
+        },
+        "standard": {
+          "de": "Senkt Energie auf 0 und vermindert Wahrnehmung. Opfer erleiden 10% weniger Ausdauer und Ausdauerregeneration für 6 Stunden.",
+          "it": "Riduce l'energia a 0 e diminuisce la percezione. Le vittime subiscono il 10% di resistenza e rigenerazione in meno per 6 ore.",
+          "en": "Reduces Energy to 0 and lowers perception. Victims suffer 10% lower Stamina and Stamina regeneration for 6 hours."
+        },
+        "strong": {
+          "de": "Senkt Energie auf 0 und vermindert Wahrnehmung. Opfer erleiden 30% weniger Ausdauer und Ausdauerregeneration für 12 Stunden.",
+          "it": "Riduce l'energia a 0 e diminuisce la percezione. Le vittime subiscono il 30% di resistenza e rigenerazione in meno per 12 ore.",
+          "en": "Reduces Energy to 0 and lowers perception. Victims suffer 30% lower Stamina and Stamina regeneration for 12 hours."
+        },
+        "henrys": {
+          "de": "Senkt Energie auf 0 und vermindert Wahrnehmung. Opfer erleiden 50% weniger Ausdauer und Ausdauerregeneration für einen Tag.",
+          "it": "Riduce l'energia a 0 e diminuisce la percezione. Le vittime subiscono il 50% di resistenza e rigenerazione in meno per un giorno.",
+          "en": "Reduces Energy to 0 and lowers perception. Victims suffer 50% lower Stamina and Stamina regeneration for 24 hours."
+        }
+      },
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "trank-des-verderbens",
@@ -2324,9 +2802,9 @@
         "en": "Bane"
       },
       "effect_description": {
-        "de": "Kesselgift, -110 Gesundheit in 15 Sekunden, Opfer kann nicht rennen",
-        "it": "veleno per calderone, -110 salute in 15 secondi, la vittima non può correre",
-        "en": "Cauldron poison, -110 health in 15 seconds, victim cannot run"
+        "de": "Vergiftete können nicht rennen und verlieren 110 Gesundheit in 15 Sekunden.",
+        "it": "Gli avvelenati non possono correre e perdono 110 salute in 15 secondi.",
+        "en": "Poisoned characters cannot run and lose 110 Health in 15 seconds."
       },
       "price": 70,
       "ingredients": {
@@ -2440,7 +2918,35 @@
       },
       "tags": [
         "poison"
-      ]
+      ],
+      "effect_tiers": {
+        "weak": {
+          "de": "Vergiftete können nicht rennen und verlieren 110 Gesundheit in 60 Sekunden.",
+          "it": "Gli avvelenati non possono correre e perdono 110 salute in 60 secondi.",
+          "en": "Poisoned characters cannot run and lose 110 Health in 60 seconds."
+        },
+        "standard": {
+          "de": "Vergiftete können nicht rennen und verlieren 110 Gesundheit in 45 Sekunden.",
+          "it": "Gli avvelenati non possono correre e perdono 110 salute in 45 secondi.",
+          "en": "Poisoned characters cannot run and lose 110 Health in 45 seconds."
+        },
+        "strong": {
+          "de": "Vergiftete können nicht rennen und verlieren 110 Gesundheit in 30 Sekunden.",
+          "it": "Gli avvelenati non possono correre e perdono 110 salute in 30 secondi.",
+          "en": "Poisoned characters cannot run and lose 110 Health in 30 seconds."
+        },
+        "henrys": {
+          "de": "Vergiftete können nicht rennen und verlieren 110 Gesundheit in 15 Sekunden.",
+          "it": "Gli avvelenati non possono correre e perdono 110 salute in 15 secondi.",
+          "en": "Poisoned characters cannot run and lose 110 Health in 15 seconds."
+        }
+      },
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "schuetzentrunk",
@@ -2451,9 +2957,9 @@
         "en": "Bowman's Brew"
       },
       "effect_description": {
-        "de": "+8 Schießkunst und Zielen kostet für 15 Minuten keine Ausdauer",
-        "it": "+8 tiro con arco e mirare non costa resistenza per 15 minuti",
-        "en": "+8 Marksmanship and aiming do not cost stamina for 15 minutes."
+        "de": "Erhöht Schießkunst um 8 für 15 Minuten. Zielen kostet während der Wirkdauer keine Ausdauer.",
+        "it": "Aumenta il tiro con arco di 8 per 15 minuti. Mirare non costa resistenza durante la durata.",
+        "en": "Increases Marksmanship by 8 for 15 minutes. While the potion lasts, aiming does not cost Stamina at all."
       },
       "price": 70,
       "ingredients": {
@@ -2553,7 +3059,35 @@
       "tags": [
         "combat",
         "short-duration"
-      ]
+      ],
+      "effect_tiers": {
+        "weak": {
+          "de": "Erhöht Schießkunst um 3 für 10 Minuten.",
+          "it": "Aumenta il tiro con arco di 3 per 10 minuti.",
+          "en": "Increases your Marksmanship by 3 for 10 minutes."
+        },
+        "standard": {
+          "de": "Erhöht Schießkunst um 3 und senkt Ausdauerverbrauch beim Zielen um 20% für 10 Minuten.",
+          "it": "Aumenta il tiro con arco di 3 e riduce il costo resistenza nel mirare del 20% per 10 minuti.",
+          "en": "Increases your Marksmanship by 3 and lowers Stamina drain from aiming by 20% for 10 minutes."
+        },
+        "strong": {
+          "de": "Erhöht Schießkunst um 5 und senkt Ausdauerverbrauch beim Zielen um 50% für 10 Minuten.",
+          "it": "Aumenta il tiro con arco di 5 e riduce il costo resistenza nel mirare del 50% per 10 minuti.",
+          "en": "Increases your Marksmanship by 5 and lowers Stamina drain from aiming by 50% for 10 minutes."
+        },
+        "henrys": {
+          "de": "Erhöht Schießkunst um 8 für 15 Minuten. Zielen kostet während der Wirkdauer keine Ausdauer.",
+          "it": "Aumenta il tiro con arco di 8 per 15 minuti. Mirare non costa resistenza durante la durata.",
+          "en": "Increases Marksmanship by 8 for 15 minutes. While the potion lasts, aiming does not cost Stamina at all."
+        }
+      },
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "wermutgeist",
@@ -2564,9 +3098,9 @@
         "en": "Artemisia"
       },
       "effect_description": {
-        "de": "+6 Stärke, -35% Ausdauerkosten bei Angriff und Verteidigung für 15 Minuten",
-        "it": "+6 forza, -35% costi resistenza in attacco e difesa per 15 minuti",
-        "en": "+6 Strength, -35% Stamina cost when attacking and defending for 15 minutes"
+        "de": "Erhöht Stärke um 6 für 15 Minuten. Zusätzlich kosten Angriff und Verteidigung 35% weniger Ausdauer.",
+        "it": "Aumenta la forza di 6 per 15 minuti. Inoltre, attacco e difesa costano il 35% in meno di resistenza.",
+        "en": "Increases Strength by 6 for 15 minutes. In addition, attack and defence cost 35% less Stamina."
       },
       "price": 70,
       "ingredients": {
@@ -2666,7 +3200,35 @@
       "tags": [
         "combat",
         "short-duration"
-      ]
+      ],
+      "effect_tiers": {
+        "weak": {
+          "de": "Erhöht Stärke um 2 für 10 Minuten.",
+          "it": "Aumenta la forza di 2 per 10 minuti.",
+          "en": "Increases Strength by 2 for 10 minutes."
+        },
+        "standard": {
+          "de": "Erhöht Stärke um 4 für 10 Minuten.",
+          "it": "Aumenta la forza di 4 per 10 minuti.",
+          "en": "Increases Strength by 4 for 10 minutes."
+        },
+        "strong": {
+          "de": "Erhöht Stärke um 6 für 10 Minuten. Zusätzlich kosten Angriff und Verteidigung 20% weniger Ausdauer.",
+          "it": "Aumenta la forza di 6 per 10 minuti. Inoltre, attacco e difesa costano il 20% in meno di resistenza.",
+          "en": "Increases Strength by 6 for 10 minutes. In addition, attack and defence cost 20% less Stamina."
+        },
+        "henrys": {
+          "de": "Erhöht Stärke um 6 für 15 Minuten. Zusätzlich kosten Angriff und Verteidigung 35% weniger Ausdauer.",
+          "it": "Aumenta la forza di 6 per 15 minuti. Inoltre, attacco e difesa costano il 35% in meno di resistenza.",
+          "en": "Increases Strength by 6 for 15 minutes. In addition, attack and defence cost 35% less Stamina."
+        }
+      },
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "retterschnaps",
@@ -2677,9 +3239,9 @@
         "en": "Saviour Schnapps"
       },
       "effect_description": {
-        "de": "Speichert das Spiel, heilt 30% Gesundheit, +3 Stärke, Vitalität und Agilität für zwei Stunden",
-        "it": "Salva la partita, cura il 30% della salute, +3 forza, vitalità e agilità per due ore",
-        "en": "Saves the game, heals 30% health, +3 strength, vitality, and agility for two hours"
+        "de": "Speichert das Spiel, heilt 30 Gesundheit und erhöht Stärke, Vitalität und Agilität um 3 für 3 Minuten.",
+        "it": "Salva la partita, cura 30 salute e aumenta forza, vitalità e agilità di 3 per 3 minuti.",
+        "en": "Saves your game, restores 30 health, and boosts your Strength, Vitality, and Agility by 3 for 3 minutes."
       },
       "price": 55,
       "ingredients": {
@@ -2779,7 +3341,35 @@
       "tags": [
         "healing",
         "long-duration"
-      ]
+      ],
+      "effect_tiers": {
+        "weak": {
+          "de": "Speichert das Spiel. Du beginnst genau dort, wo du standest, als du den Schnaps getrunken hast.",
+          "it": "Salva la partita. Ricomincerai esattamente da dove ti trovavi quando hai bevuto la grappa.",
+          "en": "Saves your game. You'll start from exactly where you were standing when you drank the schnapps."
+        },
+        "standard": {
+          "de": "Speichert das Spiel, heilt 10 Gesundheit und erhöht Stärke, Vitalität und Agilität um 1 für 3 Minuten.",
+          "it": "Salva la partita, cura 10 salute e aumenta forza, vitalità e agilità di 1 per 3 minuti.",
+          "en": "Saves your game, restores 10 health, and boosts your Strength, Vitality, and Agility by 1 for 3 minutes."
+        },
+        "strong": {
+          "de": "Speichert das Spiel, heilt 20 Gesundheit und erhöht Stärke, Vitalität und Agilität um 2 für 3 Minuten.",
+          "it": "Salva la partita, cura 20 salute e aumenta forza, vitalità e agilità di 2 per 3 minuti.",
+          "en": "Saves your game, restores 20 health, and boosts your Strength, Vitality, and Agility by 2 for 3 minutes."
+        },
+        "henrys": {
+          "de": "Speichert das Spiel, heilt 30 Gesundheit und erhöht Stärke, Vitalität und Agilität um 3 für 3 Minuten.",
+          "it": "Salva la partita, cura 30 salute e aumenta forza, vitalità e agilità di 3 per 3 minuti.",
+          "en": "Saves your game, restores 30 health, and boosts your Strength, Vitality, and Agility by 3 for 3 minutes."
+        }
+      },
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "seife",
@@ -2906,7 +3496,13 @@
       },
       "tags": [
         "crafting"
-      ]
+      ],
+      "quantity": {
+        "base": 6,
+        "matter_i": 7,
+        "matter_ii": 8,
+        "matter_both": 9
+      }
     },
     {
       "id": "strauchdiebtrunk",
@@ -2917,9 +3513,9 @@
         "en": "Quickfinger Potion"
       },
       "effect_description": {
-        "de": "+8 Handwerk & Stehlen für eine Stunde",
-        "it": "+8 artigianato e furto per un'ora",
-        "en": "+8 craftsmanship & thievery for one hour"
+        "de": "Erhöht Handwerk und Stehlen um 8 für eine Stunde.",
+        "it": "Aumenta artigianato e furto di 8 per un'ora.",
+        "en": "Increases Craftsmanship and Thievery by 8 for 60 minutes."
       },
       "price": 70,
       "ingredients": {
@@ -3034,7 +3630,35 @@
       "tags": [
         "healing",
         "long-duration"
-      ]
+      ],
+      "effect_tiers": {
+        "weak": {
+          "de": "Erhöht Handwerk und Stehlen um 2 für 20 Minuten.",
+          "it": "Aumenta artigianato e furto di 2 per 20 minuti.",
+          "en": "Increases Craftsmanship and Thievery by 2 for 20 minutes."
+        },
+        "standard": {
+          "de": "Erhöht Handwerk und Stehlen um 4 für 20 Minuten.",
+          "it": "Aumenta artigianato e furto di 4 per 20 minuti.",
+          "en": "Increases Craftsmanship and Thievery by 4 for 20 minutes."
+        },
+        "strong": {
+          "de": "Erhöht Handwerk und Stehlen um 6 für 20 Minuten.",
+          "it": "Aumenta artigianato e furto di 6 per 20 minuti.",
+          "en": "Increases Craftsmanship and Thievery by 6 for 20 minutes."
+        },
+        "henrys": {
+          "de": "Erhöht Handwerk und Stehlen um 8 für eine Stunde.",
+          "it": "Aumenta artigianato e furto di 8 per un'ora.",
+          "en": "Increases Craftsmanship and Thievery by 8 for 60 minutes."
+        }
+      },
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "wasser-der-lethe",
@@ -3149,7 +3773,13 @@
       },
       "tags": [
         "utility"
-      ]
+      ],
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
     },
     {
       "id": "alraunentrank",
@@ -3289,6 +3919,133 @@
       "tags": [
         "healing",
         "long-duration"
+      ],
+      "quantity": {
+        "base": 3,
+        "matter_i": 4,
+        "matter_ii": 5,
+        "matter_both": 6
+      }
+    },
+    {
+      "id": "fiebertonikum",
+      "category": "Sonstiges",
+      "name": {
+        "de": "Fiebertonikum",
+        "it": "Tonico contro la febbre",
+        "en": "Fever Tonic"
+      },
+      "effect_description": {
+        "de": "Fieber und damit verbundene Komplikationen können oft zum Tod führen. Dieses Tonikum senkt das Fieber, wenn es rechtzeitig verabreicht wird.",
+        "it": "La febbre e le complicazioni correlate possono spesso portare alla morte. Questo tonico riduce la febbre se somministrato in tempo.",
+        "en": "Fever and related complications can often end in death. This tonic reduces fever if given in time."
+      },
+      "price": 50,
+      "ingredients": {
+        "de": [
+          "1 x Holunderblätter",
+          "3 x Mutterkraut",
+          "2 x Ingwer"
+        ],
+        "it": [
+          "1 x Foglie di Sambuco",
+          "3 x Partenio",
+          "2 x Zenzero"
+        ],
+        "en": [
+          "1 x Elderberry Leaves",
+          "3 x Feverfew",
+          "2 x Ginger"
+        ]
+      },
+      "recipe_steps": {
+        "de": [
+          {
+            "description": "Wein",
+            "duration": 0
+          },
+          {
+            "description": "3 x Mutterkraut",
+            "duration": 0
+          },
+          {
+            "description": "Kochen",
+            "duration": 20
+          },
+          {
+            "description": "1 x Holunderblätter zerstoßen",
+            "duration": 0
+          },
+          {
+            "description": "2 x Ingwer",
+            "duration": 0
+          },
+          {
+            "description": "Destillieren",
+            "duration": 0
+          }
+        ],
+        "it": [
+          {
+            "description": "Vino",
+            "duration": 0
+          },
+          {
+            "description": "3 x Partenio",
+            "duration": 0
+          },
+          {
+            "description": "Bollire",
+            "duration": 20
+          },
+          {
+            "description": "1 x Foglie di Sambuco pestare",
+            "duration": 0
+          },
+          {
+            "description": "2 x Zenzero",
+            "duration": 0
+          },
+          {
+            "description": "Distillare",
+            "duration": 0
+          }
+        ],
+        "en": [
+          {
+            "description": "Wine",
+            "duration": 0
+          },
+          {
+            "description": "3 x Feverfew",
+            "duration": 0
+          },
+          {
+            "description": "Boil",
+            "duration": 20
+          },
+          {
+            "description": "1 x Elderberry Leaves grind",
+            "duration": 0
+          },
+          {
+            "description": "2 x Ginger",
+            "duration": 0
+          },
+          {
+            "description": "Distill",
+            "duration": 0
+          }
+        ]
+      },
+      "quantity": {
+        "base": 1,
+        "matter_i": 2,
+        "matter_ii": 3,
+        "matter_both": 4
+      },
+      "tags": [
+        "healing"
       ]
     }
   ]

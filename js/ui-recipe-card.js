@@ -179,14 +179,16 @@ export function buildRecipeCard(recipe, getLang) {
             bodyEl.className = 'kcd-card-body expanded grid grid-rows-[1fr] transition-[grid-template-rows] duration-300';
             bodyEl.setAttribute('aria-hidden', 'false');
             root.setAttribute('aria-expanded', 'true');
-            if (!timerBarInstance) {
-                initActiveStep();
-                enableTimer();
-            }
+            initActiveStep();
+            enableTimer();
         } else {
             bodyEl.className = 'kcd-card-body grid grid-rows-[0fr] transition-[grid-template-rows] duration-300';
             bodyEl.setAttribute('aria-hidden', 'true');
             root.setAttribute('aria-expanded', 'false');
+            if (timerBarInstance) {
+                timerBarInstance.destroy();
+                timerBarInstance = null;
+            }
         }
     }
 
