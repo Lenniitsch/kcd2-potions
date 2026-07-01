@@ -96,7 +96,7 @@ export function buildHeader() {
     );
 
     var root = el('header', {
-        class: 'mb-4 flex items-center sm:items-start justify-between relative',
+        class: 'mb-4 flex items-start justify-between relative',
     }, logo, controls, mobileActions);
 
     // ---- Outside-click handlers ----
