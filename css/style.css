@@ -297,9 +297,8 @@ select:focus-visible {
     gap: 1.5rem;
 }
 
-.kcd-card-list .kcd-card-body-content .timer-nav,
-.kcd-card-list .kcd-card-body-content > div:last-child {
-    grid-column: 1 / -1;
+.kcd-card-list .kcd-card-body-content .timer-controls {
+    grid-column: auto;
 }
 
 @media (max-width: 639px) {
@@ -547,16 +546,88 @@ header .font-serif.text-kcd-gold {
     }
 }
 
-/* ---- Timer bar ---- */
+/* ---- Timer Controls ---- */
+
+.timer-controls {
+    background: var(--kcd-elevated);
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.timer-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.timer-nav-btn {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.15s, opacity 0.15s, transform 0.1s;
+    background: transparent;
+    border: 1px solid var(--kcd-border);
+    color: var(--kcd-text-secondary);
+}
+
+.timer-nav-btn:hover:not(:disabled) {
+    background: var(--kcd-hover);
+    color: var(--kcd-text);
+    border-color: var(--kcd-gold-dim);
+}
+
+.timer-nav-btn:active:not(:disabled) {
+    transform: scale(0.97);
+}
+
+.timer-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+/* Toggle filter chip */
+
+.timer-toggle {
+    min-width: auto;
+    min-height: 32px;
+    padding: 0.25rem 0.625rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+    background: transparent;
+    border: 1px solid var(--kcd-border);
+    color: var(--kcd-text-secondary);
+    white-space: nowrap;
+}
+
+.timer-toggle:hover {
+    background: var(--kcd-hover);
+    color: var(--kcd-text);
+    border-color: var(--kcd-border-strong);
+}
+
+.timer-toggle-on {
+    background: color-mix(in srgb, var(--kcd-gold) 14%, transparent);
+    color: var(--kcd-gold);
+    border-color: var(--kcd-gold-dim);
+}
+
+/* Timer bar */
 
 .timer-bar {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    padding: 0.75rem;
-    border: 1px solid var(--kcd-border);
-    border-radius: 0.5rem;
-    background: var(--kcd-surface);
 }
 
 .timer-bar-row {
@@ -587,6 +658,10 @@ header .font-serif.text-kcd-gold {
     flex-shrink: 0;
 }
 
+.timer-bar-time--disabled {
+    color: var(--kcd-text-secondary);
+}
+
 .timer-bar-buttons {
     display: flex;
     gap: 0.5rem;
@@ -601,9 +676,18 @@ header .font-serif.text-kcd-gold {
     font-size: 0.875rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.15s, color 0.15s;
+    transition: background-color 0.15s, color 0.15s, transform 0.1s, opacity 0.15s;
     border: 1px solid transparent;
     flex: 1;
+}
+
+.timer-bar-btn:active:not(:disabled) {
+    transform: scale(0.97);
+}
+
+.timer-bar-btn:disabled {
+    opacity: 0.35;
+    cursor: default;
 }
 
 .timer-bar-btn-start {
@@ -612,8 +696,14 @@ header .font-serif.text-kcd-gold {
     border-color: var(--kcd-gold);
 }
 
-.timer-bar-btn-start:hover {
+.timer-bar-btn-start:hover:not(:disabled) {
     background: var(--kcd-gold-hover);
+}
+
+.timer-bar-btn-start:disabled {
+    background: var(--kcd-border);
+    color: var(--kcd-text-disabled);
+    border-color: transparent;
 }
 
 .timer-bar-btn-pause,
@@ -623,9 +713,16 @@ header .font-serif.text-kcd-gold {
     border-color: var(--kcd-accent);
 }
 
-.timer-bar-btn-pause:hover,
-.timer-bar-btn-resume:hover {
+.timer-bar-btn-pause:hover:not(:disabled),
+.timer-bar-btn-resume:hover:not(:disabled) {
     background: var(--kcd-accent-hover);
+}
+
+.timer-bar-btn-pause:disabled,
+.timer-bar-btn-resume:disabled {
+    background: var(--kcd-border);
+    color: var(--kcd-text-disabled);
+    border-color: transparent;
 }
 
 .timer-bar-btn-reset {
@@ -634,7 +731,7 @@ header .font-serif.text-kcd-gold {
     border-color: var(--kcd-border);
 }
 
-.timer-bar-btn-reset:hover {
+.timer-bar-btn-reset:hover:not(:disabled) {
     background: var(--kcd-hover);
     color: var(--kcd-text);
 }
@@ -656,15 +753,17 @@ header .font-serif.text-kcd-gold {
     transition: width 0.25s linear;
 }
 
+.timer-bar-progress-track--disabled .timer-bar-progress-fill {
+    background: var(--kcd-text-disabled);
+}
+
 /* Active step highlight */
 
 .kcd-step-active {
-    border-left: 2px solid var(--kcd-gold);
     background: linear-gradient(to right, rgba(243, 205, 118, 0.08), transparent);
 }
 
 [data-theme="light"] .kcd-step-active {
-    border-left-color: var(--kcd-gold);
     background: linear-gradient(to right, rgba(139, 107, 54, 0.08), transparent);
 }
 
@@ -679,38 +778,4 @@ header .font-serif.text-kcd-gold {
 
 .timer-pulse {
     animation: timer-pulse 0.6s ease-in-out 3;
-}
-
-/* Prev/Next nav buttons */
-
-.timer-nav {
-    display: flex;
-    justify-content: center;
-    gap: 0.75rem;
-    padding: 0.5rem 0;
-}
-
-.timer-nav-btn {
-    min-width: 44px;
-    min-height: 44px;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.5rem;
-    font-size: 0.8125rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.15s, opacity 0.15s;
-    background: transparent;
-    border: 1px solid var(--kcd-border);
-    color: var(--kcd-text-secondary);
-}
-
-.timer-nav-btn:hover:not(:disabled) {
-    background: var(--kcd-hover);
-    color: var(--kcd-text);
-    border-color: var(--kcd-gold-dim);
-}
-
-.timer-nav-btn:disabled {
-    opacity: 0.3;
-    cursor: default;
 }

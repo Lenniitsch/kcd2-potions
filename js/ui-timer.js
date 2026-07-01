@@ -196,8 +196,10 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         if (idx < 0) return;
         var steps = recipe.recipe_steps.de;
         var step = (recipe.recipe_steps[lang] || recipe.recipe_steps.de)[idx];
+        if (steps[idx].duration <= 0) return;
         stepLabelEl.textContent = step.description;
         timeEl.textContent = formatTime(remaining);
+        timeEl.classList.remove('timer-bar-time--disabled');
         var pct = ((steps[idx].duration - remaining) / steps[idx].duration) * 100;
         progressFill.style.width = Math.min(100, Math.max(0, pct)) + '%';
     }
@@ -208,14 +210,31 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         var steps = recipe.recipe_steps[lang] || recipe.recipe_steps.de;
         if (!steps[idx]) return;
         var step = steps[idx];
+        var isTimed = step.duration > 0;
         stepLabelEl.textContent = step.description;
-        timeEl.textContent = step.duration + 's';
-        progressFill.style.width = '0%';
         progressTrack.style.display = 'none';
-        buttonRow.innerHTML = '';
-        buttonRow.appendChild(startBtn);
-        startBtn.textContent = getText('timer.start');
-        resetBtn.textContent = getText('timer.reset');
+        progressFill.style.width = '0%';
+
+        if (isTimed) {
+            timeEl.textContent = step.duration + 's';
+            timeEl.classList.remove('timer-bar-time--disabled');
+            buttonRow.innerHTML = '';
+            buttonRow.appendChild(startBtn);
+            startBtn.disabled = false;
+            startBtn.textContent = getText('timer.start');
+            resetBtn.disabled = false;
+            resetBtn.textContent = getText('timer.reset');
+        } else {
+            timeEl.textContent = '\u2014';
+            timeEl.classList.add('timer-bar-time--disabled');
+            buttonRow.innerHTML = '';
+            buttonRow.appendChild(startBtn);
+            buttonRow.appendChild(resetBtn);
+            startBtn.disabled = true;
+            startBtn.textContent = getText('timer.start');
+            resetBtn.disabled = true;
+            resetBtn.textContent = getText('timer.reset');
+        }
     }
 
     function showRunningState() {

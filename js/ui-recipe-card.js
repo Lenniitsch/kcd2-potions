@@ -41,11 +41,20 @@ var CATEGORY_TEXT_CLASS = {
     'cat-dlc': 'text-cat-dlc',
 };
 
-function getTimedStepIndices(recipe) {
+function getTimedOnlyIndices(recipe) {
     var indices = [];
     var steps = recipe.recipe_steps.de;
     for (var i = 0; i < steps.length; i++) {
         if (steps[i].duration > 0) indices.push(i);
+    }
+    return indices;
+}
+
+function getIndicesForMode(recipe, timedOnly) {
+    var indices = [];
+    var steps = recipe.recipe_steps.de;
+    for (var i = 0; i < steps.length; i++) {
+        if (!timedOnly || steps[i].duration > 0) indices.push(i);
     }
     return indices;
 }
@@ -55,10 +64,12 @@ export function buildRecipeCard(recipe, getLang) {
     var expanded = false;
     var activeStepIndex = -1;
     var timerBarInstance = null;
+    var showTimedOnly = true;
     var catColor = CATEGORY_COLORS[recipe.category] || 'kcd-gold';
 
-    var timedStepIndices = getTimedStepIndices(recipe);
-    var hasTimedSteps = timedStepIndices.length > 0;
+    var timedOnlyIndices = getTimedOnlyIndices(recipe);
+    var hasTimedSteps = timedOnlyIndices.length > 0;
+    var activeStepIndices = getIndicesForMode(recipe, showTimedOnly);
 
     var fullName = recipe.name[lang] || recipe.name.de;
     var first = fullName.charAt(0);
@@ -111,15 +122,19 @@ export function buildRecipeCard(recipe, getLang) {
         class: 'timer-nav-btn',
         onClick: function (e) { e.stopPropagation(); navigateStep(1); },
     });
-    var navRow = el('div', { class: 'timer-nav' }, prevBtn, nextBtn);
+    var toggleBtn = el('button', {
+        class: 'timer-toggle timer-toggle-on',
+        onClick: function (e) { e.stopPropagation(); toggleTimedOnly(); },
+    });
+    var navRow = el('div', { class: 'timer-nav' }, prevBtn, toggleBtn, nextBtn);
 
     var timerContainer = el('div', {});
+    var timerControls = el('div', { class: 'timer-controls' }, navRow, timerContainer);
 
     var bodyContent = el('div', { class: 'kcd-card-body-content flex flex-col gap-3' },
         ingredientsSection,
         stepsSection,
-        navRow,
-        timerContainer
+        timerControls
     );
 
     var bodyInner = el('div', { class: 'overflow-hidden' },
@@ -151,6 +166,30 @@ export function buildRecipeCard(recipe, getLang) {
     populateSteps(stepsList, recipe, lang, onStepTap);
     updateNavButtons();
     updateNavLabels();
+    updateToggleLabel();
+
+    function toggleTimedOnly() {
+        showTimedOnly = !showTimedOnly;
+        var newIndices = getIndicesForMode(recipe, showTimedOnly);
+        activeStepIndices = newIndices;
+        updateToggleLabel();
+        if (activeStepIndices.indexOf(activeStepIndex) === -1 && activeStepIndices.length > 0) {
+            setActiveStep(activeStepIndices[0]);
+        } else if (activeStepIndices.length === 0) {
+            setActiveStep(-1);
+        } else {
+            updateNavButtons();
+        }
+    }
+
+    function updateToggleLabel() {
+        toggleBtn.textContent = showTimedOnly ? 'Timed' : 'All';
+        if (showTimedOnly) {
+            toggleBtn.classList.add('timer-toggle-on');
+        } else {
+            toggleBtn.classList.remove('timer-toggle-on');
+        }
+    }
 
     function onStepTap(idx) {
         setActiveStep(idx);
@@ -176,8 +215,8 @@ export function buildRecipeCard(recipe, getLang) {
 
     function initActiveStep() {
         if (activeStepIndex >= 0) return;
-        if (hasTimedSteps) {
-            activeStepIndex = timedStepIndices[0];
+        if (activeStepIndices.length > 0) {
+            activeStepIndex = activeStepIndices[0];
         } else {
             activeStepIndex = -1;
         }
@@ -198,12 +237,12 @@ export function buildRecipeCard(recipe, getLang) {
     }
 
     function navigateStep(direction) {
-        if (timedStepIndices.length === 0) return;
-        var currentIdxInTimed = timedStepIndices.indexOf(activeStepIndex);
-        if (currentIdxInTimed === -1) return;
-        var newIdxInTimed = currentIdxInTimed + direction;
-        if (newIdxInTimed < 0 || newIdxInTimed >= timedStepIndices.length) return;
-        setActiveStep(timedStepIndices[newIdxInTimed]);
+        if (activeStepIndices.length === 0) return;
+        var currentIdxInList = activeStepIndices.indexOf(activeStepIndex);
+        if (currentIdxInList === -1) return;
+        var newIdxInList = currentIdxInList + direction;
+        if (newIdxInList < 0 || newIdxInList >= activeStepIndices.length) return;
+        setActiveStep(activeStepIndices[newIdxInList]);
     }
 
     function setActiveStep(idx) {
@@ -216,13 +255,13 @@ export function buildRecipeCard(recipe, getLang) {
     }
 
     function updateNavButtons() {
-        if (timedStepIndices.length <= 1 || activeStepIndex < 0) {
+        if (activeStepIndices.length <= 1 || activeStepIndex < 0) {
             prevBtn.disabled = true;
             nextBtn.disabled = true;
         } else {
-            var currentIdxInTimed = timedStepIndices.indexOf(activeStepIndex);
-            prevBtn.disabled = currentIdxInTimed <= 0;
-            nextBtn.disabled = currentIdxInTimed >= timedStepIndices.length - 1;
+            var currentIdxInList = activeStepIndices.indexOf(activeStepIndex);
+            prevBtn.disabled = currentIdxInList <= 0;
+            nextBtn.disabled = currentIdxInList >= activeStepIndices.length - 1;
         }
     }
 
@@ -247,7 +286,7 @@ export function buildRecipeCard(recipe, getLang) {
         timerBarInstance = TimerBar(timerContainer, recipe, getLang,
             function () { return activeStepIndex; },
             setActiveStep,
-            function () { return timedStepIndices; }
+            function () { return activeStepIndices; }
         );
     }
 
