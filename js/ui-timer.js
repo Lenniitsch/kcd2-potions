@@ -101,7 +101,7 @@ var chevronDownSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height=
 
 var brewPlaySvg = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6v4l4 10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2l4-10V3z"/><line x1="5" y1="3" x2="19" y2="3"/></svg>';
 
-function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStepIndex, getActiveStepIndices, _getTotalSteps, onPrevStep, onNextStep, onToggleMode, showTimedOnly) {
+function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStepIndex, getActiveStepIndices, _getTotalSteps, onPrevStep, onNextStep, onToggleMode, showTimedOnly, autoAdvance) {
     var timer = null;
     var lang = getLang();
     var cachedSteps = getSteps(recipe.id);
@@ -292,7 +292,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
         var pos = indices.indexOf(idx);
         var hasNext = pos >= 0 && pos < indices.length - 1;
 
-        if (hasNext) {
+        if (autoAdvance && hasNext) {
             onNextStep();
         } else {
             showReadyState();
@@ -326,10 +326,20 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
         var step = cachedSteps[idx];
         if (!step) return;
         var isTimed = step.duration > 0;
+        var indices = getActiveStepIndices();
+        var pos = indices.indexOf(idx);
+        var isLast = pos >= 0 && pos === indices.length - 1;
         stepLabelEl.textContent = step.description;
         progressFill.style.width = '0%';
 
-        if (isTimed) {
+        if (isLast && !isTimed) {
+            countdownEl.textContent = '\u2713';
+            countdownEl.classList.remove('timer-countdown--disabled');
+            primaryBtn.innerHTML = getText('timer.brewComplete');
+            primaryBtn.disabled = true;
+            resetBtn.innerHTML = resetSvg + ' ' + getText('timer.reset');
+            resetBtn.disabled = false;
+        } else if (isTimed) {
             countdownEl.textContent = step.duration + 's';
             countdownEl.classList.remove('timer-countdown--disabled');
             primaryBtn.innerHTML = playSvg + ' ' + getText('timer.start');
@@ -382,9 +392,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, _setActiveStep
 
     function formatTime(totalSeconds) {
         totalSeconds = Math.max(0, totalSeconds);
-        var m = Math.floor(totalSeconds / 60);
-        var s = totalSeconds % 60;
-        return m + ':' + (s < 10 ? '0' : '') + s;
+        return Math.floor(totalSeconds) + 's';
     }
 
     var api = {
