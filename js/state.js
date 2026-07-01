@@ -15,6 +15,7 @@ const state = {
     settings: {
         mediaControls: false,
         autoAdvance: false,
+        timedStepsOnly: true,
     },
 };
 

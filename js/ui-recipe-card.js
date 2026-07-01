@@ -1,5 +1,5 @@
 import { el } from './dom.js';
-import { state } from './state.js';
+import { state, onState } from './state.js';
 import { getText, getCategoryLabel } from './i18n.js';
 import { getName, getEffect, getIngredients, getSteps } from './recipes.js';
 import { TimerBar } from './ui-timer.js';
@@ -65,12 +65,25 @@ export function buildRecipeCard(recipe, getLang) {
     var expanded = false;
     var activeStepIndex = -1;
     var timerBarInstance = null;
-    var showTimedOnly = true;
+    var showTimedOnly = state.settings.timedStepsOnly;
     var catColor = CATEGORY_COLORS[recipe.category] || 'kcd-gold';
 
     var timedOnlyIndices = getTimedOnlyIndices(recipe);
     var hasTimedSteps = timedOnlyIndices.length > 0;
     var activeStepIndices = getIndicesForMode(recipe, showTimedOnly);
+
+    onState('settings', function (newSettings) {
+        showTimedOnly = newSettings.timedStepsOnly;
+        activeStepIndices = getIndicesForMode(recipe, showTimedOnly);
+        if (activeStepIndices.indexOf(activeStepIndex) === -1 && activeStepIndices.length > 0) {
+            setActiveStep(activeStepIndices[0]);
+        } else if (activeStepIndices.length === 0) {
+            setActiveStep(-1);
+        }
+        if (timerBarInstance && timerBarInstance.setMode) {
+            timerBarInstance.setMode(showTimedOnly);
+        }
+    });
 
     var fullName = getName(recipe.id);
     var first = fullName.charAt(0);

@@ -59,7 +59,7 @@ export function getName(recipeId) {
 
 export function getEffect(recipeId) {
     var entry = store.locales[store.lang].recipes[recipeId];
-    return entry ? entry.effect.henrys : '';
+    return entry && entry.effect ? entry.effect.henrys : '';
 }
 
 export function getIngredients(recipeId) {
@@ -110,8 +110,9 @@ export function getAvailableIngredients(recipes, filtered) {
 }
 
 export function filterRecipes(recipes, filters) {
-    if (!store.recipes) return [];
-    return store.recipes.filter(function (recipe) {
+    var source = recipes || store.recipes;
+    if (!source) return [];
+    return source.filter(function (recipe) {
         if (filters.category !== 'all' && recipe.category !== filters.category) {
             return false;
         }
@@ -124,9 +125,9 @@ export function filterRecipes(recipes, filters) {
             var nameMatch = de.name.toLowerCase().indexOf(q) !== -1
                 || it.name.toLowerCase().indexOf(q) !== -1
                 || en.name.toLowerCase().indexOf(q) !== -1;
-            var effectMatch = de.effect.henrys.toLowerCase().indexOf(q) !== -1
-                || it.effect.henrys.toLowerCase().indexOf(q) !== -1
-                || en.effect.henrys.toLowerCase().indexOf(q) !== -1;
+            var effectMatch = (de.effect && de.effect.henrys && de.effect.henrys.toLowerCase().indexOf(q) !== -1)
+                || (it.effect && it.effect.henrys && it.effect.henrys.toLowerCase().indexOf(q) !== -1)
+                || (en.effect && en.effect.henrys && en.effect.henrys.toLowerCase().indexOf(q) !== -1);
             if (!nameMatch && !effectMatch) return false;
         }
 
@@ -134,11 +135,11 @@ export function filterRecipes(recipes, filters) {
             var recipeKeys = recipe.ingredients.map(function (item) {
                 return item.key;
             });
-            var allMatch = true;
+            var matchesAll = true;
             filters.ingredients.forEach(function (key) {
-                if (recipeKeys.indexOf(key) === -1) allMatch = false;
+                if (recipeKeys.indexOf(key) === -1) matchesAll = false;
             });
-            if (!allMatch) return false;
+            if (!matchesAll) return false;
         }
 
         return true;

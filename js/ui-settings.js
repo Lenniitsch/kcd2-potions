@@ -13,10 +13,10 @@ function ToggleSegButton(text, isActive, onClick) {
 }
 
 function SettingsToggleRow(labelKey, descKey, stateKey) {
-    var offBtn = ToggleSegButton('AUS', !state.settings[stateKey], function () {
+    var offBtn = ToggleSegButton(getText('settings.off'), !state.settings[stateKey], function () {
         toggleSettingsKey(stateKey, false);
     });
-    var onBtn = ToggleSegButton('AN', state.settings[stateKey], function () {
+    var onBtn = ToggleSegButton(getText('settings.on'), state.settings[stateKey], function () {
         toggleSettingsKey(stateKey, true);
     });
 
@@ -45,34 +45,36 @@ function toggleSettingsKey(key, val) {
 var gearBtnClass = 'p-2 rounded text-kcd-muted hover:text-kcd-gold hover:bg-kcd-hover transition-colors focus:outline-none';
 
 function buildSettings() {
-    // ---- Option rows ----
     var mediaControlsRow = SettingsToggleRow('settings.mediaControls', 'settings.mediaControlsDesc', 'mediaControls');
     var autoAdvanceRow = SettingsToggleRow('settings.autoAdvance', 'settings.autoAdvanceDesc', 'autoAdvance');
+    var timedStepsRow = SettingsToggleRow('settings.timedStepsOnly', 'settings.timedStepsOnlyDesc', 'timedStepsOnly');
 
     // ---- Theme row ----
     var darkBtn = ToggleSegButton(getText('settings.themeDark'), state.theme === 'dark', function () {
         setState('theme', 'dark');
     });
-    var lightBtn = ToggleSegButton(getText('settings.themeLight'), state.theme !== 'dark', function () {
+    var systemBtn = ToggleSegButton(getText('settings.themeSystem'), state.theme === 'system', function () {
+        setState('theme', 'system');
+    });
+    var lightBtn = ToggleSegButton(getText('settings.themeLight'), state.theme === 'light', function () {
         setState('theme', 'light');
     });
 
     var themeLabel = el('span', { class: 'settings-option-label' }, getText('settings.theme'));
     var themeDesc = el('span', { class: 'settings-option-desc' }, getText('settings.themeDesc'));
-    var themeSegment = el('div', { class: 'settings-toggle-segment' }, darkBtn, lightBtn);
+    var themeSegment = el('div', { class: 'settings-toggle-segment' }, darkBtn, systemBtn, lightBtn);
 
     function updateThemeToggle(theme) {
-        var d = theme === 'dark';
-        darkBtn.className = 'settings-toggle-seg-btn' + (d ? ' active' : '');
-        lightBtn.className = 'settings-toggle-seg-btn' + (d ? '' : ' active');
+        darkBtn.className = 'settings-toggle-seg-btn' + (theme === 'dark' ? ' active' : '');
+        systemBtn.className = 'settings-toggle-seg-btn' + (theme === 'system' ? ' active' : '');
+        lightBtn.className = 'settings-toggle-seg-btn' + (theme === 'light' ? ' active' : '');
         darkBtn.textContent = getText('settings.themeDark');
+        systemBtn.textContent = getText('settings.themeSystem');
         lightBtn.textContent = getText('settings.themeLight');
     }
 
     var themeOption = el('div', { class: 'settings-option settings-theme-row' },
-        themeLabel,
-        themeSegment,
-        themeDesc
+        themeLabel, themeSegment, themeDesc
     );
 
     // ---- Popover ----
@@ -82,6 +84,7 @@ function buildSettings() {
         titleEl,
         mediaControlsRow.root,
         autoAdvanceRow.root,
+        timedStepsRow.root,
         el('div', { class: 'settings-separator' }),
         themeOption
     );
@@ -112,17 +115,34 @@ function buildSettings() {
     });
 
     // ---- Outside click ----
-    document.addEventListener('click', function (e) {
+    var settingsClickHandler = function (e) {
+        var langDropdowns = document.querySelectorAll('.header-lang-dropdown');
+        for (var d = 0; d < langDropdowns.length; d++) {
+            if (!langDropdowns[d].parentElement.contains(e.target)) {
+                langDropdowns[d].classList.add('hidden');
+            }
+        }
         if (!popover.contains(e.target) && !gearBtnDesktop.contains(e.target) && !gearBtnMobile.contains(e.target)) {
             popover.classList.add('hidden');
         }
-    });
+    };
+    document.removeEventListener('click', settingsClickHandler);
+    document.addEventListener('click', settingsClickHandler);
 
     function togglePopover(gearEl) {
         if (popover.classList.contains('hidden')) {
             var rect = gearEl.getBoundingClientRect();
-            popover.style.top = (rect.bottom + 8) + 'px';
-            popover.style.right = (window.innerWidth - rect.right) + 'px';
+            var topVal = rect.bottom + 8;
+            var rightVal = window.innerWidth - rect.right;
+            var popoverWidth = popover.offsetWidth || 300;
+            var popoverHeight = popover.offsetHeight || 200;
+            if (rightVal < 8) rightVal = 8;
+            if (rightVal + popoverWidth > window.innerWidth - 8) rightVal = 8;
+            if (topVal + popoverHeight > window.innerHeight - 8) {
+                topVal = Math.max(8, rect.top - popoverHeight - 8);
+            }
+            popover.style.top = topVal + 'px';
+            popover.style.right = rightVal + 'px';
             popover.classList.remove('hidden');
         } else {
             popover.classList.add('hidden');
@@ -133,6 +153,7 @@ function buildSettings() {
     onState('settings', function (settings) {
         mediaControlsRow.update(settings.mediaControls);
         autoAdvanceRow.update(settings.autoAdvance);
+        timedStepsRow.update(settings.timedStepsOnly);
     });
 
     onState('theme', updateThemeToggle);
@@ -143,10 +164,13 @@ function buildSettings() {
         mediaControlsRow.root.querySelector('.settings-option-desc').textContent = getText('settings.mediaControlsDesc');
         autoAdvanceRow.root.querySelector('.settings-option-label').textContent = getText('settings.autoAdvance');
         autoAdvanceRow.root.querySelector('.settings-option-desc').textContent = getText('settings.autoAdvanceDesc');
+        timedStepsRow.root.querySelector('.settings-option-label').textContent = getText('settings.timedStepsOnly');
+        timedStepsRow.root.querySelector('.settings-option-desc').textContent = getText('settings.timedStepsOnlyDesc');
         themeLabel.textContent = getText('settings.theme');
         themeDesc.textContent = getText('settings.themeDesc');
-        darkBtn.textContent = getText('settings.themeDark');
-        lightBtn.textContent = getText('settings.themeLight');
+        updateThemeToggle(state.theme);
+        gearBtnDesktop.setAttribute('aria-label', getText('settings.title'));
+        gearBtnMobile.setAttribute('aria-label', getText('settings.title'));
     });
 
     updateThemeToggle(state.theme);

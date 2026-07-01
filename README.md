@@ -19,7 +19,6 @@ A personal hobby project built for quick recipe lookups during playthroughs. Des
 ### 🧪 KCD2 Potion Database
 - **27 Potion Recipes** — Complete with effects, prices, ingredients, and step-by-step brewing instructions
 - **Ingredient Filter** — Select the ingredients you have and instantly see what you can brew, with incompatible ingredients automatically greyed out
-- **Flexible Matching** — Toggle between "match all" or "match any" selected ingredients
 - **Search** — Find potions by name or effect description
 - **8 Sort Options** — Sort by name, category, price, or ingredient count (ascending/descending)
 - **Grid / List Layout** — Switch between compact grid cards or detailed list view

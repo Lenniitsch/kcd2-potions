@@ -1,4 +1,4 @@
-var CACHE_NAME = 'kcd2-v12';
+var CACHE_NAME = 'kcd2-v13';
 
 var PRECACHE_URLS = [
     './',
@@ -31,6 +31,9 @@ var PRECACHE_URLS = [
     'assets/img/noise.png',
     'assets/img/maps/map-kuttenberg-districts.webp',
     'assets/img/maps/map-kuttenberg-underground.webp',
+    'assets/img/flags/germany-min.png',
+    'assets/img/flags/italy-min.png',
+    'assets/img/flags/united-kingdom-usa-mix-min.png',
 ];
 
 self.addEventListener('install', function (event) {

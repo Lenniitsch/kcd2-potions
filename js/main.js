@@ -26,11 +26,22 @@ async function init() {
     });
 
     onState('theme', function (theme) {
-        document.documentElement.setAttribute('data-theme', theme);
+        var resolved = resolveTheme(theme);
+        document.documentElement.setAttribute('data-theme', resolved);
         localStorage.setItem('kcd2-theme', theme);
         var meta = document.getElementById('theme-color-meta');
         if (meta) {
-            meta.setAttribute('content', theme === 'dark' ? '#000713' : '#f1ecd8');
+            meta.setAttribute('content', resolved === 'dark' ? '#000713' : '#f1ecd8');
+        }
+    });
+
+    var systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    systemThemeQuery.addEventListener('change', function () {
+        if (state.theme === 'system') {
+            var resolved = resolveTheme('system');
+            document.documentElement.setAttribute('data-theme', resolved);
+            var meta = document.getElementById('theme-color-meta');
+            if (meta) meta.setAttribute('content', resolved === 'dark' ? '#000713' : '#f1ecd8');
         }
     });
 
@@ -88,9 +99,11 @@ async function init() {
     onState('filters', pushFiltersToURL);
     onState('activeTab', pushTabToURL);
 
-    if (!localStorage.getItem('kcd2-filterExpanded')) {
-        setState('filters', { ...state.filters, filterExpanded: false });
-    }
+    try {
+        if (!localStorage.getItem('kcd2-filterExpanded')) {
+            setState('filters', { ...state.filters, filterExpanded: false });
+        }
+    } catch (e) {}
 
     try {
         await initStore('data/recipes.json', 'data/locales');
@@ -101,14 +114,20 @@ async function init() {
 }
 
 function restoreSavedState() {
-    var stored = localStorage.getItem('kcd2-theme');
-    if (stored === 'dark' || stored === 'light') {
+    try {
+        var stored = localStorage.getItem('kcd2-theme');
+    if (stored === 'dark' || stored === 'light' || stored === 'system') {
         setState('theme', stored);
     }
 
     stored = localStorage.getItem('kcd2-lang');
     if (stored && /^(de|it|en)$/.test(stored)) {
         setState('language', stored);
+    } else {
+        var navLang = (navigator.language || '').slice(0, 2);
+        if (navLang === 'de' || navLang === 'it') {
+            setState('language', navLang);
+        }
     }
 
     var filtersPatch = {};
@@ -137,7 +156,17 @@ function restoreSavedState() {
     if (stored === 'true') settings.mediaControls = true;
     stored = localStorage.getItem('kcd2-autoAdvance');
     if (stored === 'true') settings.autoAdvance = true;
+    stored = localStorage.getItem('kcd2-timedStepsOnly');
+    if (stored === 'true') settings.timedStepsOnly = true;
     setState('settings', settings);
+    } catch (e) {}
+}
+
+function resolveTheme(theme) {
+    if (theme === 'system') {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    return theme;
 }
 
 function restoreStateFromURL() {
@@ -157,7 +186,19 @@ function restoreStateFromURL() {
     var filters = Object.assign({}, state.filters);
 
     if (search) filters.search = search;
-    if (category && CATEGORIES[category]) filters.category = category;
+    if (category) {
+        var foundCat = null;
+        var lower = category.toLowerCase();
+        var catKeys = Object.keys(CATEGORIES);
+        for (var c = 0; c < catKeys.length; c++) {
+            var ce = CATEGORIES[catKeys[c]];
+            if (ce.de.toLowerCase() === lower || (ce.it || '').toLowerCase() === lower || (ce.en || '').toLowerCase() === lower) {
+                foundCat = catKeys[c];
+                break;
+            }
+        }
+        if (foundCat) filters.category = foundCat;
+    }
     if (sort && SORT_OPTIONS[sort]) filters.sort = sort;
     if (layout === 'grid' || layout === 'list') filters.layout = layout;
     if (ingredients) {
@@ -202,9 +243,11 @@ function pushFiltersToURL(filters) {
         window.history.replaceState(null, '', url);
     }
 
-    localStorage.setItem('kcd2-layout', filters.layout);
-    localStorage.setItem('kcd2-sort', filters.sort);
-    localStorage.setItem('kcd2-filterExpanded', String(filters.filterExpanded));
+    try {
+        localStorage.setItem('kcd2-layout', filters.layout);
+        localStorage.setItem('kcd2-sort', filters.sort);
+        localStorage.setItem('kcd2-filterExpanded', String(filters.filterExpanded));
+    } catch (e) {}
 }
 
 function pushTabToURL(tab) {

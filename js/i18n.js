@@ -346,6 +346,31 @@ const UI = {
         it: 'Chiaro',
         en: 'Light',
     },
+    'settings.themeSystem': {
+        de: 'System',
+        it: 'Sistema',
+        en: 'System',
+    },
+    'settings.off': {
+        de: 'AUS',
+        it: 'OFF',
+        en: 'OFF',
+    },
+    'settings.on': {
+        de: 'AN',
+        it: 'ON',
+        en: 'ON',
+    },
+    'settings.timedStepsOnly': {
+        de: 'Nur Zeitgesteuert',
+        it: 'Solo a tempo',
+        en: 'Timed steps only',
+    },
+    'settings.timedStepsOnlyDesc': {
+        de: 'Zeige nur Schritte mit Zeitangabe beim Öffnen eines Rezepts.',
+        it: 'Mostra solo passi con durata all\'apertura di una ricetta.',
+        en: 'Show only steps with a duration when opening a recipe.',
+    },
 };
 
 export const CATEGORIES = {

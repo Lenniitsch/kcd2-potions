@@ -1,3 +1,5 @@
+import { getText } from './js/i18n.js';
+
 var deferredPrompt;
 
 if ('serviceWorker' in navigator) {
@@ -36,11 +38,11 @@ if ('serviceWorker' in navigator) {
 
         var span = document.createElement('span');
         span.className = 'text-sm text-kcd-text';
-        span.textContent = 'Update available';
+        span.textContent = getText('pwa.update');
 
         var btn = document.createElement('button');
         btn.className = 'px-3 py-1 bg-kcd-gold text-kcd-bg rounded text-sm font-medium';
-        btn.textContent = 'Update';
+        btn.textContent = getText('pwa.updateAction');
         btn.addEventListener('click', function () {
             reloadOnControllerChange = true;
             worker.postMessage({ action: 'skipWaiting' });

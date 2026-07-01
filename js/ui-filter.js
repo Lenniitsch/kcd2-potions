@@ -33,6 +33,7 @@ export function buildFilter() {
     var ingredientLabelEl;
     var ingredientBody;
     var ingredientContainer;
+    var searchDirty = false;
 
     searchInput = el('input', {
         type: 'text',
@@ -43,6 +44,9 @@ export function buildFilter() {
         setState('filters', { ...state.filters, search: e.target.value });
     }, 300);
     searchInput.addEventListener('input', debouncedSearch);
+    searchInput.addEventListener('input', function () {
+        searchDirty = true;
+    });
 
     searchClearBtn = el('button', {
         class: 'absolute right-2 top-1/2 -translate-y-1/2 p-1 text-kcd-muted hover:text-kcd-text rounded',
@@ -245,8 +249,11 @@ export function buildFilter() {
         mobileToggleText.textContent = f.filterExpanded ? getText('filter.collapse') : getText('filter.expand');
 
         searchInput.placeholder = getText('filter.searchPlaceholder');
-        if (searchInput.value !== f.search) {
-            searchInput.value = f.search;
+        if (document.activeElement !== searchInput || !searchDirty) {
+            if (searchInput.value !== f.search) {
+                searchInput.value = f.search;
+            }
+            searchDirty = false;
         }
         searchClearBtn.classList.toggle('hidden', !f.search);
 

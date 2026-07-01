@@ -239,7 +239,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         var pos = indices.indexOf(idx);
         var isLast = pos >= 0 && pos === indices.length - 1;
 
-        if (isLast) {
+        if (isLast && timerFinished) {
             setActiveStepIndex(indices[0]);
             timerFinished = false;
             return;
@@ -519,7 +519,23 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
             updateModeSegment();
             updateProgressLabel();
             updateNavButtons();
-            showReadyState();
+            if (timer && timer.running) {
+                showRunningState();
+            } else if (timer && timer.pausedRemaining !== null) {
+                showPausedState();
+            } else if (timerFinished) {
+                var indices = getActiveStepIndices();
+                var idx = getActiveStepIndex();
+                var pos = indices.indexOf(idx);
+                var hasNext = pos >= 0 && pos < indices.length - 1;
+                if (hasNext) {
+                    showNextStepState();
+                } else {
+                    showReadyState();
+                }
+            } else {
+                showReadyState();
+            }
         },
         setStep: function (idx) {
             if (timer) {
@@ -562,6 +578,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
             if (timer) {
                 timer.destroy();
                 timer = null;
+                setState('activeTimer', null);
             }
             globalUnsub();
             if (timerHeader.parentNode) timerHeader.parentNode.removeChild(timerHeader);

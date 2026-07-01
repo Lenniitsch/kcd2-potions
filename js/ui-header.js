@@ -30,11 +30,13 @@ export function buildHeader() {
     var langTriggerDesktop = el('button', {
         class: 'header-lang-trigger',
         'aria-label': getText('header.language'),
-        onClick: function (e) {
-            e.stopPropagation();
-            desktopDropdown.classList.toggle('hidden');
-            mobileDropdown.classList.add('hidden');
-        },
+            onClick: function (e) {
+                e.stopPropagation();
+                desktopDropdown.classList.toggle('hidden');
+                mobileDropdown.classList.add('hidden');
+                var sp = document.querySelector('.settings-popover');
+                if (sp) sp.classList.add('hidden');
+            },
     }, langFlagImg, langChevron);
 
     // ---- Mobile language ----
@@ -49,11 +51,13 @@ export function buildHeader() {
     var langTriggerMobile = el('button', {
         class: 'header-lang-trigger-mobile',
         'aria-label': getText('header.language'),
-        onClick: function (e) {
-            e.stopPropagation();
-            mobileDropdown.classList.toggle('hidden');
-            desktopDropdown.classList.add('hidden');
-        },
+            onClick: function (e) {
+                e.stopPropagation();
+                mobileDropdown.classList.toggle('hidden');
+                desktopDropdown.classList.add('hidden');
+                var sp = document.querySelector('.settings-popover');
+                if (sp) sp.classList.add('hidden');
+            },
     }, mobileFlagImg, mobileChevron);
 
     // ---- Theme toggle (desktop) ----
@@ -61,7 +65,8 @@ export function buildHeader() {
         class: 'p-2 rounded text-kcd-muted hover:text-kcd-gold hover:bg-kcd-hover transition-colors focus:outline-none',
         'aria-label': getText('header.themeDark'),
         onClick: function () {
-            setState('theme', state.theme === 'dark' ? 'light' : 'dark');
+            var next = state.theme === 'dark' ? 'light' : state.theme === 'light' ? 'system' : 'dark';
+            setState('theme', next);
         },
     });
 
@@ -95,14 +100,16 @@ export function buildHeader() {
     }, logo, controls, mobileActions);
 
     // ---- Outside-click handlers ----
-    document.addEventListener('click', function (e) {
+    var headerClickHandler = function (e) {
         if (!desktopDropdown.parentElement.contains(e.target)) {
             desktopDropdown.classList.add('hidden');
         }
         if (!mobileDropdown.parentElement.contains(e.target)) {
             mobileDropdown.classList.add('hidden');
         }
-    });
+    };
+    document.removeEventListener('click', headerClickHandler);
+    document.addEventListener('click', headerClickHandler);
 
     // ---- Update functions ----
     function updateLanguage(lang) {
@@ -118,11 +125,14 @@ export function buildHeader() {
     }
 
     function updateTheme(theme) {
-        var icon = theme === 'dark'
+        var resolved = theme === 'system'
+            ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+            : theme;
+        var icon = resolved === 'dark'
             ? '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>'
             : '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
         themeToggle.innerHTML = icon;
-        themeToggle.setAttribute('aria-label', theme === 'dark' ? getText('header.themeLight') : getText('header.themeDark'));
+        themeToggle.setAttribute('aria-label', resolved === 'dark' ? getText('header.themeLight') : getText('header.themeDark'));
     }
 
     updateLanguage(state.language);

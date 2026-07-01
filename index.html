@@ -20,15 +20,24 @@
 
     <script>
         (function () {
-            var stored = localStorage.getItem('kcd2-theme');
-            if (stored === 'light' || stored === 'dark') {
-                document.documentElement.setAttribute('data-theme', stored);
-                document.querySelector('#theme-color-meta').setAttribute('content', stored === 'dark' ? '#000713' : '#f1ecd8');
-            }
-            var storedLang = localStorage.getItem('kcd2-lang');
-            if (storedLang && /^(de|it|en)$/.test(storedLang)) {
-                document.documentElement.setAttribute('lang', storedLang);
-            }
+            try {
+                var stored = localStorage.getItem('kcd2-theme');
+                if (stored === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                } else if (stored === 'light') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                } else {
+                    document.documentElement.setAttribute('data-theme',
+                        window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                }
+                var meta = document.querySelector('#theme-color-meta');
+                var active = document.documentElement.getAttribute('data-theme');
+                if (meta) meta.setAttribute('content', active === 'dark' ? '#000713' : '#f1ecd8');
+                var storedLang = localStorage.getItem('kcd2-lang');
+                if (storedLang && /^(de|it|en)$/.test(storedLang)) {
+                    document.documentElement.setAttribute('lang', storedLang);
+                }
+            } catch (e) {}
         })();
     </script>
 
@@ -36,7 +45,7 @@
     <link rel="stylesheet" href="css/vendor/zoomist.css">
     <link rel="stylesheet" href="css/style.css">
 
-    <script src="pwa-registration.js"></script>
+    <script type="module" src="pwa-registration.js"></script>
 </head>
 <body class="bg-kcd-bg text-kcd-text font-sans antialiased min-h-screen">
 
