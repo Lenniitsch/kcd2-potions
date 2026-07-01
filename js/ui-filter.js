@@ -2,7 +2,7 @@ import { state, setState, onState } from './state.js';
 import { el } from './dom.js';
 import { getText, getCategoryLabel, CATEGORIES } from './i18n.js';
 import { getAllIngredients, getAvailableIngredients, filterRecipes } from './recipes.js';
-import { CATEGORY_ICONS, CATEGORY_COLORS, CATEGORY_BG_CLASS } from './ui-recipe-card.js';
+import { CATEGORY_ICONS, CATEGORY_COLORS } from './ui-recipe-card.js';
 
 function debounce(fn, delay) {
     var timer;
@@ -63,7 +63,7 @@ export function buildFilter() {
     categoryPillsContainer = el('div', { class: 'flex flex-wrap gap-2' });
 
     clearBtn = el('button', {
-        class: 'px-2.5 py-1 rounded text-xs font-medium text-kcd-text-muted hover:text-red-400 hover:bg-red-400/10 transition-colors focus:outline-none',
+        class: 'px-2.5 py-1 rounded text-xs font-medium text-kcd-text-muted hover:text-red-400 hover:bg-red-400/10 transition-colors focus:outline-none flex-shrink-0',
         onClick: function (e) {
             e.stopPropagation();
             setState('filters', {
@@ -77,15 +77,17 @@ export function buildFilter() {
         },
     });
 
-    var clearBtnRow = el('div', { style: { display: 'flex', justifyContent: 'flex-end' } }, clearBtn);
+    var searchRow = el('div', { style: { display: 'flex', alignItems: 'center', gap: '0.5rem' } },
+        searchWrapper,
+        clearBtn
+    );
 
     filterSectionWrapper = el('div', {
         class: 'kcd-filter-panel bg-kcd-surface rounded-lg p-3 mb-3',
         style: { display: 'flex', flexDirection: 'column', gap: '0.75rem' }
     },
-        searchWrapper,
-        categoryPillsContainer,
-        clearBtnRow
+        searchRow,
+        categoryPillsContainer
     );
 
     ingredientContainer = el('div', { class: 'flex flex-wrap gap-2' });
@@ -142,12 +144,20 @@ export function buildFilter() {
             var isSelected = f.category === cat;
             var catColor = CATEGORY_COLORS[cat] || 'kcd-gold';
             var catIcon = CATEGORY_ICONS[cat] || '';
-            var pill = el('button', {
-                class: 'kcd-category-badge ' + CATEGORY_BG_CLASS[catColor] +
-                    (isSelected ? ' ring-1 ring-inset' : ''),
-                style: {
-                    cursor: 'pointer',
-                    opacity: isSelected || f.category === 'all' ? '1' : '0.55',
+            var isAllMode = f.category === 'all';
+            var pillEl = el('button', {
+                class: 'kcd-tag focus:outline-none',
+                style: isSelected ? {
+                    background: 'var(--' + catColor + '-bg, color-mix(in srgb, var(--kcd-gold) 14%, transparent))',
+                    color: 'var(--' + catColor + ')',
+                    borderColor: 'var(--kcd-gold-dim)',
+                    fontWeight: '500',
+                } : isAllMode ? {
+                    background: 'var(--kcd-hover)',
+                    color: 'var(--kcd-text-secondary)',
+                } : {
+                    background: 'var(--kcd-hover)',
+                    color: 'var(--kcd-text-secondary)',
                 },
                 onClick: function () {
                     if (isSelected) {
@@ -157,8 +167,8 @@ export function buildFilter() {
                     }
                 },
             });
-            pill.innerHTML = catIcon + ' ' + getCategoryLabel(cat);
-            categoryPillsContainer.appendChild(pill);
+            pillEl.innerHTML = catIcon + ' ' + getCategoryLabel(cat);
+            categoryPillsContainer.appendChild(pillEl);
         });
     }
 

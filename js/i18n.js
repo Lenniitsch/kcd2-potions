@@ -97,9 +97,9 @@ const UI = {
         en: '{0} active filters',
     },
     'filter.clearFilters': {
-        de: 'Filter zurücksetzen',
-        it: 'Azzera filtri',
-        en: 'Clear filters',
+        de: 'Zurücksetzen',
+        it: 'Azzera',
+        en: 'Clear',
     },
     'filter.noResults': {
         de: 'Keine Rezepte gefunden',
