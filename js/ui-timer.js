@@ -282,7 +282,6 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         if (!step) return;
         var isTimed = step.duration > 0;
         stepLabelEl.textContent = step.description;
-        progressTrack.style.display = 'none';
         progressFill.style.width = '0%';
 
         if (isTimed) {
@@ -307,8 +306,6 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
     }
 
     function showRunningState() {
-        progressTrack.style.display = '';
-        primaryBtn.innerHTML = pauseSvg + ' ' + getText('timer.pause');
         primaryBtn.classList.add('timer-action-primary--running');
         primaryBtn.disabled = false;
         resetBtn.innerHTML = resetSvg + ' ' + getText('timer.reset');

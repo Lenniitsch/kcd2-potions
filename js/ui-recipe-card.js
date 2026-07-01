@@ -120,7 +120,7 @@ export function buildRecipeCard(recipe, getLang) {
         onPointerdown: function (e) { e.stopPropagation(); },
     }, timerContainer);
 
-    var bodyGrid = el('div', { class: 'kcd-card-body-grid' }, ingredientsSection, stepsSection);
+    var bodyGrid = el('div', { class: 'kcd-card-body-grid flex flex-col gap-3' }, ingredientsSection, stepsSection);
 
     var bodyContent = el('div', { class: 'kcd-card-body-content flex flex-col gap-3' },
         bodyGrid,

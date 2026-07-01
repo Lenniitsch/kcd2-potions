@@ -689,6 +689,14 @@ header .font-serif.text-kcd-gold {
     display: block;
 }
 
+.timer-action-primary svg {
+    flex-shrink: 0;
+}
+
+.timer-action-reset svg {
+    flex-shrink: 0;
+}
+
 .timer-nav-btn:hover:not(:disabled) {
     background: var(--kcd-hover);
     color: var(--kcd-gold);
@@ -705,6 +713,10 @@ header .font-serif.text-kcd-gold {
 }
 
 .timer-action-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
     flex: 1;
     min-width: 44px;
     min-height: 44px;
@@ -744,6 +756,9 @@ header .font-serif.text-kcd-gold {
 }
 
 .timer-action-reset {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
     background: transparent;
     border: none;
     color: var(--kcd-text-muted);
