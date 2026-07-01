@@ -102,13 +102,13 @@ export function buildRecipeCard(recipe, getLang) {
         headerRow, effectEl
     );
 
-    var ingredientsList = el('ul', { class: 'space-y-1 mt-1' });
+    var ingredientsList = el('ul', { class: 'space-y-0.5 mt-0.5' });
     var ingredientsTitle = el('h4', { class: 'font-serif text-sm font-bold text-kcd-gold' },
         getText('card.ingredients')
     );
     var ingredientsSection = el('div', {}, ingredientsTitle, ingredientsList);
 
-    var stepsList = el('ol', { class: 'space-y-1 mt-1' });
+    var stepsList = el('ol', { class: 'space-y-1.5 mt-0.5' });
     var stepsTitle = el('h4', { class: 'font-serif text-sm font-bold text-kcd-gold' },
         getText('card.steps')
     );

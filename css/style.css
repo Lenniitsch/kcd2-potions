@@ -717,7 +717,6 @@ header .font-serif.text-kcd-gold {
     align-items: center;
     justify-content: center;
     gap: 0.375rem;
-    flex: 1;
     min-width: 44px;
     min-height: 44px;
     padding: 0.5rem 1rem;
