@@ -58,14 +58,15 @@ export function buildFilter() {
     });
     searchClearBtn.innerHTML = closeIcon;
 
-    var searchWrapper = el('div', { class: 'relative' }, searchInput, searchClearBtn);
+    var searchWrapper = el('div', { class: 'relative', style: { flex: '1' } }, searchInput, searchClearBtn);
 
     categoryPillsContainer = el('div', { class: 'flex flex-wrap gap-2' });
 
     clearBtn = el('button', {
-        class: 'px-2.5 py-1 rounded text-xs font-medium text-kcd-text-muted hover:text-red-400 hover:bg-red-400/10 transition-colors focus:outline-none flex-shrink-0',
+        class: 'filter-clear-btn',
         onClick: function (e) {
             e.stopPropagation();
+            if (clearBtn.disabled) return;
             setState('filters', {
                 search: '',
                 category: 'all',
@@ -144,20 +145,17 @@ export function buildFilter() {
             var isSelected = f.category === cat;
             var catColor = CATEGORY_COLORS[cat] || 'kcd-gold';
             var catIcon = CATEGORY_ICONS[cat] || '';
-            var isAllMode = f.category === 'all';
             var pillEl = el('button', {
                 class: 'kcd-tag focus:outline-none',
                 style: isSelected ? {
-                    background: 'var(--' + catColor + '-bg, color-mix(in srgb, var(--kcd-gold) 14%, transparent))',
+                    background: 'var(--' + catColor + '-bg)',
                     color: 'var(--' + catColor + ')',
                     borderColor: 'var(--kcd-gold-dim)',
-                    fontWeight: '500',
-                } : isAllMode ? {
-                    background: 'var(--kcd-hover)',
-                    color: 'var(--kcd-text-secondary)',
                 } : {
                     background: 'var(--kcd-hover)',
-                    color: 'var(--kcd-text-secondary)',
+                    color: 'var(--' + catColor + ')',
+                    borderColor: 'transparent',
+                    opacity: '0.65',
                 },
                 onClick: function () {
                     if (isSelected) {
@@ -286,9 +284,9 @@ export function buildFilter() {
         if (f.ingredients && f.ingredients.size > 0) activeCount++;
 
         if (activeCount > 0) {
-            clearBtn.classList.remove('hidden');
+            clearBtn.disabled = false;
         } else {
-            clearBtn.classList.add('hidden');
+            clearBtn.disabled = true;
         }
 
         clearBtn.textContent = getText('filter.clearFilters');
