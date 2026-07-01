@@ -18,10 +18,7 @@ var INPUT_CLASS = 'bg-kcd-surface border border-kcd-border rounded-lg pl-3 pr-10
 
 var closeIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
 
-var chevronDown = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
-
 export function buildFilter() {
-    var ingredientsSectionOpen = true;
     state.filters.filterExpanded = true;
 
     var clearBtn;
@@ -35,7 +32,6 @@ export function buildFilter() {
     var ingredientHeader;
     var ingredientLabelText;
     var ingredientCountEl;
-    var ingredientChevron;
     var ingredientBody;
     var ingredientContainer;
 
@@ -95,21 +91,14 @@ export function buildFilter() {
 
     ingredientBody = el('div', { class: 'pt-2' }, ingredientContainer);
 
-    ingredientChevron = el('span', { class: 'ml-1 transition-transform duration-200', html: chevronDown });
-
     ingredientCountEl = el('span', { class: 'font-normal normal-case tracking-normal' });
 
-    ingredientHeader = el('button', {
-        class: 'flex items-center gap-1 w-full text-xs text-kcd-muted uppercase tracking-wide kcd-section-label hover:text-kcd-text-secondary transition-colors focus:outline-none',
-        onClick: function () {
-            ingredientsSectionOpen = !ingredientsSectionOpen;
-            updateFilterUI(state.filters);
-        },
+    ingredientHeader = el('div', {
+        class: 'flex items-center gap-1 w-full text-xs text-kcd-muted uppercase tracking-wide kcd-section-label',
     });
     ingredientLabelText = document.createTextNode(getText('filter.ingredientHeader'));
     ingredientHeader.appendChild(ingredientLabelText);
     ingredientHeader.appendChild(ingredientCountEl);
-    ingredientHeader.appendChild(ingredientChevron);
 
     ingredientSectionWrapper = el('div', { class: 'border-t border-kcd-border pt-2' }, ingredientHeader, ingredientBody);
 
@@ -118,7 +107,7 @@ export function buildFilter() {
     mobileToggleText = document.createTextNode('');
 
     mobileToggleBtn = el('button', {
-        class: 'w-full px-3 py-2 rounded-lg text-sm text-kcd-text-secondary hover:text-kcd-text bg-kcd-surface transition-colors md:hidden mb-2 focus:outline-none',
+        class: 'w-full px-3 py-2 rounded-lg text-sm text-kcd-text-secondary hover:text-kcd-text bg-kcd-surface transition-colors mb-2 focus:outline-none',
         onClick: function () {
             setState('filters', { ...state.filters, filterExpanded: !state.filters.filterExpanded });
         },
@@ -262,9 +251,6 @@ export function buildFilter() {
         filterSectionWrapper.classList.toggle('hidden', !mobileExpanded);
 
         mobileToggleText.textContent = f.filterExpanded ? getText('filter.collapse') : getText('filter.expand');
-
-        ingredientBody.classList.toggle('hidden', !ingredientsSectionOpen);
-        ingredientChevron.style.transform = ingredientsSectionOpen ? 'rotate(180deg)' : 'rotate(0deg)';
 
         searchInput.placeholder = getText('filter.searchPlaceholder');
         if (searchInput.value !== f.search) {

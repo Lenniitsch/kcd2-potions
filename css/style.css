@@ -541,11 +541,7 @@ header .font-serif.text-kcd-gold {
     border: 1px solid var(--kcd-border);
 }
 
-@media (min-width: 768px) {
-    .kcd-filter-panel {
-        display: flex !important;
-    }
-}
+@media (min-width: 768px) {}
 
 /* ---- Timer Controls ---- */
 
