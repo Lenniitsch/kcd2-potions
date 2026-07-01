@@ -424,6 +424,10 @@ header .font-serif.text-kcd-gold {
     border-color: var(--kcd-border-strong);
 }
 
+.kcd-tag:not(.kcd-tag-selected):not(.kcd-tag-disabled):hover {
+    filter: brightness(1.2);
+}
+
 .kcd-tag-selected {
     background: color-mix(in srgb, var(--kcd-gold) 14%, transparent);
     color: var(--kcd-gold);

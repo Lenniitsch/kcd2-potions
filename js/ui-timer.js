@@ -101,6 +101,8 @@ var chevronDownSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height=
 
 var brewPlaySvg = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6v4l4 10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2l4-10V3z"/><line x1="5" y1="3" x2="19" y2="3"/></svg>';
 
+var checkSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
 function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepIndex, getActiveStepIndices, _getTotalSteps, onPrevStep, onNextStep, onToggleMode, showTimedOnly, autoAdvance) {
     var timer = null;
     var lang = getLang();
@@ -345,9 +347,9 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         progressFill.style.width = '0%';
 
         if (isLast && !isTimed) {
-            countdownEl.textContent = step.duration + 's';
-            countdownEl.classList.remove('timer-countdown--disabled');
-            primaryBtn.innerHTML = playSvg + ' ' + getText('timer.brewComplete');
+            countdownEl.textContent = '\u2014';
+            countdownEl.classList.add('timer-countdown--disabled');
+            primaryBtn.innerHTML = checkSvg + ' ' + getText('timer.brewComplete');
             primaryBtn.disabled = false;
             resetBtn.innerHTML = resetSvg + ' ' + getText('timer.reset');
             resetBtn.disabled = true;
