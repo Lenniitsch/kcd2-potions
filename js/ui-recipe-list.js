@@ -1,6 +1,6 @@
 import { state, setState, onState } from './state.js';
 import { el } from './dom.js';
-import { getText } from './i18n.js';
+import { getText, getSortLabel } from './i18n.js';
 import { filterRecipes, sortRecipes } from './recipes.js';
 import { buildRecipeCard } from './ui-recipe-card.js';
 
@@ -31,6 +31,23 @@ export function buildRecipeList(outerContainer) {
 
     var layoutToggle = el('div', { class: 'flex gap-1' }, layoutGridBtn, layoutListBtn);
 
+    var sortSelect = el('select', {
+        class: 'bg-kcd-surface border border-kcd-border rounded-lg pl-2 pr-6 py-1 text-xs text-kcd-text-secondary focus:outline-none appearance-none',
+        onChange: function (e) {
+            setState('filters', { ...state.filters, sort: e.target.value });
+        },
+    });
+
+    function populateSortOptions() {
+        sortSelect.textContent = '';
+        var sortKeys = ['name-asc', 'name-desc', 'category-asc', 'category-desc', 'price-asc', 'price-desc', 'ingredients-asc', 'ingredients-desc'];
+        sortKeys.forEach(function (key) {
+            var opt = el('option', { value: key }, getSortLabel(key));
+            sortSelect.appendChild(opt);
+        });
+    }
+    populateSortOptions();
+
     var headerTitle = el('span', { class: 'text-xs text-kcd-muted uppercase tracking-wide kcd-section-label' }, getText('tab.recipes'));
     var countEl = el('span', { class: 'text-xs text-kcd-muted font-normal normal-case tracking-normal' }, '');
 
@@ -40,7 +57,10 @@ export function buildRecipeList(outerContainer) {
             el('span', { class: 'text-kcd-muted' }, '·'),
             countEl
         ),
-        layoutToggle
+        el('div', { class: 'flex items-center gap-2' },
+            sortSelect,
+            layoutToggle
+        )
     );
 
     var container = el('div', { class: '' });
@@ -171,6 +191,7 @@ export function buildRecipeList(outerContainer) {
         }
         layoutGridBtn.setAttribute('aria-label', getText('filter.layoutGrid'));
         layoutListBtn.setAttribute('aria-label', getText('filter.layoutList'));
+        sortSelect.value = state.filters.sort;
     }
 
     onState('recipes', function (recipes) {
@@ -212,6 +233,8 @@ export function buildRecipeList(outerContainer) {
         if (emptyEl.querySelector('#kcd-empty-hint')) {
             emptyEl.querySelector('#kcd-empty-hint').textContent = getText('filter.noResultsHint');
         }
+        populateSortOptions();
+        sortSelect.value = state.filters.sort;
         render();
     });
 

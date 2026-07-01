@@ -1,6 +1,6 @@
 import { state, setState, onState } from './state.js';
 import { el } from './dom.js';
-import { getText, getCategoryLabel, getSortLabel, CATEGORIES, SORT_OPTIONS } from './i18n.js';
+import { getText, getCategoryLabel, CATEGORIES } from './i18n.js';
 import { getAllIngredients, getAvailableIngredients, filterRecipes } from './recipes.js';
 
 function debounce(fn, delay) {
@@ -14,7 +14,6 @@ function debounce(fn, delay) {
 }
 
 var INPUT_CLASS = 'bg-kcd-surface border border-kcd-border rounded-lg pl-3 pr-10 py-2 text-sm text-kcd-text placeholder:text-kcd-muted w-full focus:outline-none';
-var SELECT_CLASS = 'bg-kcd-surface border border-kcd-border rounded-lg pl-3 pr-10 py-2 text-sm text-kcd-text w-full focus:outline-none';
 
 var closeIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
 
@@ -34,8 +33,7 @@ export function buildFilter() {
     var filterBody;
     var searchInput;
     var searchClearBtn;
-    var categorySelect;
-    var sortSelect;
+    var categoryPillsContainer;
     var ingredientSectionWrapper;
     var ingredientHeader;
     var ingredientLabelText;
@@ -65,21 +63,7 @@ export function buildFilter() {
 
     var searchWrapper = el('div', { class: 'relative mb-2' }, searchInput, searchClearBtn);
 
-    categorySelect = el('select', {
-        class: SELECT_CLASS + ' flex-1 min-w-0',
-        onChange: function (e) {
-            setState('filters', { ...state.filters, category: e.target.value });
-        },
-    });
-
-    sortSelect = el('select', {
-        class: SELECT_CLASS + ' flex-1 min-w-0',
-        onChange: function (e) {
-            setState('filters', { ...state.filters, sort: e.target.value });
-        },
-    });
-
-    var selectRow = el('div', { class: 'flex flex-wrap items-center gap-2 mb-2' }, categorySelect, sortSelect);
+    categoryPillsContainer = el('div', { class: 'flex flex-wrap gap-2' });
 
     filterChevron = el('span', { class: 'ml-1 transition-transform duration-200', html: chevronDown });
 
@@ -108,7 +92,7 @@ export function buildFilter() {
         },
     }, filterLabel, filterChevron, clearBtn);
 
-    filterBody = el('div', { class: 'pt-2' }, searchWrapper, selectRow);
+    filterBody = el('div', { class: 'pt-2' }, searchWrapper, categoryPillsContainer);
 
     filterSectionWrapper = el('div', { class: 'kcd-filter-panel bg-kcd-surface rounded-lg p-3 mb-3' }, filterHeader, filterBody);
 
@@ -150,20 +134,29 @@ export function buildFilter() {
         ingredientSectionWrapper
     );
 
-    function populateCategoryOptions() {
-        categorySelect.textContent = '';
-        categorySelect.appendChild(el('option', { value: 'all' }, getText('filter.categoryAll')));
+    function renderCategoryPills(f) {
+        categoryPillsContainer.textContent = '';
+
+        var allPill = el('button', {
+            class: 'kcd-tag ' + (f.category === 'all' ? 'kcd-tag-selected' : 'kcd-tag-normal') + ' focus:outline-none',
+            onClick: function () { setState('filters', { ...state.filters, category: 'all' }); },
+        }, getText('filter.categoryAll'));
+        categoryPillsContainer.appendChild(allPill);
+
         var categories = Object.keys(CATEGORIES);
         categories.forEach(function (cat) {
-            categorySelect.appendChild(el('option', { value: cat }, getCategoryLabel(cat)));
-        });
-    }
-
-    function populateSortOptions() {
-        sortSelect.textContent = '';
-        var sortKeys = Object.keys(SORT_OPTIONS);
-        sortKeys.forEach(function (key) {
-            sortSelect.appendChild(el('option', { value: key }, getSortLabel(key)));
+            var isSelected = f.category === cat;
+            var pill = el('button', {
+                class: 'kcd-tag ' + (isSelected ? 'kcd-tag-selected' : 'kcd-tag-normal') + ' focus:outline-none',
+                onClick: function () {
+                    if (isSelected) {
+                        setState('filters', { ...state.filters, category: 'all' });
+                    } else {
+                        setState('filters', { ...state.filters, category: cat });
+                    }
+                },
+            }, getCategoryLabel(cat));
+            categoryPillsContainer.appendChild(pill);
         });
     }
 
@@ -273,11 +266,7 @@ export function buildFilter() {
         }
         searchClearBtn.classList.toggle('hidden', !f.search);
 
-        populateCategoryOptions();
-        categorySelect.value = f.category;
-
-        populateSortOptions();
-        sortSelect.value = f.sort;
+        renderCategoryPills(f);
 
         ingredientLabelText.textContent = getText('filter.ingredientHeader');
         filterLabel.textContent = getText('section.filters');
