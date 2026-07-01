@@ -94,6 +94,7 @@ var nextSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" vi
 var playSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
 var pauseSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
 var resetSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>';
+var nextStepSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>';
 
 function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepIndex, getActiveStepIndices, getTotalSteps, onPrevStep, onNextStep, onToggleMode, showTimedOnly) {
     var timer = null;
@@ -112,7 +113,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
     });
     var modeSegment = el('div', { class: 'timer-mode-segment' }, timedSegBtn, allSegBtn);
 
-    var progressRow = el('div', { class: 'timer-progress-row' }, progressLabelEl, modeSegment);
+    var progressRow = el('div', { class: 'timer-progress-row' }, modeSegment, progressLabelEl);
 
     var stepLabelEl = el('span', { class: 'timer-bar-step-label' });
     var countdownEl = el('span', { class: 'timer-countdown' });
@@ -128,12 +129,6 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         'aria-label': getText('timer.prevStep'),
         onClick: function (e) { e.stopPropagation(); onPrevStep(); }
     });
-    var nextBtn = el('button', {
-        class: 'timer-nav-btn',
-        html: nextSvg,
-        'aria-label': getText('timer.nextStep'),
-        onClick: function (e) { e.stopPropagation(); onNextStep(); }
-    });
     var primaryBtn = el('button', {
         class: 'timer-action-primary',
         onClick: function (e) { e.stopPropagation(); handlePrimaryClick(e); }
@@ -143,7 +138,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         onClick: function (e) { e.stopPropagation(); handleReset(); }
     });
 
-    var actionRow = el('div', { class: 'timer-action-row' }, prevBtn, nextBtn, primaryBtn, resetBtn);
+    var actionRow = el('div', { class: 'timer-action-row' }, prevBtn, primaryBtn, resetBtn);
 
     var barEl = el('div', { class: 'timer-bar' }, progressRow, stepRow, progressTrack, actionRow);
 
@@ -192,14 +187,18 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         var idx = getActiveStepIndex();
         if (indices.length <= 1) {
             prevBtn.disabled = true;
-            nextBtn.disabled = true;
             return;
         }
         prevBtn.disabled = (idx === indices[0]);
-        nextBtn.disabled = (idx === indices[indices.length - 1]);
     }
 
     function handlePrimaryClick(e) {
+        var idx = getActiveStepIndex();
+        var steps = recipe.recipe_steps.de;
+        if (idx >= 0 && steps[idx] && steps[idx].duration <= 0) {
+            onNextStep();
+            return;
+        }
         if (!timer || !timer.running) {
             if (timer && timer.pausedRemaining !== null) {
                 handleResume();
@@ -304,8 +303,8 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
         } else {
             countdownEl.textContent = '\u2014';
             countdownEl.classList.add('timer-countdown--disabled');
-            primaryBtn.innerHTML = playSvg + ' ' + getText('timer.start');
-            primaryBtn.disabled = true;
+            primaryBtn.innerHTML = nextStepSvg + ' ' + getText('timer.nextStep');
+            primaryBtn.disabled = false;
             resetBtn.innerHTML = resetSvg + ' ' + getText('timer.reset');
             resetBtn.disabled = true;
         }
@@ -347,6 +346,7 @@ function TimerBar(container, recipe, getLang, getActiveStepIndex, setActiveStepI
             showTimedOnly = timed;
             updateModeSegment();
             updateProgressLabel();
+            updateNavButtons();
         },
         setStep: function (idx) {
             if (timer) {

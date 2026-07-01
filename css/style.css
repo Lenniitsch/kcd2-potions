@@ -645,6 +645,7 @@ header .font-serif.text-kcd-gold {
     background: color-mix(in srgb, var(--kcd-gold) 6%, var(--kcd-bg));
     border-radius: 999px;
     overflow: hidden;
+    margin: 0.25rem 0;
 }
 
 .timer-bar-progress-fill {
@@ -758,6 +759,7 @@ header .font-serif.text-kcd-gold {
     display: flex;
     align-items: center;
     gap: 0.25rem;
+    margin-left: auto;
     background: transparent;
     border: none;
     color: var(--kcd-text-muted);
